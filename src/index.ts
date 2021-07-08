@@ -4,14 +4,14 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 /**
  * Reactive form management and input field validation hook
  *
- * @param {object} formSchema - initial form model with optional validation function.
+ * @param {object} formModel - initial form model with optional validation function.
  * @param {function} formSubmitCallback - function to run after form validation and submission.
  * @returns {{handleOnChange: function, handleOnSubmit: function, values: object, errors: object, isDisabled: boolean, isSubmitted: boolean}}
  **/
-export function useForm(formSchema: FormSchemaType, formSubmitCallback: () => void): useFormType {
-  const [values, setValues] = useState(initializeState(formSchema, 'values'));
-  const [errors, setErrors] = useState(initializeState(formSchema, 'errors'));
-  const [_isDirty, setIsDirty] = useState(initializeState(formSchema, '_isDirty'));
+export function useForm(formModel: FormModelType, formSubmitCallback: () => void): useFormType {
+  const [values, setValues] = useState(initializeState(formModel, 'values'));
+  const [errors, setErrors] = useState(initializeState(formModel, 'errors'));
+  const [_isDirty, setIsDirty] = useState(initializeState(formModel, '_isDirty'));
   const [isDisabled, setIsDisabled] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [_isTouched, setIsTouched] = useState(false);
@@ -31,7 +31,7 @@ export function useForm(formSchema: FormSchemaType, formSubmitCallback: () => vo
         let error: ErrorType;
         const requiredMessage: ErrorType = { hasError: true, message: 'This field is required' };
         const clearMessage: ErrorType = { hasError: false, message: '' };
-        const _isDirtyInput: FormInputType = formSchema[inputName];
+        const _isDirtyInput: FormInputType = formModel[inputName];
         const inputValue: ValueType = values[inputName];
         error = _isDirtyInput.required && !inputValue ? requiredMessage : clearMessage;
 
@@ -59,7 +59,7 @@ export function useForm(formSchema: FormSchemaType, formSubmitCallback: () => vo
      the form will be invalid if one of its fields
      has some errors or a required input field is empty
     */
-    const _isRequired = initializeState(formSchema, '_isRequired');
+    const _isRequired = initializeState(formModel, '_isRequired');
     // {_isRequired} is read-only and doesn't require a useState
     const isRequiredInputs = Object.keys(_isRequired).reduce((inputs: IsRequiredType, inputName: string) => {
       if (_isRequired[inputName]) inputs[inputName] = _isRequired[inputName];
@@ -91,8 +91,8 @@ export function useForm(formSchema: FormSchemaType, formSubmitCallback: () => vo
       const inputName = event.target.name;
       const inputValue = event.target.value;
 
-      if (formSchema[inputName]) {
-        // proceed only if the change input exits in the formSchema
+      if (formModel[inputName]) {
+        // proceed only if the change input exits in the formModel
         setValues((values: ValuesType) => ({
           ...values,
           [inputName]: inputValue,
@@ -133,32 +133,32 @@ export function useForm(formSchema: FormSchemaType, formSubmitCallback: () => vo
   };
 }
 
-function initializeState(formSchema: FormSchemaType, state: string) {
+function initializeState(formModel: FormModelType, state: string) {
   /*
    initialize an empty state for {errors} and {_isDirty} where
-   {values} and {_isRequired} are pulled from the formSchema
+   {values} and {_isRequired} are pulled from the formModel
   */
   switch (state) {
     case 'values':
-      return Object.keys(formSchema).reduce((inputValues: ValuesType, inputName: string) => {
-        inputValues[inputName] = formSchema[inputName]['value'];
+      return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
+        inputValues[inputName] = formModel[inputName]['value'];
 
         return inputValues;
       }, {});
     case 'errors':
-      return Object.keys(formSchema).reduce((inputErrors: ErrorsType, inputName: string) => {
+      return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
         inputErrors[inputName] = { hasError: false, message: '' };
         return inputErrors;
       }, {});
     case '_isDirty':
-      return Object.keys(formSchema).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
+      return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
         dirtyInputs[inputName] = false;
         return dirtyInputs;
       }, {});
     case '_isRequired':
       // requiredInputs is set to any because {_isRequired} is read-only and initially undefined
-      return Object.keys(formSchema).reduce((requiredInputs: any, inputName: string) => {
-        requiredInputs[inputName] = formSchema[inputName]['required'];
+      return Object.keys(formModel).reduce((requiredInputs: any, inputName: string) => {
+        requiredInputs[inputName] = formModel[inputName]['required'];
         return requiredInputs;
       }, {});
   }
@@ -184,7 +184,7 @@ export type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void
 
 export type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;
 
-export type FormSchemaType = {
+export type FormModelType = {
   [key: string]: FormInputType;
 };
 

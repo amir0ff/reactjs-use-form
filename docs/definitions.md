@@ -11,6 +11,8 @@
 - [ValidatorFuncType](definitions.md#validatorfunctype)
 - [ValueType](definitions.md#valuetype)
 - [ValuesType](definitions.md#valuestype)
+- [handleOnChangeType](definitions.md#handleonchangetype)
+- [handleOnSubmitType](definitions.md#handleonsubmittype)
 - [useFormType](definitions.md#useformtype)
 
 ### ErrorType
@@ -150,6 +152,54 @@ ___
 
 ___
 
+### handleOnChangeType
+
+Ƭ **handleOnChangeType**: (`event`: `ChangeEvent`<`HTMLInputElement`\>) => `void`
+
+#### Type declaration
+
+▸ (`event`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `ChangeEvent`<`HTMLInputElement`\> |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[types.ts:18](../src/types.ts#L18)
+
+___
+
+### handleOnSubmitType
+
+Ƭ **handleOnSubmitType**: (`event`: `FormEvent`<`HTMLFormElement`\>) => `void`
+
+#### Type declaration
+
+▸ (`event`): `void`
+
+##### Parameters
+
+| Name | Type |
+| :------ | :------ |
+| `event` | `FormEvent`<`HTMLFormElement`\> |
+
+##### Returns
+
+`void`
+
+#### Defined in
+
+[types.ts:19](../src/types.ts#L19)
+
+___
+
 ### useFormType
 
 Ƭ **useFormType**: `Object`
@@ -158,8 +208,8 @@ ___
 
 | Param | Type |
 | :------ | :------ |
-| handleOnChange | `(event: React.FormEvent<HTMLFormElement>) => void` |
-| handleOnSubmit | (event: any) => void |
+| handleOnChange | `(event: React.ChangeEvent<HTMLInputElement>) => void` |
+| handleOnSubmit | `(event: React.FormEvent<HTMLFormElement>) => void` |
 | values | [`ValuesType`](definitions.md#valuestype) |
 | errors | [`ErrorsType`](definitions.md#errorstype) |
 | isDisabled | `boolean` |

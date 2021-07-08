@@ -9,6 +9,7 @@ import {
   useFormType,
   ValidatorFuncType,
   ValuesType,
+  ValueType,
 } from './types';
 
 
@@ -43,7 +44,7 @@ export function useForm(formSchema: FormSchemaType, formSubmitCallback: () => vo
         const requiredMessage: ErrorType = { hasError: true, message: 'This field is required' };
         const clearMessage: ErrorType = { hasError: false, message: '' };
         const _isDirtyInput: FormInputType = formSchema[inputName];
-        const inputValue = values[inputName];
+        const inputValue: ValueType = values[inputName];
         error = _isDirtyInput.required && !inputValue ? requiredMessage : clearMessage;
 
         if (_isDirtyInput['validator']) {
@@ -174,3 +175,16 @@ function initializeState(formSchema: FormSchemaType, state: string) {
       }, {});
   }
 }
+
+export {
+  ErrorsType,
+  ErrorType,
+  FormInputType,
+  FormSchemaType,
+  IsDirtyType,
+  IsRequiredType,
+  useFormType,
+  ValidatorFuncType,
+  ValuesType,
+  ValueType,
+};

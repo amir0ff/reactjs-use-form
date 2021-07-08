@@ -1,3 +1,5 @@
+import { ChangeEvent, FormEvent } from 'react';
+
 export type FormInputType = {
   value: ValueType;
   required: boolean;
@@ -5,13 +7,16 @@ export type FormInputType = {
 };
 
 export type useFormType = {
-  handleOnChange: (event: any) => void;
-  handleOnSubmit: (event: any) => void;
+  handleOnChange: handleOnChangeType;
+  handleOnSubmit: handleOnSubmitType;
   values: ValuesType;
   errors: ErrorsType;
   isSubmitted: boolean;
   isDisabled: boolean;
 };
+
+export type handleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+export type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void
 
 export type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;
 

@@ -1,24 +1,55 @@
 import { act, renderHook } from '@testing-library/react-hooks';
-import { ErrorType, FormSchemaType, useForm } from '../index';
+import { ErrorType, FormModelType, useForm } from '../index';
 
 const formSubmitCallback = jest.fn();
 const persist = jest.fn();
 const emptyError: ErrorType = { 'hasError': false, 'message': '' };
 
+const emptyFormModel: FormModelType = {
+  currentPassphrase: {
+    value: '',
+    required: true,
+  },
+  newPassphrase: {
+    value: '',
+    required: true,
+  },
+  verifyPassphrase: {
+    value: '',
+    required: true,
+  },
+};
+
+const errorsFormModel: FormModelType = {
+  currentPassphrase: {
+    value: '',
+    required: true,
+  },
+  newPassphrase: {
+    value: '',
+    required: true,
+    validator: (newPassphrase, values) => {
+      if (newPassphrase === values?.currentPassphrase) {
+        return 'New password must be different from current password';
+      } else if (newPassphrase !== values?.verifyPassphrase) {
+        return 'Passwords do not match';
+      } else return '';
+    },
+  },
+  verifyPassphrase: {
+    value: '',
+    required: true,
+    validator: (passphrase, values) => {
+      return passphrase !== values?.newPassphrase ? 'Passwords do not match' : '';
+    },
+  },
+};
+
 describe('useForm hook test suite', () => {
   it('expect to return form initial state', () => {
-    const formSchema: FormSchemaType = {
-      newPassphrase: {
-        value: '',
-        required: true,
-      },
-      verifyPassphrase: {
-        value: '',
-        required: true,
-      },
-    };
     const { result } = renderHook(
-      () => useForm(formSchema, formSubmitCallback));
+      () => useForm(emptyFormModel, formSubmitCallback));
+    expect(result.current.values).toHaveProperty('currentPassphrase');
     expect(result.current.values).toHaveProperty('newPassphrase');
     expect(result.current.values).toHaveProperty('verifyPassphrase');
     expect(result.current.errors.newPassphrase).toEqual(emptyError);
@@ -27,17 +58,14 @@ describe('useForm hook test suite', () => {
     expect(result.current.isDisabled).toBeTruthy();
   });
   it('expect to return empty errors', () => {
-    const formSchema: FormSchemaType = {
-      newPassphrase: {
-        value: '',
-        required: true,
-      },
-      verifyPassphrase: {
-        value: '',
-        required: true,
+    const { result } = renderHook(() => useForm(emptyFormModel, formSubmitCallback));
+    const currentPassphrase: any = {
+      persist,
+      target: {
+        name: 'currentPassphrase',
+        value: '123457',
       },
     };
-    const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
     const newPassphrase: any = {
       persist,
       target: {
@@ -53,6 +81,9 @@ describe('useForm hook test suite', () => {
       },
     };
     act(() => {
+      result.current.handleOnChange(currentPassphrase);
+    });
+    act(() => {
       result.current.handleOnChange(newPassphrase);
     });
     act(() => {
@@ -65,26 +96,21 @@ describe('useForm hook test suite', () => {
       } as any);
     });
     expect(result.current.errors).toEqual({
+      currentPassphrase: emptyError,
       newPassphrase: emptyError,
       verifyPassphrase: emptyError,
     });
 
   });
   it('expect to return validator errors', () => {
-    const formSchema: FormSchemaType = {
-      newPassphrase: {
-        value: '',
-        required: true,
-      },
-      verifyPassphrase: {
-        value: '',
-        required: true,
-        validator: (passphrase, values) => {
-          return passphrase !== values?.newPassphrase ? 'Password does not match' : '';
-        },
+    const { result } = renderHook(() => useForm(errorsFormModel, formSubmitCallback));
+    const currentPassphrase: any = {
+      persist,
+      target: {
+        name: 'currentPassphrase',
+        value: '123457',
       },
     };
-    const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
     const newPassphrase: any = {
       persist,
       target: {
@@ -100,21 +126,27 @@ describe('useForm hook test suite', () => {
       },
     };
     act(() => {
+      result.current.handleOnChange(currentPassphrase);
+    });
+    act(() => {
       result.current.handleOnChange(newPassphrase);
+    });
+    act(() => {
       result.current.handleOnChange(verifyPassphrase);
     });
     act(() => {
-      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'Password does not match');
+      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'Passwords do not match');
     });
   });
   it('expect to return required errors', () => {
-    const formSchema: FormSchemaType = {
-      newPassphrase: {
-        value: '',
-        required: true,
+    const { result } = renderHook(() => useForm(errorsFormModel, formSubmitCallback));
+    const currentPassphrase: any = {
+      persist,
+      target: {
+        name: 'currentPassphrase',
+        value: '123457',
       },
     };
-    const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
     const newPassphrase: any = {
       persist,
       target: {
@@ -125,10 +157,13 @@ describe('useForm hook test suite', () => {
     const emptyNewPassphrase: any = {
       persist: jest.fn(),
       target: {
-        name: 'newPassphrase',
+        name: 'verifyPassphrase',
         value: '',
       },
     };
+    act(() => {
+      result.current.handleOnChange(currentPassphrase);
+    });
     act(() => {
       result.current.handleOnChange(newPassphrase);
     });
@@ -136,17 +171,17 @@ describe('useForm hook test suite', () => {
       result.current.handleOnChange(emptyNewPassphrase);
     });
     act(() => {
-      expect(result.current.errors.newPassphrase).toHaveProperty('message', 'This field is required');
+      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'This field is required');
     });
   });
   it('expect to return changed input value', () => {
-    const formSchema: FormSchemaType = {
+    const formModel: FormModelType = {
       name: {
         value: '',
         required: true,
       },
     };
-    const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
+    const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
     const nameEvent: any = {
       persist,
       target: {
@@ -160,13 +195,13 @@ describe('useForm hook test suite', () => {
     expect(result.current.values.name).toEqual('react_tester');
   });
   it('expect to return enabled form', async () => {
-    const formSchema: FormSchemaType = {
+    const formModel: FormModelType = {
       username: {
         value: '',
         required: true,
       },
     };
-    const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
+    const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
     const emptyUsernameEvent: any = {
       // set to enable _
       persist,
@@ -191,13 +226,13 @@ describe('useForm hook test suite', () => {
     expect(result.current.isDisabled).toEqual(false);
   });
   it('expect to return submitted form', () => {
-    const formSchema: FormSchemaType = {
+    const formModel: FormModelType = {
       message: {
         value: '',
         required: true,
       },
     };
-    const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
+    const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
     const emptyMessageEvent: any = {
       persist,
       target: {

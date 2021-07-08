@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: 📥 Get latest source code
         uses: actions/checkout@v2
-      - name: 📦 Install npm packages and setup Node.js ${{ matrix.node-version }}
+      - name: 📦 Install npm packages and setup Node ${{ matrix.node-version }}
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
@@ -22,7 +22,7 @@ jobs:
       - name: 🧪 Testing using @testing-library/react-hooks
         uses: actions/setup-node@v2
       - run: npm run test
-      - name: 🏗️ Build using Rollup.js
+      - name: 🏗️ Build using Rollup
         uses: actions/setup-node@v2
       - run: npm run build
       - name: 🚚 NPM Publish

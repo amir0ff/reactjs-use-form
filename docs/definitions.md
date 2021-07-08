@@ -5,7 +5,7 @@
 - [ErrorType](definitions.md#errortype)
 - [ErrorsType](definitions.md#errorstype)
 - [FormInputType](definitions.md#forminputtype)
-- [FormSchemaType](definitions.md#formschematype)
+- [FormModelType](definitions.md#formmodeltype)
 - [IsDirtyType](definitions.md#isdirtytype)
 - [IsRequiredType](definitions.md#isrequiredtype)
 - [ValidatorFuncType](definitions.md#validatorfunctype)
@@ -26,9 +26,7 @@
 | hasError | `boolean` |
 | message | `string` |
 
-#### Defined in
-
-[index.ts:36](../src/index.ts#L205)
+#### Defined in [index.ts:36](../src/index.ts#L205)
 
 ___
 
@@ -40,9 +38,7 @@ ___
 
 ▪ [key: `string`]: [`ErrorType`](definitions.md#errortype)
 
-#### Defined in
-
-[index.ts:41](../src/index.ts#210)
+#### Defined in [index.ts:41](../src/index.ts#210)
 
 ___
 
@@ -58,13 +54,11 @@ ___
 | validator? | [`ValidatorFuncType`](definitions.md#validatorfunctype) |
 | value | [`ValueType`](definitions.md#valuetype) |
 
-#### Defined in
-
-[index.ts:1](../src/index.ts#L167)
+#### Defined in [index.ts:1](../src/index.ts#L167)
 
 ___
 
-### FormSchemaType
+### FormModelType
 
 Ƭ `Object`
 
@@ -72,9 +66,7 @@ ___
 
 ▪ [key: `string`]: [`FormInputType`](definitions.md#forminputtype)
 
-#### Defined in
-
-[index.ts:18](../src/index.ts#L187)
+#### Defined in [index.ts:18](../src/index.ts#L187)
 
 ___
 
@@ -86,9 +78,7 @@ ___
 
 ▪ [key: `string`]: `boolean`
 
-#### Defined in
-
-[index.ts:24](../src/index.ts#L193)
+#### Defined in [index.ts:24](../src/index.ts#L193)
 
 ___
 
@@ -96,9 +86,7 @@ ___
 
 Ƭ [`IsDirtyType`](definitions.md#isdirtytype)
 
-#### Defined in
-
-[index.ts:28](../src/index.ts#L197)
+#### Defined in [index.ts:28](../src/index.ts#L197)
 
 ___
 
@@ -118,9 +106,7 @@ ___
 
 `string`
 
-#### Defined in
-
-[index.ts:16](../src/index.ts#L185)
+#### Defined in [index.ts:16](../src/index.ts#L185)
 
 ___
 
@@ -128,9 +114,7 @@ ___
 
 Ƭ `string`
 
-#### Defined in
-
-[index.ts:30](../src/index.ts#L199)
+#### Defined in [index.ts:30](../src/index.ts#L199)
 
 ___
 
@@ -142,29 +126,25 @@ ___
 
 ▪ [key: `string`]: [`ValueType`](definitions.md#valuetype)
 
-#### Defined in
-
-[index.ts:32](../src/index.ts#L201)
+#### Defined in [index.ts:32](../src/index.ts#L201)
 
 ___
 
 ### handleOnChangeType
 
-Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`\>) => `void`
+Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`>) => `void`
 
 ##### Parameters
 
 | Param | Type |
 | :------ | :------ |
-| event | `ChangeEvent`<`HTMLInputElement`\> |
+| event | `ChangeEvent`<`HTMLInputElement`> |
 
 ##### Returns
 
 `void`
 
-#### Defined in
-
-[index.ts:18](../src/index.ts#L182)
+#### Defined in [index.ts:18](../src/index.ts#L182)
 
 ___
 
@@ -176,15 +156,13 @@ ___
 
 | Param | Type |
 | :------ | :------ |
-| event | `FormEvent`<`HTMLFormElement`\> |
+| event | `FormEvent`<`HTMLFormElement`> |
 
 ##### Returns
 
 `void`
 
-#### Defined in
-
-[index.ts:19](../src/index.ts#L183)
+#### Defined in [index.ts:19](../src/index.ts#L183)
 
 ___
 
@@ -196,13 +174,13 @@ ___
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to `HTMLInputElement: change event`
-| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to `HTMLFormElement: submit event`
-| values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object
-| errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object
-| isDisabled | `boolean` | returns `true` / `false` when the form is valid/invalid
-| isSubmitted | `boolean` | returns `true` when the form was submitted without errors
+| values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object |
+| errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object |
+| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event` |
+| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event` |
+| isDisabled | `boolean` | returns `true` / `false` when the form is valid / invalid |
+| isSubmitted | `boolean` | returns `true` when the form was submitted without errors |
+| formModel | [`FormModelType`](docs/definitions.md#formmodeltype) | initial form model with optional validation function |
+| formSubmitCallback | `() => void` | function to run after form validation and submission |
 
-#### Defined in
-
-[index.ts:7](../src/index.ts#L173)
+#### Defined in [index.ts:7](../src/index.ts#L173)

@@ -1,6 +1,6 @@
 # useForm(`form`, `callback`) ⇒ Reactive Form 🌟
 
-[![Rollup.js CI build and tests](https://github.com/amiroff157/use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/use-form/actions/workflows/node.js.yml)
+[![Rollup.js CI build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 > Reactive form management and input field validation hook.
@@ -8,7 +8,7 @@
 ## 📦 Install
 
 ```bash
-npm install --save @react/use-form
+npm install --save reactjs-use-form
 ```
 
 ## 🛠️ Usage
@@ -40,7 +40,7 @@ const formSchema: FormSchemaType = {
 ```tsx
 import * as React from 'react'
 
-import { useForm } from '@react/use-form'
+import { useForm } from 'reactjs-use-form'
 
 const FormComponent = () => {
   const { values, errors, handleOnChange, handleOnSubmit, isDisabled } = useForm(formSchema, handleLogin);

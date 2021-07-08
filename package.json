@@ -1,12 +1,12 @@
 {
-  "name": "@react/use-form",
-  "version": "1.0.0",
+  "name": "reactjs-use-form",
+  "version": "1.0.1",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/amiroff157/use-form"
+    "url": "https://github.com/amiroff157/reactjs-use-form"
   },
   "main": "build/index.js",
   "module": "build/index.es.js",

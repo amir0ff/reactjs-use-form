@@ -1,8 +1,8 @@
 node_modules
 src
-build
 tests
 example
 .prettierrc
 .gitignore
 .idea
+.github

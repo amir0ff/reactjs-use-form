@@ -1,16 +1,25 @@
 # useForm(`form`, `callback`) ⇒ Reactive Form 🌟
 
-> Reactive form management and input field validation hook
+[![Rollup.js CI build and tests](https://github.com/amiroff157/use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/use-form/actions/workflows/node.js.yml)
+[![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
-### 📦 Install
+> Reactive form management and input field validation hook.
+
+## 📦 Install
 
 ```bash
 npm install --save @react/use-form
 ```
 
-### 🛠️ Usage
+## 🛠️ Usage
+
+Requirements:
+
+* 📝 A form model with optional validation function.
+* ✔️ A function to run after form validation and submission.
 
 1. ##### create a form model
+
 ```tsx
 const formSchema: FormSchemaType = {
   email: {
@@ -72,7 +81,7 @@ const FormComponent = () => {
 }
 ```
 
-### 🧰 Options
+## 🧰 Options
 
 `const { values, errors, handleOnChange, handleOnSubmit, isDisabled } = useForm(formSchema, formSubmitCallback);`
 

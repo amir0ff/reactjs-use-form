@@ -1,5 +1,5 @@
 {
-  "name": "use-form",
+  "name": "@react/use-form",
   "version": "1.0.0",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",

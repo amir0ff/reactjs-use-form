@@ -150,13 +150,13 @@ ___
 
 ### handleOnChangeType
 
-Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`\>) => `void`
+Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`>) => `void`
 
 ##### Parameters
 
 | Param | Type |
 | :------ | :------ |
-| event | `ChangeEvent`<`HTMLInputElement`\> |
+| event | `ChangeEvent`<`HTMLInputElement`> |
 
 ##### Returns
 
@@ -176,7 +176,7 @@ ___
 
 | Param | Type |
 | :------ | :------ |
-| event | `FormEvent`<`HTMLFormElement`\> |
+| event | `FormEvent`<`HTMLFormElement`> |
 
 ##### Returns
 
@@ -196,8 +196,8 @@ ___
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
-| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to `HTMLInputElement: change event`
-| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to `HTMLFormElement: submit event`
+| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`
+| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`
 | values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object
 | errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object
 | isDisabled | `boolean` | returns `true` / `false` when the form is valid/invalid

@@ -6,24 +6,28 @@
 ![npm bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)
 ![npm bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)
 
-> Reactive form management and input field validation hook.
+> Reactive form management and input field validation hook
+
+Provide it with a [form model](docs/definitions.md#), set required input fields or add a value validation function with
+custom error messages. It validates the inputs as the user types, when there are no errors the form gets enabled for
+submission. On form submission, it triggers a callback function that user provides.
 
 ## 📦 Install
 
 ```bash
-npm install --save reactjs-use-form
+npm install reactjs-use-form
 ```
 
 ## 🛠️ Usage
 
-Requirements:
+##### Requirements:
 
 * 📋 Form model with optional validation function.
 * ⚙️ Function to run after form validation and submission.
 
-Steps:
+##### Steps:
 
-1. ##### create a form model
+1. create a form model
 
 ```tsx
 import { FormSchemaType } from 'reactjs-use-form'
@@ -43,16 +47,24 @@ const formSchema: FormSchemaType = {
 };
 ```
 
-2. ##### use as a hook in any form component
+2. use as a hook in any form component
 
 ```tsx
 import React from 'react'
 import { useForm } from 'reactjs-use-form'
 
 const FormComponent = () => {
-  const { values, errors, handleOnChange, handleOnSubmit, isDisabled } = useForm(formSchema, handleLogin);
+  const {
+    values,
+    errors,
+    handleOnChange,
+    handleOnSubmit,
+    isDisabled,
+    isSubmitted
+  } = useForm(formSchema, handleLogin);
 
   function handleLogin() {
+    // formSubmitCallback
   };
 
   return (
@@ -91,17 +103,26 @@ const FormComponent = () => {
 
 ## 🧰 Options
 
-`const { values, errors, handleOnChange, handleOnSubmit, isDisabled } = useForm(formSchema, formSubmitCallback);`
+```tsx
+const {
+  values,
+  errors,
+  handleOnChange,
+  handleOnSubmit,
+  isDisabled,
+  isSubmitted
+} = useForm(formSchema, formSubmitCallback);
+```
 
 | Param | Type | Description |
 | ------ | ------ | ------ |
 | formSchema | [`FormSchemaType`](docs/definitions.md#formschematype) | initial form model with optional validation function |
 | formSubmitCallback | `() => void` | function to run after form validation and submission |
-| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to `HTMLInputElement: change event`
-| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to `HTMLFormElement: submit event`
+| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`
+| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`
 | values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object
 | errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object
-| isDisabled | `boolean` | returns `true / false` when the form is valid/invalid
+| isDisabled | `boolean` | returns `true` / `false` when the form is valid / invalid
 | isSubmitted | `boolean` | returns `true` when the form was submitted without errors
 
 #### Type definitions: [docs/definitions.md](docs/definitions.md)

@@ -1,8 +1,10 @@
-# useForm(`form`, `callback`) ⇒ Reactive Form 🌟
+# useForm(📋, ⚙️) ⇒ Reactive Form 🌟
 
 [![Rollup.js CI build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml)
 ![npm](https://img.shields.io/npm/v/reactjs-use-form?label=npm)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form)
+![npm bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 
 > Reactive form management and input field validation hook.
@@ -17,12 +19,16 @@ npm install --save reactjs-use-form
 
 Requirements:
 
-* 📝 Form model with optional validation function.
-* ✔️ Function to run after form validation and submission.
+* 📋 Form model with optional validation function.
+* ⚙️ Function to run after form validation and submission.
+
+Steps:
 
 1. ##### create a form model
 
 ```tsx
+import { FormSchemaType } from 'reactjs-use-form'
+
 const formSchema: FormSchemaType = {
   email: {
     value: '',
@@ -40,7 +46,7 @@ const formSchema: FormSchemaType = {
 
 2. ##### use as a hook in any form component
 ```tsx
-import * as React from 'react'
+import React from 'react'
 import { useForm } from 'reactjs-use-form'
 
 const FormComponent = () => {

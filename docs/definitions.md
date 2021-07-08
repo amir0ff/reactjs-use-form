@@ -28,7 +28,7 @@
 
 #### Defined in
 
-[types.ts:36](../src/types.ts#L36)
+[index.ts:36](../src/index.ts#L205)
 
 ___
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined in
 
-[types.ts:41](../src/types.ts#41)
+[index.ts:41](../src/index.ts#210)
 
 ___
 
@@ -60,7 +60,7 @@ ___
 
 #### Defined in
 
-[types.ts:1](../src/types.ts#L1)
+[index.ts:1](../src/index.ts#L167)
 
 ___
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined in
 
-[types.ts:18](../src/types.ts#L18)
+[index.ts:18](../src/index.ts#L187)
 
 ___
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined in
 
-[types.ts:24](../src/types.ts#L24)
+[index.ts:24](../src/index.ts#L193)
 
 ___
 
@@ -98,7 +98,7 @@ ___
 
 #### Defined in
 
-[types.ts:28](../src/types.ts#L28)
+[index.ts:28](../src/index.ts#L197)
 
 ___
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined in
 
-[types.ts:16](../src/types.ts#L16)
+[index.ts:16](../src/index.ts#L185)
 
 ___
 
@@ -134,7 +134,7 @@ ___
 
 #### Defined in
 
-[types.ts:30](../src/types.ts#L30)
+[index.ts:30](../src/index.ts#L199)
 
 ___
 
@@ -148,7 +148,7 @@ ___
 
 #### Defined in
 
-[types.ts:32](../src/types.ts#L32)
+[index.ts:32](../src/index.ts#L201)
 
 ___
 
@@ -162,9 +162,9 @@ ___
 
 ##### Parameters
 
-| Name | Type |
+| Param | Type |
 | :------ | :------ |
-| `event` | `ChangeEvent`<`HTMLInputElement`\> |
+| event | `ChangeEvent`<`HTMLInputElement`\> |
 
 ##### Returns
 
@@ -172,7 +172,7 @@ ___
 
 #### Defined in
 
-[types.ts:18](../src/types.ts#L18)
+[index.ts:18](../src/index.ts#L182)
 
 ___
 
@@ -186,9 +186,9 @@ ___
 
 ##### Parameters
 
-| Name | Type |
+| Param | Type |
 | :------ | :------ |
-| `event` | `FormEvent`<`HTMLFormElement`\> |
+| event | `FormEvent`<`HTMLFormElement`\> |
 
 ##### Returns
 
@@ -196,7 +196,7 @@ ___
 
 #### Defined in
 
-[types.ts:19](../src/types.ts#L19)
+[index.ts:19](../src/index.ts#L183)
 
 ___
 
@@ -217,4 +217,4 @@ ___
 
 #### Defined in
 
-[types.ts:7](../src/types.ts#L7)
+[index.ts:7](../src/index.ts#L173)

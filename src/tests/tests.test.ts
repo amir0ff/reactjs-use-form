@@ -1,9 +1,8 @@
-import { renderHook, act } from '@testing-library/react-hooks';
-import { useForm } from '../index';
-import { ErrorType, FormSchemaType } from '../types';
+import { act, renderHook } from '@testing-library/react-hooks';
+import { ErrorType, FormSchemaType, useForm } from '../index';
 
 const formSubmitCallback = jest.fn();
-const persistFunc = jest.fn();
+const persist = jest.fn();
 const emptyError: ErrorType = { 'hasError': false, 'message': '' };
 
 describe('useForm hook test suite', () => {
@@ -39,15 +38,15 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
-    const newPassphrase = {
-      persistFunc: persistFunc,
+    const newPassphrase: any = {
+      persist,
       target: {
         name: 'newPassphrase',
         value: '123456',
       },
     };
-    const verifyPassphrase = {
-      persistFunc: jest.fn(),
+    const verifyPassphrase: any = {
+      persist: jest.fn(),
       target: {
         name: 'verifyPassphrase',
         value: '123456',
@@ -63,7 +62,7 @@ describe('useForm hook test suite', () => {
       result.current.handleOnSubmit({
         preventDefault: () => {
         },
-      });
+      } as any);
     });
     expect(result.current.errors).toEqual({
       newPassphrase: emptyError,
@@ -86,15 +85,15 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
-    const newPassphrase = {
-      persistFunc: persistFunc,
+    const newPassphrase: any = {
+      persist,
       target: {
         name: 'newPassphrase',
         value: '123456',
       },
     };
-    const verifyPassphrase = {
-      persistFunc: jest.fn(),
+    const verifyPassphrase: any = {
+      persist: jest.fn(),
       target: {
         name: 'verifyPassphrase',
         value: '654321',
@@ -116,15 +115,15 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
-    const newPassphrase = {
-      persistFunc: persistFunc,
+    const newPassphrase: any = {
+      persist,
       target: {
         name: 'newPassphrase',
         value: '123456',
       },
     };
-    const emptyNewPassphrase = {
-      persistFunc: jest.fn(),
+    const emptyNewPassphrase: any = {
+      persist: jest.fn(),
       target: {
         name: 'newPassphrase',
         value: '',
@@ -148,8 +147,8 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
-    const nameEvent = {
-      persistFunc: persistFunc,
+    const nameEvent: any = {
+      persist,
       target: {
         name: 'name',
         value: 'react_tester',
@@ -168,16 +167,16 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
-    const emptyUsernameEvent = {
+    const emptyUsernameEvent: any = {
       // set to enable _
-      persistFunc: persistFunc,
+      persist,
       target: {
         name: 'username',
         value: '',
       },
     };
-    const userNameEvent = {
-      persistFunc: persistFunc,
+    const userNameEvent: any = {
+      persist,
       target: {
         name: 'username',
         value: 'react_testers',
@@ -199,15 +198,15 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formSchema, formSubmitCallback));
-    const emptyMessageEvent = {
-      persistFunc: persistFunc,
+    const emptyMessageEvent: any = {
+      persist,
       target: {
         name: 'message',
         value: '',
       },
     };
-    const messageEvent = {
-      persistFunc: persistFunc,
+    const messageEvent: any = {
+      persist,
       target: {
         name: 'message',
         value: 'my react hook testing message',
@@ -223,7 +222,7 @@ describe('useForm hook test suite', () => {
       result.current.handleOnSubmit({
         preventDefault: () => {
         },
-      });
+      } as any);
     });
     expect(result.current.isSubmitted).toEqual(true);
   });

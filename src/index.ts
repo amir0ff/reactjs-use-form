@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
 
 
 /**
- * Custom React hook for form management and input field validation
+ * Reactive form management and input field validation hook
  *
  * @param {object} formSchema - initial form model with optional validation function.
  * @param {function} formSubmitCallback - function to run after form validation and submission.

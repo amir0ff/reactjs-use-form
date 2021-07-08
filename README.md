@@ -65,7 +65,7 @@ const FormComponent = () => {
           onChange={handleOnChange}
           isInvalid={errors.email.hasError}
         />
-        <span type="invalid">{errors.email.message}</span>
+        <span>{errors.email.message}</span>
       </div>
       <div>
         <label>Passphrase</label>
@@ -76,7 +76,7 @@ const FormComponent = () => {
           onChange={handleOnChange}
           isInvalid={errors.passphrase.hasError}
         />
-        <span type="invalid">{errors.passphrase.message}</span>
+        <span>{errors.passphrase.message}</span>
       </div>
       <div>
         <Button type="submit" size="sm" disabled={isDisabled}>

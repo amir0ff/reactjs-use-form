@@ -17,7 +17,7 @@
 
 ### ErrorType
 
-Ƭ **ErrorType**: `Object`
+Ƭ `Object`
 
 #### Type declaration
 
@@ -34,7 +34,7 @@ ___
 
 ### ErrorsType
 
-Ƭ **ErrorsType**: `Object`
+Ƭ `Object`
 
 #### Index signature
 
@@ -48,7 +48,7 @@ ___
 
 ### FormInputType
 
-Ƭ **FormInputType**: `Object`
+Ƭ `Object`
 
 #### Type declaration
 
@@ -66,7 +66,7 @@ ___
 
 ### FormSchemaType
 
-Ƭ **FormSchemaType**: `Object`
+Ƭ `Object`
 
 #### Index signature
 
@@ -80,11 +80,11 @@ ___
 
 ### IsDirtyType
 
-Ƭ **IsDirtyType**: `Object`
+Ƭ `Object`
 
 #### Index signature
 
-▪ [key: `string`]: `DirtyType`
+▪ [key: `string`]: `boolean`
 
 #### Defined in
 
@@ -94,7 +94,7 @@ ___
 
 ### IsRequiredType
 
-Ƭ **IsRequiredType**: [`IsDirtyType`](definitions.md#isdirtytype)
+Ƭ [`IsDirtyType`](definitions.md#isdirtytype)
 
 #### Defined in
 
@@ -104,12 +104,8 @@ ___
 
 ### ValidatorFuncType
 
-Ƭ **ValidatorFuncType**: (`value`: [`ValueType`](definitions.md#valuetype)
+Ƭ (`value`: [`ValueType`](definitions.md#valuetype)
 , `values?`: [`ValuesType`](definitions.md#valuestype)) => `string`
-
-#### Type declaration
-
-▸ (`value`, `values?`): `string`
 
 ##### Parameters
 
@@ -130,7 +126,7 @@ ___
 
 ### ValueType
 
-Ƭ **ValueType**: `string`
+Ƭ `string`
 
 #### Defined in
 
@@ -140,7 +136,7 @@ ___
 
 ### ValuesType
 
-Ƭ **ValuesType**: `Object`
+Ƭ `Object`
 
 #### Index signature
 
@@ -154,11 +150,7 @@ ___
 
 ### handleOnChangeType
 
-Ƭ **handleOnChangeType**: (`event`: `ChangeEvent`<`HTMLInputElement`\>) => `void`
-
-#### Type declaration
-
-▸ (`event`): `void`
+Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`\>) => `void`
 
 ##### Parameters
 
@@ -178,11 +170,7 @@ ___
 
 ### handleOnSubmitType
 
-Ƭ **handleOnSubmitType**: (`event`: `FormEvent`<`HTMLFormElement`\>) => `void`
-
-#### Type declaration
-
-▸ (`event`): `void`
+Ƭ (`event`: `FormEvent`<`HTMLFormElement`>) => `void`
 
 ##### Parameters
 
@@ -202,18 +190,18 @@ ___
 
 ### useFormType
 
-Ƭ **useFormType**: `Object`
+Ƭ `Object`
 
 #### Type declaration
 
-| Param | Type |
-| :------ | :------ |
-| handleOnChange | `(event: React.ChangeEvent<HTMLInputElement>) => void` |
-| handleOnSubmit | `(event: React.FormEvent<HTMLFormElement>) => void` |
-| values | [`ValuesType`](definitions.md#valuestype) |
-| errors | [`ErrorsType`](definitions.md#errorstype) |
-| isDisabled | `boolean` |
-| isSubmitted | `boolean` |
+| Param | Type | Description |
+| ------ | ------ | ------ |
+| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to `HTMLInputElement: change event`
+| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to `HTMLFormElement: submit event`
+| values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object
+| errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object
+| isDisabled | `boolean` | returns `true` / `false` when the form is valid/invalid
+| isSubmitted | `boolean` | returns `true` when the form was submitted without errors
 
 #### Defined in
 

@@ -12,13 +12,15 @@
   "module": "build/index.es.js",
   "types": "build/index.d.ts",
   "scripts": {
-    "test": "cross-env CI=1 react-scripts test --env=jsdom",
+    "test": "cross-env CI=true react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
     "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir build",
     "start": "rollup -c -w"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^17.0.2",
+    "typedoc": "^0.21.2",
+    "typedoc-plugin-markdown": "^3.10.2"
   },
   "devDependencies": {
     "@material-ui/core": "^4.12.0",
@@ -31,14 +33,11 @@
     "@types/jest": "^26.0.24",
     "@types/react": "^17.0.11",
     "cross-env": "^7.0.3",
-    "jsdoc-to-markdown": "^7.0.1",
     "react": "^17.0.2",
     "react-scripts": "^4.0.3",
     "react-test-renderer": "^17.0.2",
     "rollup": "^2.26.9",
     "rollup-plugin-peer-deps-external": "^2.2.0",
-    "typedoc": "^0.21.2",
-    "typedoc-plugin-markdown": "^3.10.2",
-    "typescript": "^4.3.4"
+    "typescript": "^4.3.5"
   }
 }

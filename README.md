@@ -1,11 +1,10 @@
 # useForm(📋, ⚙️) ⇒ Reactive Form 🌟
 
 [![Rollup.js CI build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml)
-![npm](https://img.shields.io/npm/v/reactjs-use-form?label=npm)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form)
-![npm bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form?label=repo%20size)
+![npm bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)
 
 > Reactive form management and input field validation hook.
 
@@ -45,6 +44,7 @@ const formSchema: FormSchemaType = {
 ```
 
 2. ##### use as a hook in any form component
+
 ```tsx
 import React from 'react'
 import { useForm } from 'reactjs-use-form'
@@ -52,7 +52,8 @@ import { useForm } from 'reactjs-use-form'
 const FormComponent = () => {
   const { values, errors, handleOnChange, handleOnSubmit, isDisabled } = useForm(formSchema, handleLogin);
 
-  function handleLogin() {};
+  function handleLogin() {
+  };
 
   return (
     <form onSubmit={handleOnSubmit}>

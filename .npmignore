@@ -3,9 +3,10 @@ src
 tests
 docs
 example
-.prettierrc
+.prettierrc.json
 .gitignore
 .idea
 .github
 rollup.config.js
 tsconfig.json
+.eslintrc.json

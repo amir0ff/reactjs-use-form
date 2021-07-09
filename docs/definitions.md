@@ -26,7 +26,7 @@
 | hasError | `boolean` |
 | message | `string` |
 
-#### Defined in [index.ts:36](../src/index.ts#L205)
+#### Defined at [index.ts:208](../src/index.ts#L208)
 
 ___
 
@@ -38,7 +38,9 @@ ___
 
 ▪ [key: `string`]: [`ErrorType`](definitions.md#errortype)
 
-#### Defined in [index.ts:41](../src/index.ts#210)
+`key`: input field name
+
+#### Defined at [index.ts:213](../src/index.ts#213)
 
 ___
 
@@ -54,7 +56,9 @@ ___
 | validator? | [`ValidatorFuncType`](definitions.md#validatorfunctype) |
 | value | [`ValueType`](definitions.md#valuetype) |
 
-#### Defined in [index.ts:1](../src/index.ts#L167)
+`?` optional params
+
+#### Defined at [index.ts:185](../src/index.ts#L185)
 
 ___
 
@@ -66,7 +70,9 @@ ___
 
 ▪ [key: `string`]: [`FormInputType`](definitions.md#forminputtype)
 
-#### Defined in [index.ts:18](../src/index.ts#L187)
+`key`: input field name
+
+#### Defined at [index.ts:181](../src/index.ts#L181)
 
 ___
 
@@ -78,15 +84,23 @@ ___
 
 ▪ [key: `string`]: `boolean`
 
-#### Defined in [index.ts:24](../src/index.ts#L193)
+`key`: input field name
+
+#### Defined at [index.ts:194](../src/index.ts#L194)
 
 ___
 
 ### IsRequiredType
 
-Ƭ [`IsDirtyType`](definitions.md#isdirtytype)
+Ƭ `Object`
 
-#### Defined in [index.ts:28](../src/index.ts#L197)
+#### Index signature
+
+▪ [key: `string`]: `boolean`
+
+`key`: input field name
+
+#### Defined at [index.ts:198](../src/index.ts#L198)
 
 ___
 
@@ -97,16 +111,18 @@ ___
 
 ##### Parameters
 
-| Param | Type |
-| :------ | :------ |
-| value | [`ValueType`](definitions.md#valuetype) |
-| values? | [`ValuesType`](definitions.md#valuestype) |
+| Param | Type | Description |
+| :------ | :------ | :------ |
+| value | [`ValueType`](definitions.md#valuetype) | current value of input field
+| values? | [`ValuesType`](definitions.md#valuestype) | values state object to compare for validation
+
+`?` optional params
 
 ##### Returns
 
-`string`
+`string`: custom error message returned from the validator function, or an empty string for no error.
 
-#### Defined in [index.ts:16](../src/index.ts#L185)
+#### Defined at [index.ts:179](../src/index.ts#L179)
 
 ___
 
@@ -114,7 +130,7 @@ ___
 
 Ƭ `string`
 
-#### Defined in [index.ts:30](../src/index.ts#L199)
+#### Defined at [index.ts:202](../src/index.ts#L202)
 
 ___
 
@@ -126,7 +142,9 @@ ___
 
 ▪ [key: `string`]: [`ValueType`](definitions.md#valuetype)
 
-#### Defined in [index.ts:32](../src/index.ts#L201)
+`key`: input field name
+
+#### Defined at [index.ts:204](../src/index.ts#L204)
 
 ___
 
@@ -140,11 +158,11 @@ ___
 | :------ | :------ |
 | event | `ChangeEvent`<`HTMLInputElement`> |
 
-##### Returns
+##### Returns `void`
 
-`void`
+`!` returns nothing directly to the end user as it manages the controlled form values and _IsDirty states.
 
-#### Defined in [index.ts:18](../src/index.ts#L182)
+#### Defined at [index.ts:176](../src/index.ts#L176)
 
 ___
 
@@ -158,11 +176,12 @@ ___
 | :------ | :------ |
 | event | `FormEvent`<`HTMLFormElement`> |
 
-##### Returns
+##### Returns `void`
 
-`void`
+`!` when the form has been validated, enabled and submitted, this callback function triggers another function set by the
+user.
 
-#### Defined in [index.ts:19](../src/index.ts#L183)
+#### Defined at [index.ts:177](../src/index.ts#L177)
 
 ___
 
@@ -183,4 +202,6 @@ ___
 | formModel | [`FormModelType`](docs/definitions.md#formmodeltype) | initial form model with optional validation function |
 | formSubmitCallback | `() => void` | function to run after form validation and submission |
 
-#### Defined in [index.ts:7](../src/index.ts#L173)
+`!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
+
+#### Defined at [index.ts:167](../src/index.ts#L167)

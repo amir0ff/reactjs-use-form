@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
@@ -8,14 +8,14 @@
     "type": "git",
     "url": "https://github.com/amiroff157/reactjs-use-form"
   },
-  "main": "build/index.js",
-  "module": "build/index.es.js",
-  "types": "build/index.d.ts",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir build",
-    "start": "rollup -c -w"
+    "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist",
+    "dev": "rollup -c -w"
   },
   "peerDependencies": {
     "react": "^17.0.2",

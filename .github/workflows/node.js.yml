@@ -22,7 +22,7 @@ jobs:
       - name: 🧪 Testing using @testing-library/react-hooks
         uses: actions/setup-node@v2
       - run: npm run test
-      - name: 🏗️ Build using Rollup
+      - name: 🏗️ Build using Rollup.js
         uses: actions/setup-node@v2
       - run: npm run build
       - name: 🚚 NPM Publish

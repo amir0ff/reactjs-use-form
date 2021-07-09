@@ -34,9 +34,9 @@
   ],
   "exclude": [
     "node_modules",
-    "build",
+    "dist",
     "example",
-    "rollup.config.js",
-    "src/tests/"
+    "src/tests/",
+    "rollup.config.js"
   ]
 }

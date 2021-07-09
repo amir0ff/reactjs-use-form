@@ -164,12 +164,6 @@ function initializeState(formModel: FormModelType, state: string) {
   }
 }
 
-export type FormInputType = {
-  value: ValueType;
-  required: boolean;
-  validator?: ValidatorFuncType;
-};
-
 export type useFormType = {
   handleOnChange: handleOnChangeType;
   handleOnSubmit: handleOnSubmitType;
@@ -179,22 +173,31 @@ export type useFormType = {
   isDisabled: boolean;
 };
 
-export type handleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
-export type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void
+type handleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void
 
-export type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;
+type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;
 
 export type FormModelType = {
   [key: string]: FormInputType;
 };
 
-type DirtyType = boolean;
+export type FormInputType = {
+  value: ValueType;
+  required: boolean;
+  validator?: ValidatorFuncType;
+};
 
-export type IsDirtyType = {
+type DirtyType = boolean;
+type RequiredType = boolean;
+
+type IsDirtyType = {
   [key: string]: DirtyType;
 };
 
-export type IsRequiredType = IsDirtyType;
+type IsRequiredType = {
+  [key: string]: RequiredType;
+};
 
 export type ValueType = string;
 

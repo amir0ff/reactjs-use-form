@@ -26,7 +26,7 @@
 | hasError | `boolean` |
 | message | `string` |
 
-#### Defined at [index.ts:208](../src/index.ts#L208)
+#### Defined at [index.ts:205](../src/index.ts#L205)
 
 ___
 
@@ -40,7 +40,7 @@ ___
 
 `key`: input field name
 
-#### Defined at [index.ts:213](../src/index.ts#213)
+#### Defined at [index.ts:210](../src/index.ts#210)
 
 ___
 
@@ -86,7 +86,7 @@ ___
 
 `key`: input field name
 
-#### Defined at [index.ts:194](../src/index.ts#L194)
+#### Defined at [index.ts:191](../src/index.ts#L191)
 
 ___
 
@@ -100,7 +100,7 @@ ___
 
 `key`: input field name
 
-#### Defined at [index.ts:198](../src/index.ts#L198)
+#### Defined at [index.ts:195](../src/index.ts#L195)
 
 ___
 
@@ -130,7 +130,7 @@ ___
 
 Ƭ `string`
 
-#### Defined at [index.ts:202](../src/index.ts#L202)
+#### Defined at [index.ts:199](../src/index.ts#L199)
 
 ___
 
@@ -144,7 +144,7 @@ ___
 
 `key`: input field name
 
-#### Defined at [index.ts:204](../src/index.ts#L204)
+#### Defined at [index.ts:201](../src/index.ts#L201)
 
 ___
 

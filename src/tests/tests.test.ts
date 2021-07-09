@@ -1,9 +1,6 @@
+import * as React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ErrorType, FormModelType, useForm } from '../index';
-
-const formSubmitCallback = jest.fn();
-const persist = jest.fn();
-const emptyError: ErrorType = { 'hasError': false, 'message': '' };
 
 const emptyFormModel: FormModelType = {
   currentPassphrase: {
@@ -45,6 +42,20 @@ const errorsFormModel: FormModelType = {
   },
 };
 
+const emptyError: ErrorType = { 'hasError': false, 'message': '' };
+
+const formSubmitCallback = () => {
+  // mock function
+};
+const submitEvent = {
+  preventDefault: () => {
+    // mock function
+  },
+} as React.FormEvent<HTMLFormElement>;
+
+type changeEvent = React.ChangeEvent<HTMLInputElement>;
+
+
 describe('useForm hook test suite', () => {
   it('expect to return form initial state', () => {
     const { result } = renderHook(
@@ -59,27 +70,24 @@ describe('useForm hook test suite', () => {
   });
   it('expect to return empty errors', () => {
     const { result } = renderHook(() => useForm(emptyFormModel, formSubmitCallback));
-    const currentPassphrase: any = {
-      persist,
-      target: {
+    const currentPassphrase = {
+      currentTarget: {
         name: 'currentPassphrase',
         value: '123457',
       },
-    };
-    const newPassphrase: any = {
-      persist,
-      target: {
+    } as changeEvent;
+    const newPassphrase = {
+      currentTarget: {
         name: 'newPassphrase',
         value: '123456',
       },
-    };
-    const verifyPassphrase: any = {
-      persist: jest.fn(),
-      target: {
+    } as changeEvent;
+    const verifyPassphrase = {
+      currentTarget: {
         name: 'verifyPassphrase',
         value: '123456',
       },
-    };
+    } as changeEvent;
     act(() => {
       result.current.handleOnChange(currentPassphrase);
     });
@@ -90,10 +98,7 @@ describe('useForm hook test suite', () => {
       result.current.handleOnChange(verifyPassphrase);
     });
     act(() => {
-      result.current.handleOnSubmit({
-        preventDefault: () => {
-        },
-      } as any);
+      result.current.handleOnSubmit(submitEvent);
     });
     expect(result.current.errors).toEqual({
       currentPassphrase: emptyError,
@@ -104,27 +109,24 @@ describe('useForm hook test suite', () => {
   });
   it('expect to return validator errors', () => {
     const { result } = renderHook(() => useForm(errorsFormModel, formSubmitCallback));
-    const currentPassphrase: any = {
-      persist,
-      target: {
+    const currentPassphrase = {
+      currentTarget: {
         name: 'currentPassphrase',
         value: '123457',
       },
-    };
-    const newPassphrase: any = {
-      persist,
-      target: {
+    } as changeEvent;
+    const newPassphrase = {
+      currentTarget: {
         name: 'newPassphrase',
         value: '123456',
       },
-    };
-    const verifyPassphrase: any = {
-      persist: jest.fn(),
-      target: {
+    } as changeEvent;
+    const verifyPassphrase = {
+      currentTarget: {
         name: 'verifyPassphrase',
         value: '654321',
       },
-    };
+    } as changeEvent;
     act(() => {
       result.current.handleOnChange(currentPassphrase);
     });
@@ -140,27 +142,24 @@ describe('useForm hook test suite', () => {
   });
   it('expect to return required errors', () => {
     const { result } = renderHook(() => useForm(errorsFormModel, formSubmitCallback));
-    const currentPassphrase: any = {
-      persist,
-      target: {
+    const currentPassphrase = {
+      currentTarget: {
         name: 'currentPassphrase',
         value: '123457',
       },
-    };
-    const newPassphrase: any = {
-      persist,
-      target: {
+    } as changeEvent;
+    const newPassphrase = {
+      currentTarget: {
         name: 'newPassphrase',
         value: '123456',
       },
-    };
-    const emptyNewPassphrase: any = {
-      persist: jest.fn(),
-      target: {
+    } as changeEvent;
+    const emptyNewPassphrase = {
+      currentTarget: {
         name: 'verifyPassphrase',
         value: '',
       },
-    };
+    } as changeEvent;
     act(() => {
       result.current.handleOnChange(currentPassphrase);
     });
@@ -182,13 +181,12 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
-    const nameEvent: any = {
-      persist,
-      target: {
+    const nameEvent = {
+      currentTarget: {
         name: 'name',
         value: 'react_tester',
       },
-    };
+    } as changeEvent;
     act(() => {
       result.current.handleOnChange(nameEvent);
     });
@@ -202,21 +200,18 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
-    const emptyUsernameEvent: any = {
-      // set to enable _
-      persist,
-      target: {
+    const emptyUsernameEvent = {
+      currentTarget: {
         name: 'username',
         value: '',
       },
-    };
-    const userNameEvent: any = {
-      persist,
-      target: {
+    } as changeEvent;
+    const userNameEvent = {
+      currentTarget: {
         name: 'username',
         value: 'react_testers',
       },
-    };
+    } as changeEvent;
     act(() => {
       result.current.handleOnChange(emptyUsernameEvent);
     });
@@ -233,20 +228,18 @@ describe('useForm hook test suite', () => {
       },
     };
     const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
-    const emptyMessageEvent: any = {
-      persist,
-      target: {
+    const emptyMessageEvent = {
+      currentTarget: {
         name: 'message',
         value: '',
       },
-    };
-    const messageEvent: any = {
-      persist,
-      target: {
+    } as changeEvent;
+    const messageEvent = {
+      currentTarget: {
         name: 'message',
         value: 'my react hook testing message',
       },
-    };
+    } as changeEvent;
     act(() => {
       result.current.handleOnChange(emptyMessageEvent);
     });
@@ -254,10 +247,7 @@ describe('useForm hook test suite', () => {
       result.current.handleOnChange(messageEvent);
     });
     act(() => {
-      result.current.handleOnSubmit({
-        preventDefault: () => {
-        },
-      } as any);
+      result.current.handleOnSubmit(submitEvent);
     });
     expect(result.current.isSubmitted).toEqual(true);
   });

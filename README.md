@@ -9,11 +9,10 @@
 
 #### Reactive form management and input field validation hook
 
-> Provide it with a [form model](/src/tests/tests.test.ts#L23), flag input fields as required or add a value validation function with custom error messages. It validates the inputs as the user types, when there are no errors the form gets enabled for submission. On form submission, it triggers a callback function the user provides.
+> Provide it with a [form model](#steps), flag input fields as required or add a value validation function with custom error messages. It validates the inputs as the user types, when there are no errors the form gets enabled for submission. On form submission, it triggers a callback function the user provides.
 
 * 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library)
 * 🏗️ Built with [Rollup.js](https://github.com/rollup/rollup)
-
 
 ## Install
 
@@ -81,7 +80,7 @@ const ChangePassphraseComponent = () => {
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
   function handleLogin() {
-    // formSubmitCallback
+    // formSubmitCallback();
   };
 
   return (
@@ -131,7 +130,9 @@ const ChangePassphraseComponent = () => {
 ```
 
 ## Options
+
 useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
+
 ```tsx
 const {
   values,

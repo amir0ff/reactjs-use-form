@@ -2,11 +2,9 @@ import * as React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ErrorType, FormModelType, useForm } from '../index';
 
-
-describe('🧮 useForm state change test suite', () => {
+describe('🧮 general state change tests', () => {
   it('expect to return form initial state', () => {
-    const { result } = renderHook(
-      () => useForm(emptyFormModel, formSubmitCallback));
+    const { result } = renderHook(() => useForm(emptyFormModel, formSubmitCallback));
     expect(result.current.values).toHaveProperty('currentPassphrase');
     expect(result.current.values).toHaveProperty('newPassphrase');
     expect(result.current.values).toHaveProperty('verifyPassphrase');
@@ -128,7 +126,7 @@ describe('🧮 useForm state change test suite', () => {
   });
 });
 
-describe('🧮 useForm errors test suite', () => {
+describe('🧮 errors state tests', () => {
   it('expect to return empty errors', () => {
     const { result } = renderHook(() => useForm(emptyFormModel, formSubmitCallback));
     const currentPassphrase = {
@@ -166,7 +164,6 @@ describe('🧮 useForm errors test suite', () => {
       newPassphrase: emptyError,
       verifyPassphrase: emptyError,
     });
-
   });
   it('expect to return unmatched validator error', () => {
     const { result } = renderHook(() => useForm(errorsFormModel, formSubmitCallback));
@@ -198,7 +195,10 @@ describe('🧮 useForm errors test suite', () => {
       result.current.handleOnChange(verifyPassphrase);
     });
     act(() => {
-      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'Passwords do not match');
+      expect(result.current.errors.verifyPassphrase).toHaveProperty(
+        'message',
+        'Passwords do not match',
+      );
     });
   });
   it('expect to return min length validator error', () => {
@@ -222,7 +222,10 @@ describe('🧮 useForm errors test suite', () => {
       result.current.handleOnChange(newPassphrase);
     });
     act(() => {
-      expect(result.current.errors.newPassphrase).toHaveProperty('message', 'Password must be at least 6 characters long');
+      expect(result.current.errors.newPassphrase).toHaveProperty(
+        'message',
+        'Password must be at least 6 characters long',
+      );
     });
   });
   it('expect to return required error', () => {
@@ -255,12 +258,13 @@ describe('🧮 useForm errors test suite', () => {
       result.current.handleOnChange(emptyNewPassphrase);
     });
     act(() => {
-      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'This field is required');
+      expect(result.current.errors.verifyPassphrase).toHaveProperty(
+        'message',
+        'This field is required',
+      );
     });
   });
-
 });
-
 
 const emptyFormModel: FormModelType = {
   currentPassphrase: {
@@ -304,7 +308,7 @@ const errorsFormModel: FormModelType = {
   },
 };
 
-const emptyError: ErrorType = { 'hasError': false, 'message': '' };
+const emptyError: ErrorType = { hasError: false, message: '' };
 
 const formSubmitCallback = () => undefined;
 

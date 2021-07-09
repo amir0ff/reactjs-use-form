@@ -1,6 +1,5 @@
 import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
 
-
 /**
  * Reactive form management and input field validation hook
  *
@@ -22,10 +21,13 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
      function when the values state changes
     */
     if (_isTouched) {
-      const isDirtyInputs = Object.keys(_isDirty).reduce((inputs: IsDirtyType, inputName: string) => {
-        if (_isDirty[inputName]) inputs[inputName] = _isDirty[inputName];
-        return inputs;
-      }, {});
+      const isDirtyInputs = Object.keys(_isDirty).reduce(
+        (inputs: IsDirtyType, inputName: string) => {
+          if (_isDirty[inputName]) inputs[inputName] = _isDirty[inputName];
+          return inputs;
+        },
+        {},
+      );
 
       Object.keys(isDirtyInputs).forEach((inputName: string) => {
         let error: ErrorType;
@@ -38,7 +40,10 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
         if (_isDirtyInput['validator']) {
           // proceed only if the input field has a validator function
           const _validatorFunc: ValidatorFuncType = _isDirtyInput['validator'];
-          const validatorMessage: ErrorType = { hasError: true, message: _validatorFunc(inputValue, values) };
+          const validatorMessage: ErrorType = {
+            hasError: true,
+            message: _validatorFunc(inputValue, values),
+          };
           const errorMessage: ErrorType = inputValue ? validatorMessage : requiredMessage;
           error = _validatorFunc(inputValue, values) ? errorMessage : clearMessage;
         }
@@ -61,13 +66,17 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
     */
     const _isRequired = initializeState(formModel, '_isRequired');
     // {_isRequired} is read-only and doesn't require a useState
-    const isRequiredInputs = Object.keys(_isRequired).reduce((inputs: IsRequiredType, inputName: string) => {
-      if (_isRequired[inputName]) inputs[inputName] = _isRequired[inputName];
-      return inputs;
-    }, {});
+    const isRequiredInputs = Object.keys(_isRequired).reduce(
+      (inputs: IsRequiredType, inputName: string) => {
+        if (_isRequired[inputName]) inputs[inputName] = _isRequired[inputName];
+        return inputs;
+      },
+      {},
+    );
 
     const formHasErrors = () => Object.values(errors).some((error: any) => error.hasError);
-    const isRequiredInputEmpty = () => Object.keys(isRequiredInputs).some((key: string) => !values[key]);
+    const isRequiredInputEmpty = () =>
+      Object.keys(isRequiredInputs).some((key: string) => !values[key]);
 
     return formHasErrors() || isRequiredInputEmpty();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -139,28 +148,28 @@ function initializeState(formModel: FormModelType, state: string) {
    {values} and {_isRequired} are pulled from the formModel
   */
   switch (state) {
-  case 'values':
-    return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
-      inputValues[inputName] = formModel[inputName]['value'];
+    case 'values':
+      return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
+        inputValues[inputName] = formModel[inputName]['value'];
 
-      return inputValues;
-    }, {});
-  case 'errors':
-    return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
-      inputErrors[inputName] = { hasError: false, message: '' };
-      return inputErrors;
-    }, {});
-  case '_isDirty':
-    return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
-      dirtyInputs[inputName] = false;
-      return dirtyInputs;
-    }, {});
-  case '_isRequired':
-    // requiredInputs is set to any because {_isRequired} is read-only and initially undefined
-    return Object.keys(formModel).reduce((requiredInputs: any, inputName: string) => {
-      requiredInputs[inputName] = formModel[inputName]['required'];
-      return requiredInputs;
-    }, {});
+        return inputValues;
+      }, {});
+    case 'errors':
+      return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
+        inputErrors[inputName] = { hasError: false, message: '' };
+        return inputErrors;
+      }, {});
+    case '_isDirty':
+      return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
+        dirtyInputs[inputName] = false;
+        return dirtyInputs;
+      }, {});
+    case '_isRequired':
+      // requiredInputs is set to any because {_isRequired} is read-only and initially undefined
+      return Object.keys(formModel).reduce((requiredInputs: any, inputName: string) => {
+        requiredInputs[inputName] = formModel[inputName]['required'];
+        return requiredInputs;
+      }, {});
   }
 }
 
@@ -174,7 +183,7 @@ export type useFormType = {
 };
 
 type handleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
-type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void
+type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
 
 type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;
 

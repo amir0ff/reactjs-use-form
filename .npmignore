@@ -1,8 +1,11 @@
 node_modules
 src
 tests
+docs
 example
 .prettierrc
 .gitignore
 .idea
 .github
+rollup.config.js
+tsconfig.json

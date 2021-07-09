@@ -11,29 +11,29 @@
 
 > Provide it with a [form model](#steps), flag input fields as required or add a value validation function with custom error messages. It validates the inputs as the user types, when there are no errors the form gets enabled for submission. On form submission, it triggers a callback function the user provides.
 
-* 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library)
-* 🏗️ Built with [Rollup.js](https://github.com/rollup/rollup)
+- 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library)
+- 🏗️ Built with [Rollup.js](https://github.com/rollup/rollup)
 
 ## Install
 
 ```bash
-npm install reactjs-use-form
+$ npm install reactjs-use-form
 ```
 
 ## Usage
 
 ##### Requirements:
 
-* 📋 Form model with optional validation function.
-* ⚙️ Function to run after form validation and submission.
-* ⚛️ React functional component with a form
+- 📋 Form model with optional validation function.
+- ⚙️ Function to run after form validation and submission.
+- ⚛️ React functional component with a form
 
 ##### Steps:
 
 1. create a form model
 
 ```tsx
-import { FormModelType } from 'reactjs-use-form'
+import { FormModelType } from 'reactjs-use-form';
 
 const formModel: FormModelType = {
   currentPassphrase: {
@@ -66,8 +66,8 @@ const formModel: FormModelType = {
 2. use as a hook in a functional react component
 
 ```tsx
-import React from 'react'
-import { useForm, ValuesType } from 'reactjs-use-form'
+import React from 'react';
+import { useForm, ValuesType } from 'reactjs-use-form';
 
 const ChangePassphraseComponent = () => {
   const {
@@ -83,7 +83,7 @@ const ChangePassphraseComponent = () => {
 
   function handleLogin() {
     // formSubmitCallback();
-  };
+  }
 
   return (
     <form onSubmit={handleOnSubmit}>
@@ -127,8 +127,8 @@ const ChangePassphraseComponent = () => {
         </Button>
       </div>
     </form>
-  )
-}
+  );
+};
 ```
 
 ## Options
@@ -144,18 +144,19 @@ const {
   isDisabled,
   isSubmitted
 } = useForm(formModel, formSubmitCallback);
+
 ```
 
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object |
-| errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object |
-| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event` |
-| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event` |
-| isDisabled | `boolean` | returns `true` / `false` when the form is valid / invalid |
-| isSubmitted | `boolean` | returns `true` when the form was submitted without errors |
-| formModel | [`FormModelType`](docs/definitions.md#formmodeltype) | initial form model with optional validation function |
-| formSubmitCallback | `() => void` | function to run after form validation and submission |
+| Param              | Type                                                           | Description                                               |
+| ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
+| values             | [`ValuesType`](docs/definitions.md#valuestype)                 | returns form values state object                          |
+| errors             | [`ErrorsType`](docs/definitions.md#errorstype)                 | returns form errors state object                          |
+| handleOnChange     | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
+| isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
+| formModel          | [`FormModelType`](docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
+| formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
 #### Type definitions: [docs/definitions.md](docs/definitions.md)
 

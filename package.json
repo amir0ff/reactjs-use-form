@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
@@ -14,6 +14,8 @@
   "scripts": {
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
+    "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
+    "prepare": "husky install",
     "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist",
     "dev": "rollup -c -w"
   },
@@ -33,6 +35,7 @@
     "@typescript-eslint/eslint-plugin": "^4.28.2",
     "@typescript-eslint/parser": "^4.28.2",
     "cross-env": "^7.0.3",
+    "husky": "^7.0.1",
     "prettier": "2.3.2",
     "react": "^17.0.2",
     "react-scripts": "^4.0.3",

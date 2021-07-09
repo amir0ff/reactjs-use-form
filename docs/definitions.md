@@ -21,14 +21,14 @@
 
 #### Type declaration
 
-| Param | Type |
-| :------ | :------ |
+| Param    | Type      |
+| :------- | :-------- |
 | hasError | `boolean` |
-| message | `string` |
+| message  | `string`  |
 
 #### Defined at [index.ts:205](../src/index.ts#L205)
 
-___
+---
 
 ### ErrorsType
 
@@ -42,7 +42,7 @@ ___
 
 #### Defined at [index.ts:210](../src/index.ts#210)
 
-___
+---
 
 ### FormInputType
 
@@ -50,17 +50,17 @@ ___
 
 #### Type declaration
 
-| Param | Type |
-| :------ | :------ |
-| required | `boolean` |
+| Param      | Type                                                    |
+| :--------- | :------------------------------------------------------ |
+| required   | `boolean`                                               |
 | validator? | [`ValidatorFuncType`](definitions.md#validatorfunctype) |
-| value | [`ValueType`](definitions.md#valuetype) |
+| value      | [`ValueType`](definitions.md#valuetype)                 |
 
 `?` optional params
 
 #### Defined at [index.ts:185](../src/index.ts#L185)
 
-___
+---
 
 ### FormModelType
 
@@ -74,7 +74,7 @@ ___
 
 #### Defined at [index.ts:181](../src/index.ts#L181)
 
-___
+---
 
 ### IsDirtyType
 
@@ -88,7 +88,7 @@ ___
 
 #### Defined at [index.ts:191](../src/index.ts#L191)
 
-___
+---
 
 ### IsRequiredType
 
@@ -102,7 +102,7 @@ ___
 
 #### Defined at [index.ts:195](../src/index.ts#L195)
 
-___
+---
 
 ### ValidatorFuncType
 
@@ -111,10 +111,10 @@ ___
 
 ##### Parameters
 
-| Param | Type | Description |
-| :------ | :------ | :------ |
-| value | [`ValueType`](definitions.md#valuetype) | current value of input field
-| values? | [`ValuesType`](definitions.md#valuestype) | values state object to compare for validation
+| Param   | Type                                      | Description                                   |
+| :------ | :---------------------------------------- | :-------------------------------------------- |
+| value   | [`ValueType`](definitions.md#valuetype)   | current value of input field                  |
+| values? | [`ValuesType`](definitions.md#valuestype) | values state object to compare for validation |
 
 `?` optional params
 
@@ -124,7 +124,7 @@ ___
 
 #### Defined at [index.ts:179](../src/index.ts#L179)
 
-___
+---
 
 ### ValueType
 
@@ -132,7 +132,7 @@ ___
 
 #### Defined at [index.ts:199](../src/index.ts#L199)
 
-___
+---
 
 ### ValuesType
 
@@ -146,7 +146,7 @@ ___
 
 #### Defined at [index.ts:201](../src/index.ts#L201)
 
-___
+---
 
 ### handleOnChangeType
 
@@ -154,17 +154,17 @@ ___
 
 ##### Parameters
 
-| Param | Type |
-| :------ | :------ |
+| Param | Type                              |
+| :---- | :-------------------------------- |
 | event | `ChangeEvent`<`HTMLInputElement`> |
 
 ##### Returns `void`
 
-`!` returns nothing directly to the end user as it manages the controlled form values and _IsDirty states.
+`!` returns nothing directly to the end user as it manages the controlled form values and \_IsDirty states.
 
 #### Defined at [index.ts:176](../src/index.ts#L176)
 
-___
+---
 
 ### handleOnSubmitType
 
@@ -172,8 +172,8 @@ ___
 
 ##### Parameters
 
-| Param | Type |
-| :------ | :------ |
+| Param | Type                           |
+| :---- | :----------------------------- |
 | event | `FormEvent`<`HTMLFormElement`> |
 
 ##### Returns `void`
@@ -183,7 +183,7 @@ user.
 
 #### Defined at [index.ts:177](../src/index.ts#L177)
 
-___
+---
 
 ### useFormType
 
@@ -191,16 +191,16 @@ ___
 
 #### Type declaration
 
-| Param | Type | Description |
-| ------ | ------ | ------ |
-| values | [`ValuesType`](docs/definitions.md#valuestype) | returns form values state object |
-| errors | [`ErrorsType`](docs/definitions.md#errorstype) | returns form errors state object |
-| handleOnChange | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event` |
-| handleOnSubmit | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event` |
-| isDisabled | `boolean` | returns `true` / `false` when the form is valid / invalid |
-| isSubmitted | `boolean` | returns `true` when the form was submitted without errors |
-| formModel | [`FormModelType`](docs/definitions.md#formmodeltype) | initial form model with optional validation function |
-| formSubmitCallback | `() => void` | function to run after form validation and submission |
+| Param              | Type                                                           | Description                                               |
+| ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
+| values             | [`ValuesType`](docs/definitions.md#valuestype)                 | returns form values state object                          |
+| errors             | [`ErrorsType`](docs/definitions.md#errorstype)                 | returns form errors state object                          |
+| handleOnChange     | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
+| isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
+| formModel          | [`FormModelType`](docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
+| formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
 `!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
 

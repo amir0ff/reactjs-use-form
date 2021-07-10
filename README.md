@@ -46,7 +46,7 @@ const formModel: FormModelType = {
     validator: (newPassphrase, values) => {
       if (newPassphrase === values?.currentPassphrase) {
         return 'New password must be different from current password';
-      } else if (newPassphrase.length <= 6) {
+      } else if (newPassphrase.length <= 5) {
         return 'Password must be at least 6 characters long';
       } else if (newPassphrase !== values?.verifyPassphrase) {
         return 'Passwords do not match';

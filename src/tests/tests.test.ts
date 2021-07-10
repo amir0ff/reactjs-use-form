@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ErrorType, FormModelType, useForm } from '../index';
+import { emptyFormModel, formModel as errorsFormModel } from '../../examples/src/formModel';
 
 describe('🧮 general state change tests', () => {
   it('expect to return form initial state', () => {
@@ -265,48 +266,6 @@ describe('🧮 errors state tests', () => {
     });
   });
 });
-
-const emptyFormModel: FormModelType = {
-  currentPassphrase: {
-    value: '',
-    required: true,
-  },
-  newPassphrase: {
-    value: '',
-    required: true,
-  },
-  verifyPassphrase: {
-    value: '',
-    required: true,
-  },
-};
-
-const errorsFormModel: FormModelType = {
-  currentPassphrase: {
-    value: '',
-    required: true,
-  },
-  newPassphrase: {
-    value: '',
-    required: true,
-    validator: (newPassphrase, values) => {
-      if (newPassphrase === values?.currentPassphrase) {
-        return 'New password must be different from current password';
-      } else if (newPassphrase.length <= 6) {
-        return 'Password must be at least 6 characters long';
-      } else if (newPassphrase !== values?.verifyPassphrase) {
-        return 'Passwords do not match';
-      } else return '';
-    },
-  },
-  verifyPassphrase: {
-    value: '',
-    required: true,
-    validator: (passphrase, values) => {
-      return passphrase !== values?.newPassphrase ? 'Passwords do not match' : '';
-    },
-  },
-};
 
 const emptyError: ErrorType = { hasError: false, message: '' };
 

@@ -2,11 +2,14 @@ node_modules
 src
 tests
 docs
-example
+examples
 .prettierrc.json
+.prettierignore
 .gitignore
+LICENSE
 .idea
 .github
 rollup.config.js
 tsconfig.json
 .eslintrc.json
+.husky

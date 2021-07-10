@@ -148,28 +148,28 @@ function initializeState(formModel: FormModelType, state: string) {
    {values} and {_isRequired} are pulled from the formModel
   */
   switch (state) {
-    case 'values':
-      return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
-        inputValues[inputName] = formModel[inputName]['value'];
+  case 'values':
+    return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
+      inputValues[inputName] = formModel[inputName]['value'];
 
-        return inputValues;
-      }, {});
-    case 'errors':
-      return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
-        inputErrors[inputName] = { hasError: false, message: '' };
-        return inputErrors;
-      }, {});
-    case '_isDirty':
-      return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
-        dirtyInputs[inputName] = false;
-        return dirtyInputs;
-      }, {});
-    case '_isRequired':
-      // requiredInputs is set to any because {_isRequired} is read-only and initially undefined
-      return Object.keys(formModel).reduce((requiredInputs: any, inputName: string) => {
-        requiredInputs[inputName] = formModel[inputName]['required'];
-        return requiredInputs;
-      }, {});
+      return inputValues;
+    }, {});
+  case 'errors':
+    return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
+      inputErrors[inputName] = { hasError: false, message: '' };
+      return inputErrors;
+    }, {});
+  case '_isDirty':
+    return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
+      dirtyInputs[inputName] = false;
+      return dirtyInputs;
+    }, {});
+  case '_isRequired':
+    // requiredInputs is set to any because {_isRequired} is read-only and initially undefined
+    return Object.keys(formModel).reduce((requiredInputs: any, inputName: string) => {
+      requiredInputs[inputName] = formModel[inputName]['required'];
+      return requiredInputs;
+    }, {});
   }
 }
 

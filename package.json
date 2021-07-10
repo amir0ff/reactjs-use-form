@@ -1,6 +1,9 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.1.2",
+  "workspaces": [
+    "examples"
+  ],
+  "version": "1.1.4",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
@@ -14,17 +17,15 @@
   "scripts": {
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
-    "prepare": "husky install",
+    "start": "react-scripts start",
     "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist",
-    "dev": "rollup -c -w"
+    "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
+    "prepare": "husky install"
   },
   "peerDependencies": {
     "react": "^17.0.2"
   },
   "devDependencies": {
-    "@material-ui/core": "^4.12.0",
-    "@material-ui/icons": "^4.11.2",
     "@rollup/plugin-commonjs": "^19.0.0",
     "@rollup/plugin-node-resolve": "^13.0.0",
     "@rollup/plugin-typescript": "^8.2.1",

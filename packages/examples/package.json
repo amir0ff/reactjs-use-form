@@ -3,6 +3,7 @@
   "name": "reactjs-use-form-example",
   "version": "1.0.0",
   "description": "useForm example component",
+  "homepage": "https://amiroff157.github.io/reactjs-use-form",
   "main": "src/index.tsx",
   "scripts": {
     "start": "react-scripts start",

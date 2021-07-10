@@ -13,19 +13,17 @@ jobs:
     steps:
       - name: 📥 Get latest source code
         uses: actions/checkout@v2
-      - name: 📦 Install npm packages and setup Node ${{ matrix.node-version }}
+      - name: 📦 Install npm packages
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'npm'
       - run: npm install --silent
-      - name: 🧪 Testing using @testing-library/react-hooks
-        uses: actions/setup-node@v2
-      - run: npm run test
-      - name: 🏗️ Build using Rollup.js
-        uses: actions/setup-node@v2
-      - run: npm run build
-      - name: 🚚 NPM Publish
+      - name: 🧪 Test using @testing-library/react-hooks
+        run: npm run test
+      - name: 🏗️ Build main package using Rollup.js
+        run: npm run build
+      - name: 🚚 Publish to NPM
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}

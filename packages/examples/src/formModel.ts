@@ -1,4 +1,4 @@
-import { FormModelType } from '../../src';
+import { FormModelType } from '../../../src';
 
 export const formModel: FormModelType = {
   currentPassphrase: {

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { act, renderHook } from '@testing-library/react-hooks';
 import { ErrorType, FormModelType, useForm } from '../index';
-import { emptyFormModel, formModel as errorsFormModel } from '../../examples/src/formModel';
+import { emptyFormModel, formModel as errorsFormModel } from '../../packages/examples/src/formModel';
 
 describe('🧮 general state change tests', () => {
   it('expect to return form initial state', () => {

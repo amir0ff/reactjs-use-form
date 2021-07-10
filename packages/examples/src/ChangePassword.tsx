@@ -9,7 +9,7 @@ import {
   FormLabel,
   Grid,
   TextField,
-} from '@material-ui/core/';
+} from '@material-ui/core';
 import { Alert } from '@material-ui/lab';
 import { useForm, ValuesType } from 'reactjs-use-form';
 import './theme/styles.css';

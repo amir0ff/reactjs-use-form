@@ -196,10 +196,7 @@ describe('🧮 errors state tests', () => {
       result.current.handleOnChange(verifyPassphrase);
     });
     act(() => {
-      expect(result.current.errors.verifyPassphrase).toHaveProperty(
-        'message',
-        'Passwords do not match',
-      );
+      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'Passwords do not match');
     });
   });
   it('expect to return min length validator error', () => {
@@ -259,10 +256,7 @@ describe('🧮 errors state tests', () => {
       result.current.handleOnChange(emptyNewPassphrase);
     });
     act(() => {
-      expect(result.current.errors.verifyPassphrase).toHaveProperty(
-        'message',
-        'This field is required',
-      );
+      expect(result.current.errors.verifyPassphrase).toHaveProperty('message', 'This field is required');
     });
   });
 });

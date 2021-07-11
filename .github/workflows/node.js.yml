@@ -1,11 +1,13 @@
-name: Build & Test
+name: Build, Test & Deploy
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 jobs:
-  build_delpoy_npm:
+  build_test_deploy:
+    env:
+      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -13,17 +15,33 @@ jobs:
     steps:
       - name: 📥 Get latest source code
         uses: actions/checkout@v2
-      - name: 📦 Install npm packages
+        with:
+          submodules: recursive
+          token: ${{ secrets.PUBLISH_PAT }}
+      - name: 🔧 Setup .npmrc file
         uses: actions/setup-node@v2
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm install --silent
+          registry-url: 'https://registry.npmjs.org'
+      - name: ♻️ Restore lerna cache
+        uses: actions/cache@v2
+        with:
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - name: 📦 Install packages
+        run: npm run install
       - name: 🧪 Test using @testing-library/react-hooks
         run: npm run test
       - name: 🏗️ Build main package using rollup
         run: npm run build
       - name: 🚚 Publish to NPM
-        uses: JS-DevTools/npm-publish@v1
+        run: npm run publish
+      - name: 🏗️ Build example app using react-scripts
+        run: npm run build:example
+      - name: 🚀 Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
-          token: ${{ secrets.NPM_TOKEN }}
+          branch: gh-pages
+          folder: packages/examples/build/

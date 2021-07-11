@@ -24,7 +24,7 @@ $ npm install reactjs-use-form
 ```
 
 - 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library)
-- 🏗️ Built with [Rollup.js](https://github.com/rollup/rollup)
+- 🏗️ Built with [Rollup.js](https://github.com/rollup/rollup) and [create-react-app](https://github.com/facebook/create-react-app)
 
 ## Usage
 

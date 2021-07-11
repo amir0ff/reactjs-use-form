@@ -9,16 +9,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build"
   },
-  "keywords": [],
   "author": "amiroff157",
   "license": "GPL-3.0",
-  "dependencies": {
+  "devDependencies": {
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
-    "reactjs-use-form": "^1.1.2"
-  },
-  "devDependencies": {
+    "reactjs-use-form": "^1.1.5",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",

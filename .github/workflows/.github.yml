@@ -1,4 +1,4 @@
-name: Build & Deploay to GitHub Pages
+name: Build & Deploy to GitHub Pages
 on:
   push:
     branches: [ main ]
@@ -14,9 +14,13 @@ jobs:
       - name: 📥 Get latest source code
         uses: actions/checkout@v2
       - name: 📦 Install global npm packages
-        run: npm install --silent
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+      - run: npm install --silent
       - name: 🏗️ Build example app using react-scripts
-        working-directory: ./packages/examples
+        working-directory: packages/examples/
         run: |
           npm install --silent
           npm run build
@@ -24,4 +28,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:
           branch: gh-pages
-          folder: ./packages/examples/build
+          folder: packages/examples/build/

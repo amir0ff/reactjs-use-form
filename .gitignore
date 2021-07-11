@@ -6,6 +6,9 @@ node_modules
 # build directory
 dist
 
+# packages directory
+packages/examples/build
+
 # IDE files
 .idea
 

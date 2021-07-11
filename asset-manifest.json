@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/reactjs-use-form/static/css/main.96b32961.chunk.css",
-    "main.js": "/reactjs-use-form/static/js/main.b31a83df.chunk.js",
-    "main.js.map": "/reactjs-use-form/static/js/main.b31a83df.chunk.js.map",
+    "main.css": "/reactjs-use-form/static/css/main.2bc6da19.chunk.css",
+    "main.js": "/reactjs-use-form/static/js/main.f78ae643.chunk.js",
+    "main.js.map": "/reactjs-use-form/static/js/main.f78ae643.chunk.js.map",
     "runtime-main.js": "/reactjs-use-form/static/js/runtime-main.3090fae8.js",
     "runtime-main.js.map": "/reactjs-use-form/static/js/runtime-main.3090fae8.js.map",
     "static/js/2.06e316c8.chunk.js": "/reactjs-use-form/static/js/2.06e316c8.chunk.js",
     "static/js/2.06e316c8.chunk.js.map": "/reactjs-use-form/static/js/2.06e316c8.chunk.js.map",
     "index.html": "/reactjs-use-form/index.html",
-    "static/css/main.96b32961.chunk.css.map": "/reactjs-use-form/static/css/main.96b32961.chunk.css.map",
+    "static/css/main.2bc6da19.chunk.css.map": "/reactjs-use-form/static/css/main.2bc6da19.chunk.css.map",
     "static/js/2.06e316c8.chunk.js.LICENSE.txt": "/reactjs-use-form/static/js/2.06e316c8.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3090fae8.js",
     "static/js/2.06e316c8.chunk.js",
-    "static/css/main.96b32961.chunk.css",
-    "static/js/main.b31a83df.chunk.js"
+    "static/css/main.2bc6da19.chunk.css",
+    "static/js/main.f78ae643.chunk.js"
   ]
 }

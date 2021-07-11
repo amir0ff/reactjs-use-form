@@ -1,11 +1,11 @@
 # useForm(📋, ⚙️) ⇒ Reactive Form ⚛️
 
-[![Rollup.js CI build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml)
+[![build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/node.js.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-![npm type definitions](https://img.shields.io/npm/types/reactjs-use-form?label=typed)
+![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=typed)
 ![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form?label=repo%20size)
-![npm bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)
-![npm bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)
+![npm minified bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)
+![npm gzipped bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)
 
 #### Reactive form management and input field validation hook
 
@@ -15,7 +15,7 @@
 
 - 📋 Form model with optional validation function.
 - ⚙️ Function to run after form validation and submission.
-- ⚛️ React functional component with a form
+- ⚛️ React functional component with a form.
 
 ## Install
 
@@ -23,14 +23,15 @@
 npm install reactjs-use-form
 ```
 
-- 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library)
-- 🏗️ Built with [Rollup.js](https://github.com/rollup/rollup) and [create-react-app](https://github.com/facebook/create-react-app)
+- 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library).
+- 🏗️ Built with [rollup](https://github.com/rollup/rollup)
+  and [create-react-app](https://github.com/facebook/create-react-app).
 
 ## Usage
 
 ##### Steps:
 
-1. create a form model
+1. create a form model:
 
 ```tsx
 import { FormModelType } from 'reactjs-use-form';
@@ -63,7 +64,10 @@ const formModel: FormModelType = {
 };
 ```
 
-2. use as a hook in a functional react component
+2. use as a hook in a functional react component:
+
+<details>
+<summary> Plain JSX example code</summary>
 
 ```tsx
 import React from 'react';
@@ -77,11 +81,11 @@ const ChangePassphraseComponent = () => {
     handleOnSubmit,
     isDisabled,
     isSubmitted
-  } = useForm(formModel, handleLogin);
+  } = useForm(formModel, handleSave);
 
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
-  function handleLogin() {
+  function handleSave() {
     // formSubmitCallback();
   }
 
@@ -94,7 +98,6 @@ const ChangePassphraseComponent = () => {
           name="currentPassphrase"
           value={currentPassphrase}
           onChange={handleOnChange}
-          isInvalid={errors.currentPassphrase.hasError}
         />
         <span>{errors.currentPassphrase.message}</span>
       </div>
@@ -105,7 +108,6 @@ const ChangePassphraseComponent = () => {
           name="newPassphrase"
           value={newPassphrase}
           onChange={handleOnChange}
-          isInvalid={errors.newPassphrase.hasError}
         />
         <span>{errors.newPassphrase.message}</span>
       </div>
@@ -116,20 +118,100 @@ const ChangePassphraseComponent = () => {
           name="verifyPassphrase"
           value={verifyPassphrase}
           onChange={handleOnChange}
-          isInvalid={errors.verifyPassphrase.hasError}
         />
         <span>{errors.verifyPassphrase.message}</span>
       </div>
-      <div>
-        <span>{isSubmitted ? 'Passphrase has been changed!' : ''}</span>
-        <Button type="submit" size="sm" disabled={isDisabled}>
-          Submit
-        </Button>
-      </div>
+      <span>{isSubmitted ? 'Passphrase has been changed!' : null}</span>
+      <Button type="submit" size="sm" disabled={isDisabled}>
+        Save Changes
+      </Button>
     </form>
   );
 };
 ```
+
+</details>
+<details>
+<summary> Material-UI example code</summary>
+
+```tsx
+import React from 'react';
+import { Button, FormControl, FormGroup, FormHelperText, FormLabel, TextField } from '@material-ui/core';
+import { useForm, ValuesType } from 'reactjs-use-form';
+
+const ChangePassphraseComponent = () => {
+  const {
+    values,
+    errors,
+    handleOnChange,
+    handleOnSubmit,
+    isDisabled,
+    isSubmitted
+  } = useForm(formModel, handleSave);
+
+  const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
+
+  function handleSave() {
+    // formSubmitCallback();
+  }
+
+  return (
+    <form onSubmit={handleOnSubmit}>
+      <FormGroup>
+        <FormControl>
+          <TextField
+            required={true}
+            label='Current Passphrase'
+            type='password'
+            name='currentPassphrase'
+            error={errors.currentPassphrase.hasError}
+            value={currentPassphrase}
+            onChange={handleOnChange} />
+          <FormHelperText error={errors.currentPassphrase.hasError}>
+            {errors.currentPassphrase.message}
+          </FormHelperText>
+        </FormControl>
+      </FormGroup>
+      <FormGroup>
+        <FormControl>
+          <TextField
+            required={true}
+            label='New Passphrase'
+            type='password'
+            name='newPassphrase'
+            error={errors.newPassphrase.hasError}
+            value={newPassphrase}
+            onChange={handleOnChange} />
+          <FormHelperText error={errors.newPassphrase.hasError}>
+            {errors.newPassphrase.message}
+          </FormHelperText>
+        </FormControl>
+      </FormGroup>
+      <FormGroup>
+        <FormControl>
+          <TextField
+            required={true}
+            label='Verify Passphrase'
+            type='password'
+            name='verifyPassphrase'
+            error={errors.verifyPassphrase.hasError}
+            value={verifyPassphrase}
+            onChange={handleOnChange} />
+          <FormHelperText error={errors.verifyPassphrase.hasError}>
+            {errors.verifyPassphrase.message}
+          </FormHelperText>
+        </FormControl>
+      </FormGroup>
+      {isSubmitted ? <Alert variant='standard' severity='success' action='Passphrase has been changed!' /> : null}
+      <Button type='submit' disabled={isDisabled}>
+        <span>Save Changes</span>
+      </Button>
+    </form>
+  );
+};
+```
+
+</details>
 
 ## Options
 

@@ -1,5 +1,3 @@
-import { useEffect, useRef } from 'react';
-
 import {
   Button,
   Container,
@@ -17,19 +15,12 @@ import { formModel } from './formModel';
 
 
 export function ChangePassword(): any {
-  const passwordInputRef = useRef<any>(null);
   const { values, errors, handleOnChange, handleOnSubmit, isSubmitted, isDisabled } = useForm(formModel, handleSave);
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
-  useEffect(() => {
-    if (passwordInputRef.current) passwordInputRef.current.focus();
-  }, []);
-
-
   function handleSave() {
-    // save changes
+    // formSubmitCallback();
   }
-
 
   return (
     <Container maxWidth='xs'>
@@ -61,10 +52,10 @@ export function ChangePassword(): any {
                 variant='filled'
                 error={errors.currentPassphrase.hasError}
                 value={currentPassphrase}
-                onChange={handleOnChange}
-                ref={passwordInputRef} />
+                onChange={handleOnChange} />
               <FormHelperText
-                error={errors.currentPassphrase.hasError}>{errors.currentPassphrase.message}</FormHelperText>
+                error={errors.currentPassphrase.hasError}>{errors.currentPassphrase.message}
+              </FormHelperText>
             </FormControl>
           </FormGroup>
           <FormGroup>
@@ -101,7 +92,7 @@ export function ChangePassword(): any {
               </FormHelperText>
             </FormControl>
           </FormGroup>
-          {isSubmitted ? <Alert variant='standard' severity='success' action='Password changed!' /> : null}
+          {isSubmitted ? <Alert variant='standard' severity='success' action='Passphrase has been changed!' /> : null}
           <Grid className='footer'>
             <Button
               variant='contained'

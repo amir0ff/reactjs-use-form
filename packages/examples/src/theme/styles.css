@@ -9,7 +9,7 @@ body {
 h1 {
     font-family: 'Source Code Pro', sans-serif;
     border-bottom: 1px solid #e8e8e8;
-    padding-bottom: 30px;
+    padding-bottom: 48px;
     margin: 36px;
     font-size: 3.26rem;
     font-weight: 700;
@@ -19,6 +19,20 @@ h1 {
 
 form {
     padding-top: 20px;
+}
+
+.header-container {
+    position: relative;
+}
+
+.social-links {
+    position: absolute;
+    top: 80px;
+    left: 114px;
+}
+
+.social-links a:nth-child(2) {
+    margin-left: 12px;
 }
 
 .MuiFormLabel-root.form-label {
@@ -33,8 +47,8 @@ form {
     font-size: 0.85rem;
     font-weight: 400;
     position: absolute;
-    top: 22px;
-    right: -22px;
+    top: 2px;
+    right: 17px;
     cursor: default;
 }
 

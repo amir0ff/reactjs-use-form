@@ -167,16 +167,16 @@ function initializeState(formModel: FormModelType, state: string) {
 }
 
 export type useFormType = {
-  handleOnChange: handleOnChangeType;
-  handleOnSubmit: handleOnSubmitType;
+  handleOnChange: HandleOnChangeType;
+  handleOnSubmit: HandleOnSubmitType;
   values: ValuesType;
   errors: ErrorsType;
   isSubmitted: boolean;
   isDisabled: boolean;
 };
 
-type handleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
-type handleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
+type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
 
 type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;
 

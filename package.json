@@ -18,8 +18,9 @@
   "scripts": {
     "test": "cross-env CI=true react-scripts test --env=jsdom",
     "test:watch": "react-scripts test --env=jsdom",
-    "start": "react-scripts start",
+    "dev": "rollup -c -w",
     "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist",
+    "cleanup": "rm -rf node_modules/ dist/ packages/examples/node_modules/ packages/examples/build/",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "prepare": "husky install"
   },

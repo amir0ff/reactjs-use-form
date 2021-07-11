@@ -34,8 +34,17 @@ export function ChangePassword(): any {
   return (
     <Container maxWidth='xs'>
       <Grid className=''>
-        <Container maxWidth='xs'>
+        <Container maxWidth='xs' className='header-container'>
           <h1>useForm</h1>
+          <div className='social-links'>
+            <a href='https://github.com/amiroff157/reactjs-use-form' target='_blank'>
+              <img alt='GitHub Repo stars'
+                   src='https://img.shields.io/github/stars/amiroff157/reactjs-use-form?label=GitHub&style=social' />
+            </a>
+            <a href='https://www.npmjs.com/package/reactjs-use-form' target='_blank'>
+              <img alt='npm' src='https://img.shields.io/npm/v/reactjs-use-form?label=NPM&style=social' />
+            </a>
+          </div>
           <span className='banner'><span>(📋, ⚙️) ⇒ ⚛️</span></span>
         </Container>
         <form onSubmit={handleOnSubmit}>

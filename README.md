@@ -20,7 +20,7 @@
 ## Install
 
 ```bash
-$ npm install reactjs-use-form
+npm install reactjs-use-form
 ```
 
 - 🧪 Tested using [@testing-library/react-hooks](https://github.com/testing-library/react-hooks-testing-library)
@@ -150,8 +150,8 @@ const {
 | ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
 | values             | [`ValuesType`](docs/definitions.md#valuestype)                 | returns form values state object                          |
 | errors             | [`ErrorsType`](docs/definitions.md#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| handleOnChange     | [`HandleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`HandleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
 | isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
 | isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
 | formModel          | [`FormModelType`](docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |

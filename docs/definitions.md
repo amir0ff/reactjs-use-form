@@ -11,8 +11,8 @@
 - [ValidatorFuncType](definitions.md#validatorfunctype)
 - [ValueType](definitions.md#valuetype)
 - [ValuesType](definitions.md#valuestype)
-- [handleOnChangeType](definitions.md#handleonchangetype)
-- [handleOnSubmitType](definitions.md#handleonsubmittype)
+- [HandleOnChangeType](definitions.md#handleonchangetype)
+- [HandleOnSubmitType](definitions.md#handleonsubmittype)
 - [useFormType](definitions.md#useformtype)
 
 ### ErrorType
@@ -148,7 +148,7 @@
 
 ---
 
-### handleOnChangeType
+### HandleOnChangeType
 
 Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`>) => `void`
 
@@ -166,7 +166,7 @@
 
 ---
 
-### handleOnSubmitType
+### HandleOnSubmitType
 
 Ƭ (`event`: `FormEvent`<`HTMLFormElement`>) => `void`
 
@@ -195,8 +195,8 @@ user.
 | ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
 | values             | [`ValuesType`](docs/definitions.md#valuestype)                 | returns form values state object                          |
 | errors             | [`ErrorsType`](docs/definitions.md#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`handleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`handleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| handleOnChange     | [`HandleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`HandleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
 | isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
 | isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
 | formModel          | [`FormModelType`](docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |

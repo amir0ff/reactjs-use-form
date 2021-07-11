@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "reactjs-use-form-example",
-  "version": "1.0.0",
+  "version": "1.1.8",
   "description": "useForm example component",
   "homepage": "https://amiroff157.github.io/reactjs-use-form",
   "main": "src/index.tsx",
@@ -12,13 +12,13 @@
   "author": "amiroff157",
   "license": "GPL-3.0",
   "devDependencies": {
-    "craco": "^0.0.3",
     "@craco/craco": "^6.2.0",
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
+    "craco": "^0.0.3",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",

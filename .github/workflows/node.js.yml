@@ -1,11 +1,13 @@
-name: Build & Test
+name: Build, Test & Deploy
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 jobs:
-  build_delpoy_npm:
+  build_test_deploy:
+    env:
+      INPUT_TOKEN: ''
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -13,12 +15,14 @@ jobs:
     steps:
       - name: 📥 Get latest source code
         uses: actions/checkout@v2
-      - name: 📦 Install npm packages
-        uses: actions/setup-node@v2
+      - name: ♻️ Restore lerna cache
+        uses: actions/cache@v2
         with:
-          node-version: ${{ matrix.node-version }}
-          cache: 'npm'
-      - run: npm install --silent
+          path: |
+            node_modules
+            */*/node_modules
+          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
+      - run: npx lerna bootstrap
       - name: 🧪 Test using @testing-library/react-hooks
         run: npm run test
       - name: 🏗️ Build main package using rollup
@@ -27,3 +31,10 @@ jobs:
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
+      - name: 🏗️ Build example app using react-scripts
+        run: npm run build:example
+      - name: 🚀 Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@4.1.4
+        with:
+          branch: gh-pages
+          folder: packages/examples/build/

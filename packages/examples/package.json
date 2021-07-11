@@ -6,21 +6,23 @@
   "homepage": "https://amiroff157.github.io/reactjs-use-form",
   "main": "src/index.tsx",
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build"
+    "start": "craco start",
+    "build": "craco build"
   },
   "author": "amiroff157",
   "license": "GPL-3.0",
   "devDependencies": {
+    "craco": "^0.0.3",
+    "@craco/craco": "^6.2.0",
     "@material-ui/core": "^4.12.0",
     "@material-ui/icons": "^4.11.2",
     "@material-ui/lab": "^4.0.0-alpha.60",
-    "reactjs-use-form": "^1.1.6",
     "@types/react": "^17.0.14",
     "@types/react-dom": "^17.0.9",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-scripts": "^4.0.3",
+    "reactjs-use-form": "^1.1.6",
     "typescript": "^4.3.5"
   },
   "browserslist": {

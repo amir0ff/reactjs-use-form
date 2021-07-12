@@ -26,13 +26,12 @@
     "build:example": "lerna run build --scope reactjs-use-form-example",
     "cleanup": "rm -rf node_modules/ dist/ packages/examples/node_modules/ packages/examples/build/ packages/main/node_modules/ packages/main/dist/",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
-    "prepare": "is-ci || husky install"
+    "prepare": "husky install"
   },
   "devDependencies": {
     "husky": "^7.0.1",
     "lerna": "^4.0.0",
-    "prettier": "2.3.2",
-    "is-ci": "^3.0.0"
+    "prettier": "2.3.2"
   },
   "keywords": [
     "react",

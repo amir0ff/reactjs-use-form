@@ -18,12 +18,12 @@
   "scripts": {
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish from-package --yes --no-verify-access",
-    "test": "lerna exec --scope reactjs-use-form -- npm run test",
-    "test:watch": "lerna exec --scope  reactjs-use-form -- npm run test:watch",
-    "build": "lerna exec --scope  reactjs-use-form -- npm run build",
-    "dev": "lerna exec --scope  reactjs-use-form -- npm run dev",
-    "start:example": "lerna exec --scope reactjs-use-form-example -- npm run start",
-    "build:example": "lerna exec --scope reactjs-use-form-example -- npm run build",
+    "test": "lerna run test --scope reactjs-use-form",
+    "test:watch": "lerna run test:watch --scope reactjs-use-form",
+    "build": "lerna run build --scope reactjs-use-form",
+    "dev": "lerna run dev --scope  reactjs-use-form",
+    "start:example": "lerna run start --scope reactjs-use-form-example",
+    "build:example": "lerna run build --scope reactjs-use-form-example",
     "cleanup": "rm -rf node_modules/ dist/ packages/examples/node_modules/ packages/examples/build/ packages/main/node_modules/ packages/main/dist/",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "prepare": "is-ci || husky install"

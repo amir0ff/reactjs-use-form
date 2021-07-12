@@ -1,11 +1,7 @@
 {
   "private": true,
   "name": "reactjs-use-form-monorepo",
-  "workspaces": {
-    "packages": [
-      "packages/**"
-    ]
-  },
+  "workspaces": ["packages/**"],
   "version": "1.2.4",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
@@ -16,21 +12,18 @@
     "url": "https://github.com/amiroff157/reactjs-use-form"
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
-    "publish": "lerna publish from-package --yes --no-verify-access",
-    "test": "lerna exec --scope reactjs-use-form -- yarn run test",
-    "test:watch": "lerna exec --scope  reactjs-use-form -- yarn run test:watch",
-    "build": "lerna exec --scope  reactjs-use-form -- yarn run build",
-    "dev": "lerna exec --scope  reactjs-use-form -- yarn run dev",
-    "start:example": "lerna exec --scope reactjs-use-form-example -- yarn run start",
-    "build:example": "lerna exec --scope reactjs-use-form-example -- yarn run build",
+    "test": "yarn workspace reactjs-use-form test",
+    "test:watch": "yarn workspace  reactjs-use-form test:watch",
+    "build": "yarn workspace  reactjs-use-form build",
+    "dev": "yarn workspace  reactjs-use-form dev",
+    "start:example": "yarn workspace reactjs-use-form-example start",
+    "build:example": "yarn workspace reactjs-use-form-example build",
     "cleanup": "rm -rf node_modules/ dist/ packages/examples/node_modules/ packages/examples/build/ packages/main/node_modules/ packages/main/dist/",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "prepare": "is-ci || husky install"
   },
   "devDependencies": {
     "husky": "^7.0.1",
-    "lerna": "^4.0.0",
     "prettier": "2.3.2",
     "is-ci": "^3.0.0"
   },

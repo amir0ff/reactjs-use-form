@@ -7,7 +7,7 @@ on:
 jobs:
   build_test_deploy:
     env:
-      NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      INPUT_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -23,21 +23,28 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: 'https://registry.npmjs.org'
-      - name: ♻️ Restore lerna cache
+      - name: 🗑️ Get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "::set-output name=dir::$(yarn cache dir)"
+      - name: 🔄 Restore yarn cahce
         uses: actions/cache@v2
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: |
-            node_modules
-            */*/node_modules
-          key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
-      - name: 📦 Install packages
-        run: yarn run bootstrap
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-yarn-
+      - name: 📦 Install packages using yarn
+        run: yarn install
       - name: 🧪 Test using @testing-library/react-hooks
         run: yarn run test
       - name: 🏗️ Build main package using rollup
         run: yarn run build
       - name: 🚚 Publish to NPM
-        run: yarn run publish
+        uses: JS-DevTools/npm-publish@v1
+        with:
+          token: ${{ secrets.NPM_TOKEN }}
+          package: ./packages/main/package.json
       - name: 🏗️ Build example app using react-scripts
         run: yarn run build:example
       - name: 🚀 Deploy to GitHub Pages

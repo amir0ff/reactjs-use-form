@@ -16,7 +16,7 @@
     "url": "https://github.com/amiroff157/reactjs-use-form"
   },
   "scripts": {
-    "install": "lerna bootstrap",
+    "bootstrap": "lerna bootstrap",
     "publish": "lerna publish from-package --yes --no-verify-access",
     "test": "lerna exec --scope reactjs-use-form -- npm run test",
     "test:watch": "lerna exec --scope  reactjs-use-form -- npm run test:watch",

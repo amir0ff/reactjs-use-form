@@ -31,7 +31,7 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: 📦 Install packages
-        run: npm run install
+        run: npm run bootstrap
       - name: 🧪 Test using @testing-library/react-hooks
         run: npm run test
       - name: 🏗️ Build main package using rollup

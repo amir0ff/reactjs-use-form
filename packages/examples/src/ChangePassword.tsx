@@ -15,10 +15,10 @@ import { formModel } from './formModel';
 
 
 export function ChangePassword(): any {
-  const { values, errors, handleOnChange, handleOnSubmit, isSubmitted, isDisabled } = useForm(formModel, handleSave);
+  const { values, errors, handleOnChange, handleOnSubmit, isSubmitted, isDisabled } = useForm(formModel, handleSubmit);
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
-  function handleSave() {
+  function handleSubmit() {
     // formSubmitCallback();
   }
 
@@ -100,7 +100,7 @@ export function ChangePassword(): any {
               color='secondary'
               type='submit'
               disabled={isDisabled}>
-              <span>Save Changes</span>
+              Submit
             </Button>
           </Grid>
         </form>

@@ -36,7 +36,7 @@ npm install reactjs-use-form
 ```tsx
 import { FormModelType } from 'reactjs-use-form';
 
-const formModel: FormModelType = {
+export const formModel: FormModelType = {
   currentPassphrase: {
     value: '',
     required: true,
@@ -64,14 +64,17 @@ const formModel: FormModelType = {
 };
 ```
 
-2. use as a hook in a functional react component:
+2. prepare a submit callback function, for example: `function handleSubmit() {...}`.
+
+3. use the form model with the callback function in useForm hook in a functional react component:
 
 <details>
-<summary> Plain JSX example code</summary>
+<summary> Plain JSX code example </summary>
 
 ```tsx
 import React from 'react';
 import { useForm, ValuesType } from 'reactjs-use-form';
+import { formModel } from './formModel';
 
 const ChangePassphraseComponent = () => {
   const {
@@ -81,11 +84,11 @@ const ChangePassphraseComponent = () => {
     handleOnSubmit,
     isDisabled,
     isSubmitted
-  } = useForm(formModel, handleSave);
+  } = useForm(formModel, handleSubmit);
 
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
-  function handleSave() {
+  function handleSubmit() {
     // formSubmitCallback();
   }
 
@@ -122,9 +125,9 @@ const ChangePassphraseComponent = () => {
         <span>{errors.verifyPassphrase.message}</span>
       </div>
       <span>{isSubmitted ? 'Passphrase has been changed!' : null}</span>
-      <Button type="submit" size="sm" disabled={isDisabled}>
-        Save Changes
-      </Button>
+      <button type="submit" size="sm" disabled={isDisabled}>
+        <span>Submit</span>
+      </button>
     </form>
   );
 };
@@ -132,12 +135,13 @@ const ChangePassphraseComponent = () => {
 
 </details>
 <details>
-<summary> Material-UI example code</summary>
+<summary> Material-UI code example</summary>
 
 ```tsx
 import React from 'react';
 import { Button, FormControl, FormGroup, FormHelperText, FormLabel, TextField } from '@material-ui/core';
 import { useForm, ValuesType } from 'reactjs-use-form';
+import { formModel } from './formModel';
 
 const ChangePassphraseComponent = () => {
   const {
@@ -147,11 +151,11 @@ const ChangePassphraseComponent = () => {
     handleOnSubmit,
     isDisabled,
     isSubmitted
-  } = useForm(formModel, handleSave);
+  } = useForm(formModel, handleSubmit);
 
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
-  function handleSave() {
+  function handleSubmit() {
     // formSubmitCallback();
   }
 
@@ -204,7 +208,7 @@ const ChangePassphraseComponent = () => {
       </FormGroup>
       {isSubmitted ? <Alert variant='standard' severity='success' action='Passphrase has been changed!' /> : null}
       <Button type='submit' disabled={isDisabled}>
-        <span>Save Changes</span>
+        Submit
       </Button>
     </form>
   );

@@ -31,15 +31,15 @@ jobs:
             */*/node_modules
           key: ${{ runner.os }}-${{ hashFiles('**/yarn.lock') }}
       - name: 📦 Install packages
-        run: npm run bootstrap
+        run: yarn run bootstrap
       - name: 🧪 Test using @testing-library/react-hooks
-        run: npm run test
+        run: yarn run test
       - name: 🏗️ Build main package using rollup
-        run: npm run build
+        run: yarn run build
       - name: 🚚 Publish to NPM
-        run: npm run publish
+        run: yarn run publish
       - name: 🏗️ Build example app using react-scripts
-        run: npm run build:example
+        run: yarn run build:example
       - name: 🚀 Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:

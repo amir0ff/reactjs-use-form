@@ -6,7 +6,7 @@
       "packages/**"
     ]
   },
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",

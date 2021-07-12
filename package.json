@@ -19,6 +19,7 @@
     "bootstrap": "lerna bootstrap",
     "publish": "lerna publish from-package --yes --no-verify-access",
     "test": "lerna exec --scope reactjs-use-form -- yarn run test",
+    "test:watch": "lerna exec --scope  reactjs-use-form -- yarn run test:watch",
     "build": "lerna run build --scope reactjs-use-form",
     "dev": "lerna run dev --scope  reactjs-use-form",
     "start:example": "lerna run start --scope reactjs-use-form-example",

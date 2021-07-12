@@ -7,6 +7,7 @@ on:
 jobs:
   build_test_deploy:
     env:
+      CI: true
       NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     strategy:

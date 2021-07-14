@@ -205,3 +205,8 @@ user.
 `!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
 
 #### Defined at [index.ts:170](../packages/main/src/index.ts#L170)
+
+## Docs created using:
+
+[typedoc](https://www.npmjs.com/package/typedoc)
+and [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown)

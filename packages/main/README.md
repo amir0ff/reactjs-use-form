@@ -9,7 +9,7 @@
 
 #### Reactive form management and input field validation hook
 
-> Create a [form model](#steps), flag input fields as required or add a value validation function with custom error messages. useForm will validate the inputs as the user types, when there are no errors the form gets enabled for submission. On form submission, it executes a callback function the user provides.
+> Create a [form model](#usage), flag input fields as required or add a value validation function with custom error messages. useForm will validate the inputs as the user types, when there are no errors the form gets enabled for submission. On form submission, it executes a callback function the user provides.
 
 ##### Requirements:
 
@@ -234,16 +234,16 @@ const {
 
 | Param              | Type                                                           | Description                                               |
 | ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
-| values             | [`ValuesType`](../../docs/definitions.md#valuestype)                 | returns form values state object                          |
-| errors             | [`ErrorsType`](../../docs/definitions.md#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`HandleOnChangeType`](../../docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`HandleOnSubmitType`](../../docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| values             | [`ValuesType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#valuestype)                 | returns form values state object                          |
+| errors             | [`ErrorsType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#errorstype)                 | returns form errors state object                          |
+| handleOnChange     | [`HandleOnChangeType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
 | isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
 | isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
-| formModel          | [`FormModelType`](../../docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
+| formModel          | [`FormModelType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
 | formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
-#### Type definitions: [docs/definitions.md](../../docs/definitions.md)
+#### Type definitions: [docs/definitions.md](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md)
 
 ## License
 

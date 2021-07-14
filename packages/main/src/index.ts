@@ -137,7 +137,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
 
 function initializeState(formModel: FormModelType, state: string) {
   /*
-   initialize an empty state for {errors} and {_isDirty} where
+   initialize a default state for {errors} and {_isDirty} where
    {values} and {_isRequired} are pulled from the formModel
   */
   switch (state) {
@@ -167,6 +167,7 @@ function initializeState(formModel: FormModelType, state: string) {
   }
 }
 
+// type declarations: tsc will create .d.ts on build run time
 export type useFormType = {
   handleOnChange: HandleOnChangeType;
   handleOnSubmit: HandleOnSubmitType;

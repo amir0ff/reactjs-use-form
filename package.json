@@ -2,7 +2,7 @@
   "private": true,
   "name": "reactjs-use-form-monorepo",
   "workspaces": ["packages/**"],
-  "version": "1.2.4",
+  "version": "1.2.5",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",

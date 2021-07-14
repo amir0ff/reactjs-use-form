@@ -26,7 +26,7 @@
 | hasError | `boolean` |
 | message  | `string`  |
 
-#### Defined at [index.ts:205](../src/index.ts#L205)
+#### Defined at [index.ts:208](../packages/main/src/index.ts#L208)
 
 ---
 
@@ -40,7 +40,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:210](../src/index.ts#210)
+#### Defined at [index.ts:213](../packages/main/src/index.ts#L213)
 
 ---
 
@@ -58,7 +58,7 @@
 
 `?` optional params
 
-#### Defined at [index.ts:185](../src/index.ts#L185)
+#### Defined at [index.ts:188](../packages/main/src/index.ts#L188)
 
 ---
 
@@ -72,7 +72,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:181](../src/index.ts#L181)
+#### Defined at [index.ts:184](../packages/main/src/index.ts#L184)
 
 ---
 
@@ -86,7 +86,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:191](../src/index.ts#L191)
+#### Defined at [index.ts:194](../packages/main/src/index.ts#L194)
 
 ---
 
@@ -100,7 +100,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:195](../src/index.ts#L195)
+#### Defined at [index.ts:198](../packages/main/src/index.ts#L198)
 
 ---
 
@@ -122,7 +122,7 @@
 
 `string`: custom error message returned from the validator function, or an empty string for no error.
 
-#### Defined at [index.ts:179](../src/index.ts#L179)
+#### Defined at [index.ts:182](../packages/main/src/index.ts#L182)
 
 ---
 
@@ -130,7 +130,7 @@
 
 Ƭ `string`
 
-#### Defined at [index.ts:199](../src/index.ts#L199)
+#### Defined at [index.ts:202](../packages/main/src/index.ts#L202)
 
 ---
 
@@ -144,7 +144,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:201](../src/index.ts#L201)
+#### Defined at [index.ts:204](../packages/main/src/index.ts#L204)
 
 ---
 
@@ -162,7 +162,7 @@
 
 `!` returns nothing directly to the end user as it manages the controlled form values and \_IsDirty states.
 
-#### Defined at [index.ts:176](../src/index.ts#L176)
+#### Defined at [index.ts:179](../packages/main/src/index.ts#L179)
 
 ---
 
@@ -181,7 +181,7 @@
 `!` when the form has been validated, enabled and submitted, this callback function triggers another function set by the
 user.
 
-#### Defined at [index.ts:177](../src/index.ts#L177)
+#### Defined at [index.ts:180](../packages/main/src/index.ts#L180)
 
 ---
 
@@ -193,15 +193,15 @@ user.
 
 | Param              | Type                                                           | Description                                               |
 | ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
-| values             | [`ValuesType`](docs/definitions.md#valuestype)                 | returns form values state object                          |
-| errors             | [`ErrorsType`](docs/definitions.md#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`HandleOnChangeType`](docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`HandleOnSubmitType`](docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| values             | [`ValuesType`](#valuestype)                 | returns form values state object                          |
+| errors             | [`ErrorsType`](#errorstype)                 | returns form errors state object                          |
+| handleOnChange     | [`HandleOnChangeType`](#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`HandleOnSubmitType`](#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
 | isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
 | isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
-| formModel          | [`FormModelType`](docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
+| formModel          | [`FormModelType`](#formmodeltype)           | initial form model with optional validation function      |
 | formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
 `!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
 
-#### Defined at [index.ts:167](../src/index.ts#L167)
+#### Defined at [index.ts:170](../packages/main/src/index.ts#L170)

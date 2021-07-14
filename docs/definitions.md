@@ -191,16 +191,16 @@ user.
 
 #### Type declaration
 
-| Param              | Type                                                           | Description                                               |
-| ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
+| Param              | Type                                        | Description                                               |
+| ------------------ | ------------------------------------------- | --------------------------------------------------------- |
 | values             | [`ValuesType`](#valuestype)                 | returns form values state object                          |
 | errors             | [`ErrorsType`](#errorstype)                 | returns form errors state object                          |
 | handleOnChange     | [`HandleOnChangeType`](#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
 | handleOnSubmit     | [`HandleOnSubmitType`](#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
-| isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
-| isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
+| isDisabled         | `boolean`                                   | returns `true` / `false` when the form is valid / invalid |
+| isSubmitted        | `boolean`                                   | returns `true` when the form was submitted without errors |
 | formModel          | [`FormModelType`](#formmodeltype)           | initial form model with optional validation function      |
-| formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
+| formSubmitCallback | `() => void`                                | function to run after form validation and submission      |
 
 `!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
 

@@ -11,11 +11,11 @@ This is a monorepo managed using [Yarn](https://github.com/yarnpkg/yarn) workspa
 root
   |  package.json
 packages
-  |    
-  ├─── main/
-  |  package.json
-  └─── example/
-     package.json
+  |
+  ├─ main/
+  |    package.json
+  └─ example/
+       package.json
 ```
 * Main: [packages/main](https://github.com/amiroff157/reactjs-use-form/tree/main/packages/main). 📦 Published to [npm](https://www.npmjs.com/package/reactjs-use-form).
 

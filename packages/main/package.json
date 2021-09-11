@@ -4,7 +4,7 @@
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
-  "homepage": "https://amiroff157.github.io/reactjs-use-form/",
+  "homepage": "https://amiroff157.github.io/reactjs-use-form",
   "repository": {
     "type": "git",
     "url": "https://github.com/amiroff157/reactjs-use-form"
@@ -14,7 +14,6 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "craco test --env=jsdom",
-    "test:watch": "craco test --env=jsdom",
     "dev": "rollup -c -w",
     "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist"
   },

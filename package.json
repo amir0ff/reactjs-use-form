@@ -8,19 +8,18 @@
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
-  "homepage": "https://amiroff157.github.io/reactjs-use-form/",
+  "homepage": "https://amiroff157.github.io/reactjs-use-form",
   "repository": {
     "type": "git",
     "url": "https://github.com/amiroff157/reactjs-use-form"
   },
   "scripts": {
     "test": "yarn workspace reactjs-use-form test",
-    "test:watch": "yarn workspace  reactjs-use-form test:watch",
-    "build": "yarn workspace  reactjs-use-form build",
-    "dev": "yarn workspace  reactjs-use-form dev",
+    "build": "yarn workspace reactjs-use-form build",
+    "dev": "yarn workspace reactjs-use-form dev",
     "start:example": "yarn workspace reactjs-use-form-example start",
     "build:example": "yarn workspace reactjs-use-form-example build",
-    "cleanup": "rm -rf node_modules/ dist/ packages/examples/node_modules/ packages/examples/build/ packages/main/node_modules/ packages/main/dist/",
+    "cleanup": "rm -rf node_modules/ packages/examples/node_modules/ packages/examples/build/ packages/main/node_modules/ packages/main/dist/",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
     "prepare": "is-ci || husky install"
   },

@@ -2,11 +2,11 @@
 
 # dependencies
 node_modules
+packages/main/node_modules
+packages/examples/node_modules
 
-# build directory
-dist
-
-# packages directory
+# build directories
+packages/main/dist
 packages/examples/build
 
 # IDE files

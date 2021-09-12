@@ -26,7 +26,7 @@
 | hasError | `boolean` |
 | message  | `string`  |
 
-#### Defined at [index.ts:208](../packages/main/src/index.ts#L208)
+#### Defined at [index.ts:209](../packages/main/src/index.ts#L209)
 
 ---
 
@@ -40,7 +40,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:213](../packages/main/src/index.ts#L213)
+#### Defined at [index.ts:214](../packages/main/src/index.ts#L214)
 
 ---
 
@@ -58,7 +58,7 @@
 
 `?` optional params
 
-#### Defined at [index.ts:188](../packages/main/src/index.ts#L188)
+#### Defined at [index.ts:189](../packages/main/src/index.ts#L189)
 
 ---
 
@@ -72,7 +72,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:184](../packages/main/src/index.ts#L184)
+#### Defined at [index.ts:185](../packages/main/src/index.ts#L185)
 
 ---
 
@@ -86,7 +86,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:194](../packages/main/src/index.ts#L194)
+#### Defined at [index.ts:195](../packages/main/src/index.ts#L195)
 
 ---
 
@@ -100,7 +100,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:198](../packages/main/src/index.ts#L198)
+#### Defined at [index.ts:199](../packages/main/src/index.ts#L199)
 
 ---
 
@@ -122,7 +122,7 @@
 
 `string`: custom error message returned from the validator function, or an empty string for no error.
 
-#### Defined at [index.ts:182](../packages/main/src/index.ts#L182)
+#### Defined at [index.ts:183](../packages/main/src/index.ts#L183)
 
 ---
 
@@ -130,7 +130,7 @@
 
 Ƭ `string`
 
-#### Defined at [index.ts:202](../packages/main/src/index.ts#L202)
+#### Defined at [index.ts:203](../packages/main/src/index.ts#L203)
 
 ---
 
@@ -144,7 +144,7 @@
 
 `key`: input field name
 
-#### Defined at [index.ts:204](../packages/main/src/index.ts#L204)
+#### Defined at [index.ts:205](../packages/main/src/index.ts#L205)
 
 ---
 
@@ -162,7 +162,7 @@
 
 `!` returns nothing directly to the end user as it manages the controlled form values and \_IsDirty states.
 
-#### Defined at [index.ts:179](../packages/main/src/index.ts#L179)
+#### Defined at [index.ts:180](../packages/main/src/index.ts#L180)
 
 ---
 
@@ -181,7 +181,7 @@
 `!` when the form has been validated, enabled and submitted, this callback function triggers another function set by the
 user.
 
-#### Defined at [index.ts:180](../packages/main/src/index.ts#L180)
+#### Defined at [index.ts:181](../packages/main/src/index.ts#L181)
 
 ---
 
@@ -204,7 +204,7 @@ user.
 
 `!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
 
-#### Defined at [index.ts:170](../packages/main/src/index.ts#L170)
+#### Defined at [index.ts:171](../packages/main/src/index.ts#L171)
 
 ## Docs created using:
 

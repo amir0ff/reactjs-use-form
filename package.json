@@ -4,7 +4,7 @@
   "workspaces": [
     "packages/**"
   ],
-  "version": "1.2.8",
+  "version": "1.0.0",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
@@ -24,8 +24,8 @@
     "prepare": "is-ci || husky install"
   },
   "devDependencies": {
-    "husky": "^7.0.1",
-    "prettier": "2.3.2",
+    "husky": "^7.0.2",
+    "prettier": "2.4.0",
     "is-ci": "^3.0.0"
   },
   "keywords": [

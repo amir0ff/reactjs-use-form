@@ -8,6 +8,7 @@ jobs:
   build_test_deploy:
     env:
       CI: true
+      GENERATE_SOURCEMAP: false
       INPUT_TOKEN: ${{ secrets.NPM_TOKEN }}
     runs-on: ubuntu-latest
     strategy:

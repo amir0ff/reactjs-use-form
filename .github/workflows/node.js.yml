@@ -1,15 +1,14 @@
-name: Build, Test & Deploy
+name: Test, Build & Deploy
 on:
   push:
     branches: [ main ]
   pull_request:
     branches: [ main ]
 jobs:
-  build_test_deploy:
+  test_build_deploy:
     env:
       CI: true
       GENERATE_SOURCEMAP: false
-      INPUT_TOKEN: ${{ secrets.PAT }}
     runs-on: ubuntu-latest
     strategy:
       matrix:

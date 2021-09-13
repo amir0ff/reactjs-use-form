@@ -21,7 +21,7 @@
     "build:example": "yarn workspace reactjs-use-form-example build",
     "cleanup": "rm -rf node_modules/ packages/examples/node_modules/ packages/examples/build/ packages/main/node_modules/ packages/main/dist/",
     "format": "prettier --write \"./**/*.{ts,js,json,md}\"",
-    "prepare": "is-ci || husky install"
+    "postinstall": "is-ci || husky install"
   },
   "devDependencies": {
     "husky": "^7.0.2",

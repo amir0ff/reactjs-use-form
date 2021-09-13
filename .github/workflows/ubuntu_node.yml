@@ -15,20 +15,20 @@ jobs:
       matrix:
         node-version: [ 14.x ]
     steps:
+      - name: 🔧 Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: ${{ matrix.node-version }}
+          registry-url: 'https://registry.npmjs.org'
       - name: 📥 Get latest source code
         uses: actions/checkout@v2
         with:
           submodules: recursive
           token: ${{ secrets.PAT }}
-      - name: 🔧 Setup .npmrc file
-        uses: actions/setup-node@v2
-        with:
-          node-version: ${{ matrix.node-version }}
-          registry-url: 'https://registry.npmjs.org'
       - name: 🗑️ Get yarn cache directory path
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: 🔄 Restore yarn cahce
+      - name: 🔄 Restore yarn cache
         uses: actions/cache@v2
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
@@ -36,18 +36,18 @@ jobs:
           key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
           restore-keys: |
             ${{ runner.os }}-yarn-
-      - name: 📦 Install packages using yarn
+      - name: 📦 Install dependencies
         run: yarn install
-      - name: 🧪 Test using @testing-library/react-hooks
+      - name: 🧪 Run tests suite
         run: yarn run test
-      - name: 🏗️ Build main package using rollup
+      - name: 🏗️ Build main package
         run: yarn run build
       - name: 🚚 Publish to NPM
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-          package: ./packages/main/package.json
-      - name: 🏗️ Build example app using react-scripts
+          package: packages/main/package.json
+      - name: 🏗️ Build example app
         run: yarn run build:example
       - name: 🚀 Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4

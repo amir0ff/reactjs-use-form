@@ -125,7 +125,7 @@ const ChangePassphraseComponent = () => {
         <span>{errors.verifyPassphrase.message}</span>
       </div>
       <span>{isSubmitted ? 'Passphrase has been changed!' : null}</span>
-      <button type="submit" size="sm" disabled={isDisabled}>
+      <button type="submit" disabled={isDisabled}>
         <span>Submit</span>
       </button>
     </form>
@@ -219,7 +219,7 @@ const ChangePassphraseComponent = () => {
 
 ## Options
 
-useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
+useForm takes two params: `formModel` and `formSubmitCallback` and returns the rest.
 
 ```tsx
 const {

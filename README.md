@@ -14,12 +14,12 @@ packages
   |
   ├─ main/
   |    package.json
-  └─ example/
+  └─ examples/
        package.json
 ```
-* Main: [packages/main](https://github.com/amiroff157/reactjs-use-form/tree/main/packages/main). 📦 Published to [npm](https://www.npmjs.com/package/reactjs-use-form).
+* Main module: [packages/main/](https://github.com/amiroff157/reactjs-use-form/tree/main/packages/main) 📦 Published to [npm](https://www.npmjs.com/package/reactjs-use-form).
 
-* Example: [packages/examples](https://github.com/amiroff157/reactjs-use-form/tree/main/packages/examples). 🚀 Deployed to [GitHub Pages](https://amiroff157.github.io/reactjs-use-form).
+* Examples app: [packages/examples/](https://github.com/amiroff157/reactjs-use-form/tree/main/packages/examples) 🚀 Deployed to [GitHub Pages](https://amiroff157.github.io/reactjs-use-form).
 
 ## License
 

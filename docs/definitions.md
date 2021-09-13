@@ -202,7 +202,7 @@ user.
 | formModel          | [`FormModelType`](#formmodeltype)           | initial form model with optional validation function      |
 | formSubmitCallback | `() => void`                                | function to run after form validation and submission      |
 
-`!` useForm takes two params: `formModel` and `formSubmitCallback`, returns the rest.
+`!` useForm takes two params: `formModel` and `formSubmitCallback` and returns the rest.
 
 #### Defined at [index.ts:171](../packages/main/src/index.ts#L171)
 

@@ -9,6 +9,7 @@ jobs:
     env:
       CI: true
       GENERATE_SOURCEMAP: false
+      INPUT_TOKEN: ''
     runs-on: ubuntu-latest
     strategy:
       matrix:

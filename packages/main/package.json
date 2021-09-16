@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.3.0",
+  "version": "1.3.7",
   "description": "Reactive form management and input field validation hook",
   "author": "amiroff157",
   "license": "GPL-3.0",
@@ -15,7 +15,7 @@
   "scripts": {
     "test": "craco test --env=jsdom",
     "dev": "rollup -c -w",
-    "build": "rollup -c && tsc -d --emitDeclarationOnly --noEmit false --declarationDir dist"
+    "build": "rollup -c"
   },
   "peerDependencies": {
     "react": "^17.0.2"

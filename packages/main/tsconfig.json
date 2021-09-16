@@ -1,5 +1,14 @@
 {
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "dist/",
+    "declarationDir": "."
+  },
   "extends": "../../tsconfig.json",
-  "include": ["src/"],
-  "exclude": ["node_modules/", "dist/", "src/tests/"]
+  "include": [
+    "src/"
+  ],
+  "exclude": [
+    "src/tests/"
+  ]
 }

@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import resolve from '@rollup/plugin-node-resolve';
 import peerDepsExternal from 'rollup-plugin-peer-deps-external';
-import { terser } from "rollup-plugin-terser";
+import { terser } from 'rollup-plugin-terser';
 import url from '@rollup/plugin-url';
 
 import pkg from './package.json';
@@ -28,7 +28,7 @@ export default {
     url({ exclude: ['**/*.svg'] }),
     resolve(),
     terser(),
-    typescript(),
+    typescript({ tsconfig: './tsconfig.json' }),
     commonjs({ extensions: ['.js', '.ts'] }),
   ],
 };

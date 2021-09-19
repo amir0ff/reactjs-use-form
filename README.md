@@ -5,7 +5,7 @@
 ![npm gzipped bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)
 ![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)
 
-This is a monorepo managed using [Yarn](https://github.com/yarnpkg/yarn) workspaces
+This is a monorepo managed using [npm](https://docs.npmjs.com/cli/v7/using-npm/workspaces) workspaces
 
 ```
 root

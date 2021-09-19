@@ -1,7 +1,7 @@
 name: Test, Build & Deploy
 on:
   push:
-    branches: [ main ]
+    branches: [ feat/npmworkspaces ]
   pull_request:
     branches: [ main ]
 jobs:
@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 14.x ]
+        node-version: [ 15.x ]
     steps:
       - name: 🔧 Setup Node.js
         uses: actions/setup-node@v2
@@ -25,30 +25,26 @@ jobs:
         with:
           submodules: recursive
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: 🗑️ Get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "::set-output name=dir::$(yarn cache dir)"
-      - name: 🔄 Restore yarn cache
+      - name: 🔄 Restore npm cache
         uses: actions/cache@v2
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
-            ${{ runner.os }}-yarn-
+            ${{ runner.os }}-node-
       - name: 📦 Install dependencies
-        run: yarn install
+        run: npm install
       - name: 🧪 Run tests suite
-        run: yarn run test
+        run: npm run test
       - name: 🏗️ Build main package
-        run: yarn run build
+        run: npm run build
       - name: 🚚 Publish to NPM
         uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: packages/main/package.json
       - name: 🏗️ Build example app
-        run: yarn run build:example
+        run: npm run build:example
       - name: 🚀 Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@4.1.4
         with:

@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/reactjs-use-form/static/css/main.2f6804ea.chunk.css",
-    "main.js": "/reactjs-use-form/static/js/main.49cdc099.chunk.js",
-    "runtime-main.js": "/reactjs-use-form/static/js/runtime-main.02fc82da.js",
-    "static/js/2.880ff04c.chunk.js": "/reactjs-use-form/static/js/2.880ff04c.chunk.js",
+    "main.js": "/reactjs-use-form/static/js/main.6d02edf9.chunk.js",
+    "runtime-main.js": "/reactjs-use-form/static/js/runtime-main.3090fae8.js",
+    "static/js/2.14ce86db.chunk.js": "/reactjs-use-form/static/js/2.14ce86db.chunk.js",
     "index.html": "/reactjs-use-form/index.html",
-    "static/js/2.880ff04c.chunk.js.LICENSE.txt": "/reactjs-use-form/static/js/2.880ff04c.chunk.js.LICENSE.txt"
+    "static/js/2.14ce86db.chunk.js.LICENSE.txt": "/reactjs-use-form/static/js/2.14ce86db.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.02fc82da.js",
-    "static/js/2.880ff04c.chunk.js",
+    "static/js/runtime-main.3090fae8.js",
+    "static/js/2.14ce86db.chunk.js",
     "static/css/main.2f6804ea.chunk.css",
-    "static/js/main.49cdc099.chunk.js"
+    "static/js/main.6d02edf9.chunk.js"
   ]
 }

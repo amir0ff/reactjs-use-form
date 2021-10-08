@@ -5,6 +5,7 @@
   "description": "useForm example component",
   "homepage": "https://amiroff157.github.io/reactjs-use-form",
   "main": "src/index.tsx",
+  "cracoConfig": "../../craco.config.js",
   "scripts": {
     "start": "craco start",
     "build": "craco build"

@@ -12,6 +12,7 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "cracoConfig": "../../craco.config.js",
   "scripts": {
     "test": "craco test --env=jsdom",
     "dev": "rollup -c -w",
@@ -37,7 +38,7 @@
     "typescript": "^4.3.5",
     "tslib": "^2.3.1",
     "typedoc": "^0.22.3",
-    "typedoc-plugin-markdown": "^3.11.0"
+    "typedoc-plugin-markdown": "^3.11.3"
   },
   "keywords": [
     "react",

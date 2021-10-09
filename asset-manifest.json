@@ -3,13 +3,13 @@
     "main.css": "/reactjs-use-form/static/css/main.2f6804ea.chunk.css",
     "main.js": "/reactjs-use-form/static/js/main.6d02edf9.chunk.js",
     "runtime-main.js": "/reactjs-use-form/static/js/runtime-main.3090fae8.js",
-    "static/js/2.14ce86db.chunk.js": "/reactjs-use-form/static/js/2.14ce86db.chunk.js",
+    "static/js/2.f253ec91.chunk.js": "/reactjs-use-form/static/js/2.f253ec91.chunk.js",
     "index.html": "/reactjs-use-form/index.html",
-    "static/js/2.14ce86db.chunk.js.LICENSE.txt": "/reactjs-use-form/static/js/2.14ce86db.chunk.js.LICENSE.txt"
+    "static/js/2.f253ec91.chunk.js.LICENSE.txt": "/reactjs-use-form/static/js/2.f253ec91.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.3090fae8.js",
-    "static/js/2.14ce86db.chunk.js",
+    "static/js/2.f253ec91.chunk.js",
     "static/css/main.2f6804ea.chunk.css",
     "static/js/main.6d02edf9.chunk.js"
   ]

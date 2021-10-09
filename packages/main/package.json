@@ -12,6 +12,7 @@
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
+  "cracoConfig": "../../craco.config.js",
   "scripts": {
     "test": "craco test --env=jsdom",
     "dev": "rollup -c -w",
@@ -27,7 +28,7 @@
     "@rollup/plugin-typescript": "^8.2.5",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.0.1",
-    "@types/react": "^17.0.14",
+    "@types/react": "^17.0.27",
     "@craco/craco": "^6.3.0",
     "react": "^17.0.2",
     "react-scripts": "^4.0.3",

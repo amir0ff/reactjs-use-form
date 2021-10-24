@@ -2,10 +2,10 @@
 
 [![build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/ubuntu_node.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form?label=repo%20size)
-![npm minified bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)
-![npm gzipped bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)
-![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form?label=repo%20size)](https://bundlephobia.com/package/reactjs-use-form)
+[![npm minified bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)](https://bundlephobia.com/package/reactjs-use-form)
+[![npm gzipped bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)](https://bundlephobia.com/package/reactjs-use-form)
+[![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md)
 
 #### Reactive form management and input field validation hook
 

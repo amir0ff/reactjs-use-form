@@ -33,7 +33,7 @@
     "react": "^17.0.2",
     "react-scripts": "^4.0.3",
     "react-test-renderer": "^17.0.2",
-    "rollup": "^2.26.9",
+    "rollup": "^2.58.3",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.3.5",
     "tslib": "^2.3.1",

@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/reactjs-use-form/static/css/main.2f6804ea.chunk.css",
-    "main.js": "/reactjs-use-form/static/js/main.6d02edf9.chunk.js",
+    "main.js": "/reactjs-use-form/static/js/main.630215d3.chunk.js",
     "runtime-main.js": "/reactjs-use-form/static/js/runtime-main.3090fae8.js",
     "static/js/2.f253ec91.chunk.js": "/reactjs-use-form/static/js/2.f253ec91.chunk.js",
     "index.html": "/reactjs-use-form/index.html",
@@ -11,6 +11,6 @@
     "static/js/runtime-main.3090fae8.js",
     "static/js/2.f253ec91.chunk.js",
     "static/css/main.2f6804ea.chunk.css",
-    "static/js/main.6d02edf9.chunk.js"
+    "static/js/main.630215d3.chunk.js"
   ]
 }

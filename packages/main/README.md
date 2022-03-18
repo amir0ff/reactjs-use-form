@@ -1,11 +1,11 @@
 # useForm(📋, ⚙️) ⇒ Reactive Form ⚛️
 
-[![build and tests](https://github.com/amiroff157/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amiroff157/reactjs-use-form/actions/workflows/ubuntu_node.yml)
+[![build and tests](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amiroff157/reactjs-use-form?label=repo%20size)](https://bundlephobia.com/package/reactjs-use-form)
+[![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/amir0ff/reactjs-use-form?label=repo%20size)](https://bundlephobia.com/package/reactjs-use-form)
 [![npm minified bundle size](https://img.shields.io/bundlephobia/min/reactjs-use-form?label=minified)](https://bundlephobia.com/package/reactjs-use-form)
 [![npm gzipped bundle size](https://img.shields.io/bundlephobia/minzip/reactjs-use-form?label=gzipped)](https://bundlephobia.com/package/reactjs-use-form)
-[![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md)
+[![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
 #### Reactive form management and input field validation hook
 
@@ -234,17 +234,17 @@ const {
 
 | Param              | Type                                                           | Description                                               |
 | ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
-| values             | [`ValuesType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#valuestype)                 | returns form values state object                          |
-| errors             | [`ErrorsType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`HandleOnChangeType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| values             | [`ValuesType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#valuestype)                 | returns form values state object                          |
+| errors             | [`ErrorsType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#errorstype)                 | returns form errors state object                          |
+| handleOnChange     | [`HandleOnChangeType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
 | isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
 | isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
-| formModel          | [`FormModelType`](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
+| formModel          | [`FormModelType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
 | formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
-#### Type definitions: [docs/definitions.md](https://github.com/amiroff157/reactjs-use-form/blob/main/docs/definitions.md)
+#### Type definitions: [docs/definitions.md](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
 ## License
 
-![GitHub](https://img.shields.io/github/license/amiroff157/reactjs-use-form?color=blue)
+![GitHub](https://img.shields.io/github/license/amir0ff/reactjs-use-form?color=blue)

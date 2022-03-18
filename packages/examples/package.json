@@ -3,14 +3,14 @@
   "name": "reactjs-use-form-example",
   "version": "1.0.0",
   "description": "useForm example component",
-  "homepage": "https://amiroff157.github.io/reactjs-use-form",
+  "homepage": "https://amir0ff.github.io/reactjs-use-form",
   "main": "src/index.tsx",
   "cracoConfig": "../../craco.config.js",
   "scripts": {
     "start": "craco start",
     "build": "craco build"
   },
-  "author": "amiroff157",
+  "author": "amir0ff",
   "license": "GPL-3.0",
   "devDependencies": {
     "@craco/craco": "^6.3.0",

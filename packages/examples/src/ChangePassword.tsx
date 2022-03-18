@@ -28,9 +28,9 @@ export function ChangePassword(): any {
         <Container maxWidth='xs' className='header-container'>
           <h1>useForm</h1>
           <div className='social-links'>
-            <a href='https://github.com/amiroff157/reactjs-use-form' target='_blank'>
+            <a href='https://github.com/amir0ff/reactjs-use-form' target='_blank'>
               <img alt='GitHub Repo stars'
-                   src='https://img.shields.io/github/stars/amiroff157/reactjs-use-form?label=GitHub&style=social' />
+                   src='https://img.shields.io/github/stars/amir0ff/reactjs-use-form?label=GitHub&style=social' />
             </a>
             <a href='https://www.npmjs.com/package/reactjs-use-form' target='_blank'>
               <img alt='npm' src='https://img.shields.io/npm/v/reactjs-use-form?label=NPM&style=social' />

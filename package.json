@@ -6,12 +6,12 @@
   ],
   "version": "1.0.0",
   "description": "Reactive form management and input field validation hook",
-  "author": "amiroff157",
+  "author": "amir0ff",
   "license": "GPL-3.0",
-  "homepage": "https://amiroff157.github.io/reactjs-use-form",
+  "homepage": "https://amir0ff.github.io/reactjs-use-form",
   "repository": {
     "type": "git",
-    "url": "https://github.com/amiroff157/reactjs-use-form"
+    "url": "https://github.com/amir0ff/reactjs-use-form"
   },
   "scripts": {
     "test": "yarn workspace reactjs-use-form test",

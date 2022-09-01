@@ -24,7 +24,7 @@
   "devDependencies": {
     "@rollup/plugin-commonjs": "^20.0.0",
     "@rollup/plugin-typescript": "^8.2.5",
-    "@rollup/plugin-commonjs": "^19.0.0",
+    "@rollup/plugin-commonjs": "^22.0.2",
     "@rollup/plugin-typescript": "^8.2.5",
     "@testing-library/react-hooks": "^7.0.2",
     "@types/jest": "^27.0.1",

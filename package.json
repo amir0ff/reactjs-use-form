@@ -7,7 +7,7 @@
   "version": "1.0.0",
   "description": "Reactive form management and input field validation hook",
   "author": "amir0ff",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "homepage": "https://amir0ff.github.io/reactjs-use-form",
   "repository": {
     "type": "git",
@@ -24,9 +24,9 @@
     "postinstall": "is-ci || husky install"
   },
   "devDependencies": {
-    "husky": "^7.0.2",
-    "prettier": "2.4.1",
-    "is-ci": "^3.0.0"
+    "husky": "^8.0.1",
+    "prettier": "2.7.1",
+    "is-ci": "^3.0.1"
   },
   "keywords": [
     "react",

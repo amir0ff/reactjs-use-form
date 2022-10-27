@@ -90,8 +90,8 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
     (event) => {
       setIsTouched(true);
 
-      const inputName = event.currentTarget.name;
-      const inputValue = event.currentTarget.value;
+      const inputName = event.currentTarget?.name || event.target?.name;
+      const inputValue = event.currentTarget?.value || event.target?.value;
 
       if (formModel[inputName]) {
         // proceed only if the change input exits in the formModel

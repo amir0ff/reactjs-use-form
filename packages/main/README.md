@@ -240,6 +240,7 @@ const {
 | handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
 | isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
 | isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
+| isDirty        | `boolean`                                                      | returns `true` when the form recieves data |
 | formModel          | [`FormModelType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
 | formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 

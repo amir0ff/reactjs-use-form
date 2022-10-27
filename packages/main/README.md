@@ -150,13 +150,14 @@ const ChangePassphraseComponent = () => {
     handleOnChange,
     handleOnSubmit,
     isDisabled,
-    isSubmitted
+    isSubmitted,
+    isDirty
   } = useForm(formModel, handleSubmit);
 
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
 
   function handleSubmit() {
-    // formSubmitCallback();
+    if (isDirty) formSubmitCallback();
   }
 
   return (
@@ -228,7 +229,8 @@ const {
   handleOnChange,
   handleOnSubmit,
   isDisabled,
-  isSubmitted
+  isSubmitted,
+  isDirty
 } = useForm(formModel, formSubmitCallback);
 ```
 

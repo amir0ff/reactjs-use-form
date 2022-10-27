@@ -141,29 +141,29 @@ function initializeState(formModel: FormModelType, state: string) {
    {values} and {_isRequired} are pulled from the formModel
   */
   switch (state) {
-  case 'values':
-    return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
-      inputValues[inputName] = formModel[inputName]['value'];
+    case 'values':
+      return Object.keys(formModel).reduce((inputValues: ValuesType, inputName: string) => {
+        inputValues[inputName] = formModel[inputName]['value'];
 
-      return inputValues;
-    }, {});
-  case 'errors':
-    return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
-      inputErrors[inputName] = { hasError: false, message: '' };
-      return inputErrors;
-    }, {});
-  case '_isDirty':
-    return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
-      dirtyInputs[inputName] = false;
-      return dirtyInputs;
-    }, {});
-  case '_isRequired':
-    return Object.keys(formModel).reduce((requiredInputs: IsRequiredType, inputName: string) => {
-      requiredInputs[inputName] = formModel[inputName]['required'];
-      return requiredInputs;
-    }, {});
-  default:
-    return {} as any;
+        return inputValues;
+      }, {});
+    case 'errors':
+      return Object.keys(formModel).reduce((inputErrors: ErrorsType, inputName: string) => {
+        inputErrors[inputName] = { hasError: false, message: '' };
+        return inputErrors;
+      }, {});
+    case '_isDirty':
+      return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType, inputName: string) => {
+        dirtyInputs[inputName] = false;
+        return dirtyInputs;
+      }, {});
+    case '_isRequired':
+      return Object.keys(formModel).reduce((requiredInputs: IsRequiredType, inputName: string) => {
+        requiredInputs[inputName] = formModel[inputName]['required'];
+        return requiredInputs;
+      }, {});
+    default:
+      return {} as any;
   }
 }
 
@@ -177,7 +177,7 @@ export type useFormType = {
   isDisabled: boolean;
 };
 
-type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+type HandleOnChangeType = (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
 type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
 
 type ValidatorFuncType = (value: ValueType, values?: ValuesType) => string;

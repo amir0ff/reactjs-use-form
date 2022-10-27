@@ -5,15 +5,16 @@ import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react'
  *
  * @param {object} formModel - initial form model with optional validation function.
  * @param {function} formSubmitCallback - function to run after form validation and submission.
- * @returns {{handleOnChange: function, handleOnSubmit: function, values: object, errors: object, isDisabled: boolean, isSubmitted: boolean}}
+ * @returns {{handleOnChange: function, handleOnSubmit: function, values: object, errors: object, isDisabled: boolean, isSubmitted: boolean, isDirty: boolean}}
  **/
 export function useForm(formModel: FormModelType, formSubmitCallback: () => void): useFormType {
   const [values, setValues] = useState(initializeState(formModel, 'values'));
   const [errors, setErrors] = useState(initializeState(formModel, 'errors'));
-  const [_isDirty, setIsDirty] = useState(initializeState(formModel, '_isDirty'));
+  const [_isDirty, _setIsDirty] = useState(initializeState(formModel, '_isDirty'));
   const [isDisabled, setIsDisabled] = useState(true);
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [_isTouched, setIsTouched] = useState(false);
+  const [isDirty, setIsDirty] = useState(false);
+  const [_isTouched, _setIsTouched] = useState(false);
 
   useEffect(() => {
     /*
@@ -88,12 +89,14 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
 
   const handleOnChange = useCallback(
     (event) => {
-      setIsTouched(true);
+      _setIsTouched(true);
 
       const inputName = event.currentTarget?.name || event.target?.name;
       const inputValue = event.currentTarget?.value || event.target?.value;
 
       if (formModel[inputName]) {
+        setIsDirty(true);
+
         // proceed only if the change input exits in the formModel
         setValues((values: ValuesType) => ({
           ...values,
@@ -101,7 +104,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
         }));
         if (_isDirty[inputName] === false) {
           // proceed only if input field is not dirty
-          setIsDirty((_isDirty: IsDirtyType) => ({
+          _setIsDirty((_isDirty: IsDirtyType) => ({
             ..._isDirty,
             [inputName]: true,
           }));
@@ -132,6 +135,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
     errors,
     isSubmitted,
     isDisabled,
+    isDirty,
   };
 }
 
@@ -175,6 +179,7 @@ export type useFormType = {
   errors: ErrorsType;
   isSubmitted: boolean;
   isDisabled: boolean;
+  isDirty: boolean;
 };
 
 type HandleOnChangeType = (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;

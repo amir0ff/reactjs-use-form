@@ -74,7 +74,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
 
     return formHasErrors() || isRequiredInputEmpty();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errors]);
+  }, [errors, values]);
 
   useEffect(() => {
     /*
@@ -85,7 +85,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
       setIsDisabled(isFormInvalid());
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [errors]);
+  }, [errors, values]);
 
   const handleOnChange = useCallback(
     (event) => {

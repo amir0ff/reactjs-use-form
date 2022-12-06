@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from 'react';
+import { ChangeEvent, FormEvent, useCallback, useEffect, useState } from "react";
 
 /**
  * Reactive form management and input field validation hook
@@ -122,6 +122,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
       if (!isFormInvalid()) {
         formSubmitCallback();
         setIsSubmitted(true);
+        setIsDirty(false);
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps

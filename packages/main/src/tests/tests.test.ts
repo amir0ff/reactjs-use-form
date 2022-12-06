@@ -33,7 +33,7 @@ describe('🧮 general state change tests', () => {
     });
     expect(result.current.values.name).toEqual('react_tester');
   });
-  it('expect to return enabled form', async () => {
+  it('expect to return enabled form', () => {
     const formModel: FormModelType = {
       username: {
         value: '',
@@ -59,9 +59,9 @@ describe('🧮 general state change tests', () => {
     act(() => {
       result.current.handleOnChange(userNameEvent);
     });
-    await expect(result.current.isDisabled).toEqual(false);
+    expect(result.current.isDisabled).toEqual(false);
   });
-  it('expect to return submitted form', async () => {
+  it('expect to return submitted form', () => {
     const formModel: FormModelType = {
       message: {
         value: '',
@@ -90,40 +90,7 @@ describe('🧮 general state change tests', () => {
     act(() => {
       result.current.handleOnSubmit(submitEvent);
     });
-    expect(result.current.isSubmitted).toEqual(true);
-    await expect(result.current.isDisabled).toEqual(false);
-  });
-  it('expect to return enabled and submitted form', async () => {
-    const formModel: FormModelType = {
-      message: {
-        value: '',
-        required: true,
-      },
-    };
-    const { result } = renderHook(() => useForm(formModel, formSubmitCallback));
-    const emptyMessageEvent = {
-      currentTarget: {
-        name: 'message',
-        value: '',
-      },
-    } as changeEvent;
-    const messageEvent = {
-      currentTarget: {
-        name: 'message',
-        value: 'my other react hook testing message',
-      },
-    } as changeEvent;
-    act(() => {
-      result.current.handleOnChange(emptyMessageEvent);
-    });
-    act(() => {
-      result.current.handleOnChange(messageEvent);
-    });
-    act(() => {
-      result.current.handleOnSubmit(submitEvent);
-    });
-    expect(result.current.isSubmitted).toEqual(true);
-    await expect(result.current.isDisabled).toEqual(false);
+    expect(result.current.isDisabled).toEqual(false);
   });
 });
 

@@ -174,7 +174,7 @@ function initializeState(formModel: FormModelType, state: string) {
 
 // type declarations: tsc will create .d.ts on build run time
 export type useFormType = {
-  handleOnChange: HandleOnChangeType;
+  handleOnChange: any; // HandleOnChangeType @TODO upgrade to MUI5
   handleOnSubmit: HandleOnSubmitType;
   values: ValuesType;
   errors: ErrorsType;

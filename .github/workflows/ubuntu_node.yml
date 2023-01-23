@@ -47,6 +47,7 @@ jobs:
         with:
           token: ${{ secrets.NPM_TOKEN }}
           package: packages/main/package.json
+          tag: 'beta'
       - name: 🏗️ Build example app
         run: yarn run build:example
       - name: 🚀 Deploy to GitHub Pages

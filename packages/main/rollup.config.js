@@ -2,7 +2,7 @@ import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import { terser } from 'rollup-plugin-terser';
 
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 export default {
   input: 'src/index.ts',
@@ -21,9 +21,5 @@ export default {
     },
   ],
   external: ['react'],
-  plugins: [
-    commonjs({ extensions: ['.js', '.ts'] }),
-    typescript({ tsconfig: './tsconfig.json' }),
-    terser(),
-  ],
+  plugins: [commonjs({ extensions: ['.js', '.ts'] }), typescript({ tsconfig: './tsconfig.json' }), terser()],
 };

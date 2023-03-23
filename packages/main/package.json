@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.5.0-beta.0",
+  "version": "1.5.0",
   "description": "Reactive form management and input field validation hook",
   "author": "amir0ff",
   "license": "MIT",
@@ -9,6 +9,7 @@
     "type": "git",
     "url": "https://github.com/amir0ff/reactjs-use-form"
   },
+  "type": "module",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "types": "dist/index.d.ts",
@@ -19,22 +20,22 @@
     "build": "rollup -c"
   },
   "peerDependencies": {
-    "react": "^17.0.2"
+    "react": "^18.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.2",
-    "@rollup/plugin-typescript": "^8.4.0",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-typescript": "^11.0.0",
     "@testing-library/react-hooks": "^8.0.1",
-    "@types/jest": "^29.0.0",
-    "@types/react": "^17.0.27",
-    "@craco/craco": "^6.4.5",
-    "react": "^17.0.2",
+    "@types/jest": "^29.5.0",
+    "@types/react": "^18.0.28",
+    "@craco/craco": "^7.1.0",
+    "react": "^18.2.0",
     "react-scripts": "^5.0.1",
-    "react-test-renderer": "^17.0.2",
-    "rollup": "^2.79.0",
+    "react-test-renderer": "^18.2.0",
+    "rollup": "^3.20.1",
     "rollup-plugin-terser": "^7.0.2",
     "typescript": "^4.8.2",
-    "tslib": "^2.4.0",
+    "tslib": "^2.5.0",
     "typedoc": "^0.23.13",
     "typedoc-plugin-markdown": "^3.13.5"
   },

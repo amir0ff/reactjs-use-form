@@ -88,7 +88,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
   }, [errors, values]);
 
   const handleOnChange = useCallback(
-    (event) => {
+    (event: any) => {
       _setIsTouched(true);
 
       const inputName = event.currentTarget?.name || event.target?.name;
@@ -116,7 +116,7 @@ export function useForm(formModel: FormModelType, formSubmitCallback: () => void
   );
 
   const handleOnSubmit = useCallback(
-    (event) => {
+    (event: any) => {
       event.preventDefault();
 
       if (!isFormInvalid()) {

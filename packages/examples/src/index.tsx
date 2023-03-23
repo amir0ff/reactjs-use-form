@@ -1,14 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import { ThemeProvider } from '@material-ui/core/styles';
+import { createRoot } from 'react-dom/client';
+import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles';
 import { theme } from './theme/theme';
 import { ChangePassword } from './ChangePassword';
 
-ReactDOM.render(
-  <React.StrictMode>
+const container = document.getElementById('root');
+const root = createRoot(container!);
+
+root.render(
+  <StyledEngineProvider injectFirst>
     <ThemeProvider theme={theme}>
       <ChangePassword />
     </ThemeProvider>
-  </React.StrictMode>,
-  document.getElementById('root'),
+  </StyledEngineProvider>,
 );

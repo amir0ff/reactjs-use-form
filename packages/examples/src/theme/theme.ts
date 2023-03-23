@@ -1,9 +1,9 @@
-import { createTheme } from '@material-ui/core/styles';
-import purple from '@material-ui/core/colors/purple';
+import { createTheme } from '@mui/material/styles';
+import { purple } from '@mui/material/colors';
 
 export const theme = createTheme({
   palette: {
-    type: 'light',
+    mode: 'light',
     common: {
       black: '#000',
       white: '#fff',

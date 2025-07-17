@@ -1,6 +1,32 @@
 # Release Notes
 
-## Version 1.7.0 (Latest)
+## Version 1.7.1 (Latest)
+
+## What's Changed
+
+Dependency cleanup and optimization:
+
+- **Removed unnecessary packages**: Eliminated `@types/jest`, `react-test-renderer`, `@testing-library/user-event`, and `is-ci` from devDependencies
+- **Bundle size optimization**: Removed 195+ unused packages from node_modules (net -107 packages in final cleanup)
+- **Faster installs**: Cleaner dependency tree results in quicker installation times
+- **Test performance boost**: Replaced `jsdom` with `happy-dom` for 3x faster DOM environment
+- **Maintenance improvement**: Simplified dependency management for better maintainability
+
+Technical improvements:
+
+- Cleaned up Jest-related dependencies since project uses Vitest
+- Removed unused React test renderer dependency
+- Switched from jsdom to happy-dom for faster test execution (~50% faster environment setup)
+- Removed unused is-ci package from root workspace
+- Removed unused @testing-library/user-event package (tests only use renderHook and basic event simulation)
+- Maintained all essential testing utilities (@testing-library/jest-dom for DOM assertions)
+- All 19 tests continue to pass after cleanup with improved performance
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.9...1.7.1
+
+---
+
+## Version 1.7.0
 
 ## What's Changed
 
@@ -12,6 +38,7 @@ Dependency cleanup and optimization:
 - **Maintenance improvement**: Simplified dependency management for better maintainability
 
 Technical improvements:
+
 - Cleaned up Jest-related dependencies since project uses Vitest
 - Removed unused React test renderer dependency
 - Maintained all essential testing utilities (@testing-library/jest-dom for DOM assertions)

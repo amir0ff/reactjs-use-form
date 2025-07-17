@@ -30,8 +30,7 @@
   },
   "devDependencies": {
     "husky": "^9.1.7",
-    "prettier": "^3.6.2",
-    "is-ci": "^4.1.0"
+    "prettier": "^3.6.2"
   },
   "keywords": [
     "react",

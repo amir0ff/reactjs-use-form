@@ -92,7 +92,10 @@ const ChangePassphraseComponent = () => {
     handleOnSubmit,
     isDisabled,
     isSubmitted,
-    isDirty
+    isSubmitting,
+    isDirty,
+    resetForm,
+    resetField
   } = useForm(formModel, handleSubmit);
 
   const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
@@ -112,6 +115,9 @@ const ChangePassphraseComponent = () => {
           onChange={handleOnChange}
         />
         <span>{errors.currentPassphrase.message}</span>
+        <button type="button" onClick={() => resetField('currentPassphrase')}>
+          Clear
+        </button>
       </div>
       <div>
         <label>New Passphrase</label>
@@ -122,6 +128,9 @@ const ChangePassphraseComponent = () => {
           onChange={handleOnChange}
         />
         <span>{errors.newPassphrase.message}</span>
+        <button type="button" onClick={() => resetField('newPassphrase')}>
+          Clear
+        </button>
       </div>
       <div>
         <label>Verify Passphrase</label>
@@ -132,10 +141,16 @@ const ChangePassphraseComponent = () => {
           onChange={handleOnChange}
         />
         <span>{errors.verifyPassphrase.message}</span>
+        <button type="button" onClick={() => resetField('verifyPassphrase')}>
+          Clear
+        </button>
       </div>
       <span>{isSubmitted ? 'Passphrase has been changed!' : null}</span>
       <button type="submit" disabled={isDisabled}>
-        <span>Submit</span>
+        <span>{isSubmitting ? 'Changing...' : 'Submit'}</span>
+      </button>
+      <button type="button" onClick={resetForm}>
+        Reset Form
       </button>
     </form>
   );
@@ -156,21 +171,27 @@ const {
   handleOnSubmit,
   isDisabled,
   isSubmitted,
-  isDirty
+  isSubmitting,
+  isDirty,
+  resetForm,
+  resetField
 } = useForm(formModel, formSubmitCallback);
 ```
 
-| Param              | Type                                                           | Description                                               |
+| Property           | Type                                                           | Description                                               |
 | ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
-| values             | [`ValuesType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#valuestype)                 | returns form values state object                          |
-| errors             | [`ErrorsType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`HandleOnChangeType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
-| isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
-| isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
-| isDirty        | `boolean`                                                      | returns `true` when the form recieves data |
+| values             | [`ValuesType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#valuestype)                 | current form values state object                          |
+| errors             | [`ErrorsType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#errorstype)                 | current form errors state object                          |
+| handleOnChange     | [`HandleOnChangeType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonchangetype) | handler for input field changes                          |
+| handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | handler for form submission                              |
+| isDisabled         | `boolean`                                                      | whether form submit button should be disabled            |
+| isSubmitted        | `boolean`                                                      | whether form has been successfully submitted             |
+| isSubmitting       | `boolean`                                                      | whether form is currently being submitted                |
+| isDirty            | `boolean`                                                      | whether any form field has been modified                |
+| resetForm          | `() => void`                                                   | function to reset entire form                            |
+| resetField         | `(fieldName: keyof T) => void`                                | function to reset specific field                         |
 | formModel          | [`FormModelType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
-| formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
+| formSubmitCallback | `(values: T) => void \| Promise<void>`                        | async callback function executed on successful form submission |
 
 #### Type definitions: [docs/definitions.md](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 

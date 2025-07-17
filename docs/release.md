@@ -1,14 +1,31 @@
 # Release Notes
 
-## Version 1.6.6 (Latest)
+## Version 1.6.7 (Latest)
 
 ## What's Changed
+Documentation improvements and API completeness:
+- Updated README.md to match comprehensive docs/definitions.md
+- Included `isSubmitting`, `resetForm`, and `resetField` in documentation
+- Updated `formSubmitCallback` type to show async support and value parameter
+- Enhanced property descriptions for better clarity and accuracy
+- Added missing properties to destructuring examples
+- README now documents all 10 available useForm properties/functions
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.6...1.6.7
+
+---
+
+## Version 1.6.6
+
+## What's Changed
+
 Security and deployment fixes:
-- **🔒 Security vulnerability resolved**: Update vitest to v3.2.4 to fix esbuild vulnerability (GHSA-67mh-4wv8-2f99)
-- **🚀 GitHub Pages deployment fixed**: Update workflow to use correct build output directory (`build/` instead of `dist/`)
-- **🧪 Test compatibility maintained**: All 19 tests continue to pass with updated vitest
-- **📦 Dependency updates**: Updated build tools for better security and performance
-- **✅ Zero vulnerabilities**: Complete resolution of all known security issues
+
+- Update vitest to v3.2.4 to fix esbuild vulnerability (GHSA-67mh-4wv8-2f99)
+- Update workflow to use correct build output directory (`build/` instead of `dist/`)
+- All 19 tests continue to pass with updated vitest
+- Updated build tools for better security and performance
+- Complete resolution of all known security issues
 
 **Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.5...1.6.6
 

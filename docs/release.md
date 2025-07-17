@@ -1,6 +1,32 @@
 # Release Notes
 
-## Version 1.6.8 (Latest)
+## Version 1.6.9 (Latest)
+
+## What's Changed
+
+Performance optimization and efficiency improvements:
+
+- **Optimized validation effect**: Implemented shallow comparison to prevent unnecessary re-renders when values haven't actually changed
+- **Enhanced error object comparison**: Added specialized equality check for error objects to avoid unnecessary state updates
+- **Improved state batching**: Optimized state updates with early returns and conditional updates to minimize re-renders
+- **Memory optimization**: Replaced `Object.keys().reduce()` with `for...in` loops for better performance in utility functions
+- **Validation efficiency**: Optimized validation to only create new objects when changes are detected
+- **Reference tracking**: Added `useRef` to track previous values for intelligent change detection
+- **Reduced object creation**: Minimized object spread operations and unnecessary allocations
+- **Loop optimization**: Replaced `Array.some()` and `Array.filter()` with `for...in` loops for better performance
+
+Technical improvements:
+- Added `shallowEqual` utility for efficient object comparison
+- Added `errorObjectsEqual` utility for specialized error object comparison
+- Enhanced `handleOnChange` with early returns and conditional dirty state updates
+- Optimized computed values (`isDirty`, `hasFormErrors`, `hasEmptyRequiredFields`) to use loops instead of array methods
+- Improved validation effect to only run when actual changes are detected
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.8...1.6.9
+
+---
+
+## Version 1.6.8
 
 ## What's Changed
 

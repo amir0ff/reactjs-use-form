@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 
 // =============================================================================
@@ -13,33 +13,75 @@ const REQUIRED_ERROR: ErrorType = { hasError: true, message: 'This field is requ
 // =============================================================================
 
 /**
+ * Shallow compare two objects for equality
+ */
+function shallowEqual<T extends Record<string, any>>(obj1: T, obj2: T): boolean {
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  
+  if (keys1.length !== keys2.length) return false;
+  
+  for (const key of keys1) {
+    if (obj1[key] !== obj2[key]) return false;
+  }
+  
+  return true;
+}
+
+/**
+ * Shallow compare error objects for equality
+ */
+function errorObjectsEqual<T extends Record<string, any>>(
+  errors1: ErrorsType<T>, 
+  errors2: ErrorsType<T>
+): boolean {
+  const keys1 = Object.keys(errors1);
+  const keys2 = Object.keys(errors2);
+  
+  if (keys1.length !== keys2.length) return false;
+  
+  for (const key of keys1) {
+    const err1 = errors1[key as keyof T];
+    const err2 = errors2[key as keyof T];
+    if (err1.hasError !== err2.hasError || err1.message !== err2.message) {
+      return false;
+    }
+  }
+  
+  return true;
+}
+
+/**
  * Creates initial values object from form model
  */
 function createInitialValues<T extends Record<string, any>>(formModel: FormModelType<T>): T {
-  return Object.keys(formModel).reduce((acc, key) => {
-    acc[key as keyof T] = formModel[key as keyof T].value as T[keyof T];
-    return acc;
-  }, {} as T);
+  const result = {} as T;
+  for (const key in formModel) {
+    result[key as keyof T] = formModel[key].value as T[keyof T];
+  }
+  return result;
 }
 
 /**
  * Creates initial errors object from form model
  */
 function createInitialErrors<T extends Record<string, any>>(formModel: FormModelType<T>): ErrorsType<T> {
-  return Object.keys(formModel).reduce((acc, key) => {
-    acc[key as keyof T] = CLEAR_ERROR;
-    return acc;
-  }, {} as ErrorsType<T>);
+  const result = {} as ErrorsType<T>;
+  for (const key in formModel) {
+    result[key as keyof T] = CLEAR_ERROR;
+  }
+  return result;
 }
 
 /**
  * Creates initial dirty state object from form model
  */
 function createInitialDirtyState<T extends Record<string, any>>(formModel: FormModelType<T>): IsDirtyType<T> {
-  return Object.keys(formModel).reduce((acc, key) => {
-    acc[key as keyof T] = false;
-    return acc;
-  }, {} as IsDirtyType<T>);
+  const result = {} as IsDirtyType<T>;
+  for (const key in formModel) {
+    result[key as keyof T] = false;
+  }
+  return result;
 }
 
 /**
@@ -48,10 +90,11 @@ function createInitialDirtyState<T extends Record<string, any>>(formModel: FormM
 function createRequiredFieldsMap<T extends Record<string, any>>(
   formModel: FormModelType<T>,
 ): IsRequiredType<T> {
-  return Object.keys(formModel).reduce((acc, key) => {
-    acc[key as keyof T] = formModel[key as keyof T].required;
-    return acc;
-  }, {} as IsRequiredType<T>);
+  const result = {} as IsRequiredType<T>;
+  for (const key in formModel) {
+    result[key as keyof T] = formModel[key].required;
+  }
+  return result;
 }
 
 /**
@@ -80,7 +123,7 @@ function validateField<T extends Record<string, any>>(
 }
 
 /**
- * Validates multiple fields efficiently
+ * Validates multiple fields efficiently with minimal object creation
  */
 function validateFields<T extends Record<string, any>>(
   dirtyFields: IsDirtyType<T>,
@@ -88,36 +131,36 @@ function validateFields<T extends Record<string, any>>(
   formModel: FormModelType<T>,
   currentErrors: ErrorsType<T>,
 ): ErrorsType<T> {
-  const fieldsToValidate = Object.keys(dirtyFields).filter(
-    (key) => dirtyFields[key as keyof T],
-  ) as (keyof T)[];
+  let hasChanges = false;
+  let newErrors = currentErrors;
 
-  if (fieldsToValidate.length === 0) {
-    return currentErrors;
+  for (const key in dirtyFields) {
+    if (dirtyFields[key]) {
+      const fieldValue = values[key];
+      const fieldConfig = formModel[key];
+      const newError = validateField(key, fieldValue, fieldConfig, values);
+
+      if (newError.message !== currentErrors[key].message || newError.hasError !== currentErrors[key].hasError) {
+        if (!hasChanges) {
+          newErrors = { ...currentErrors };
+          hasChanges = true;
+        }
+        newErrors[key] = newError;
+      }
+    }
   }
 
-  const newErrors = { ...currentErrors };
-  let hasChanges = false;
-
-  fieldsToValidate.forEach((fieldName) => {
-    const fieldValue = values[fieldName];
-    const fieldConfig = formModel[fieldName];
-    const newError = validateField(fieldName, fieldValue, fieldConfig, values);
-
-    if (newError.message !== currentErrors[fieldName].message) {
-      newErrors[fieldName] = newError;
-      hasChanges = true;
-    }
-  });
-
-  return hasChanges ? newErrors : currentErrors;
+  return newErrors;
 }
 
 /**
  * Checks if form has validation errors
  */
 function hasFormErrors<T extends Record<string, any>>(errors: ErrorsType<T>): boolean {
-  return Object.values(errors).some((error) => error.hasError);
+  for (const key in errors) {
+    if (errors[key].hasError) return true;
+  }
+  return false;
 }
 
 /**
@@ -127,10 +170,10 @@ function hasEmptyRequiredFields<T extends Record<string, any>>(
   values: T,
   requiredFields: IsRequiredType<T>,
 ): boolean {
-  return Object.keys(requiredFields).some((key) => {
-    const fieldName = key as keyof T;
-    return requiredFields[fieldName] && !values[fieldName];
-  });
+  for (const key in requiredFields) {
+    if (requiredFields[key] && !values[key]) return true;
+  }
+  return false;
 }
 
 // =============================================================================
@@ -146,6 +189,7 @@ function hasEmptyRequiredFields<T extends Record<string, any>>(
  * - Dirty/touched state tracking for better UX
  * - Form and field reset utilities
  * - TypeScript support with generic types
+ * - Optimized performance with memoization and shallow comparisons
  *
  * @template T - The shape of the form values object
  * @param {FormModelType<T>} formModel - Configuration object defining form fields, initial values, validation rules, and required fields
@@ -188,9 +232,16 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
-  // Computed state
+  // Use refs to track previous values for optimization
+  const prevValuesRef = useRef<T>(values);
+  const prevFieldDirtyStateRef = useRef<IsDirtyType<T>>(fieldDirtyState);
+
+  // Computed state with optimized dependencies
   const isDirty = useMemo(() => {
-    return Object.values(fieldDirtyState).some(Boolean);
+    for (const key in fieldDirtyState) {
+      if (fieldDirtyState[key]) return true;
+    }
+    return false;
   }, [fieldDirtyState]);
 
   const isFormInvalid = useMemo(() => {
@@ -201,18 +252,29 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     return !isTouched || isFormInvalid;
   }, [isTouched, isFormInvalid]);
 
-  // Validation effect - optimized to only run when necessary
+  // Optimized validation effect - only run when necessary
   useEffect(() => {
     if (!isTouched) return;
 
-    const newErrors = validateFields(fieldDirtyState, values, formModel, errors);
-    if (newErrors !== errors) {
-      setErrors(newErrors);
+    const valuesChanged = !shallowEqual(prevValuesRef.current, values);
+    const dirtyStateChanged = !shallowEqual(prevFieldDirtyStateRef.current, fieldDirtyState);
+
+    if (valuesChanged || dirtyStateChanged) {
+      const newErrors = validateFields(fieldDirtyState, values, formModel, errors);
+      
+      if (!errorObjectsEqual(errors, newErrors)) {
+        setErrors(newErrors);
+      }
+
+      // Update refs for next comparison
+      prevValuesRef.current = values;
+      prevFieldDirtyStateRef.current = fieldDirtyState;
     }
   }, [values, fieldDirtyState, formModel, errors, isTouched]);
 
   /**
    * Handles input field changes, updates form values, and marks fields as dirty.
+   * Optimized with early returns and minimal state updates.
    */
   const handleOnChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
@@ -221,19 +283,30 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 
       if (!formModel[fieldName]) return;
 
+      const currentValue = values[fieldName];
+      const isCurrentlyDirty = fieldDirtyState[fieldName];
+
+      // Early return if value hasn't changed and field is already dirty
+      // Allow validation to run if field is not dirty yet (first interaction)
+      if (currentValue === fieldValue && isCurrentlyDirty) return;
+
       setIsTouched(true);
 
+      // Batch state updates
       setValues((prev) => ({
         ...prev,
         [fieldName]: fieldValue as T[keyof T],
       }));
 
-      setFieldDirtyState((prev) => ({
-        ...prev,
-        [fieldName]: true,
-      }));
+      // Only update dirty state if it's changing
+      if (!isCurrentlyDirty) {
+        setFieldDirtyState((prev) => ({
+          ...prev,
+          [fieldName]: true,
+        }));
+      }
     },
-    [formModel],
+    [formModel, values, fieldDirtyState],
   );
 
   /**
@@ -270,6 +343,10 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     setIsSubmitted(false);
     setIsSubmitting(false);
     setIsTouched(false);
+    
+    // Reset refs
+    prevValuesRef.current = initialValues;
+    prevFieldDirtyStateRef.current = initialDirtyState;
   }, [initialValues, initialErrors, initialDirtyState]);
 
   /**

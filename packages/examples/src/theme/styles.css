@@ -57,7 +57,7 @@
   * {
     border-color: hsl(var(--border));
   }
-  body {
+body {
     background-color: hsl(var(--background));
     color: hsl(var(--foreground));
     font-family: 'Roboto', sans-serif;
@@ -66,23 +66,23 @@
 
 /* Custom styles for the form header */
 h1 {
-  font-family: 'Source Code Pro', sans-serif;
+    font-family: 'Source Code Pro', sans-serif;
   font-size: 3.25rem;
-  font-weight: 700;
-  text-align: center;
+    font-weight: 700;
+    text-align: center;
   margin-bottom: 2rem;
   padding-bottom: 2rem;
   border-bottom: 1px solid hsl(var(--border));
-  letter-spacing: -3px;
+    letter-spacing: -3px;
 }
 
 .header-container {
-  position: relative;
+    position: relative;
   margin-bottom: 2rem;
 }
 
 .social-links {
-  position: absolute;
+    position: absolute;
   top: 4.5rem;
   left: 50%;
   transform: translateX(-50%);
@@ -92,10 +92,10 @@ h1 {
 }
 
 .banner {
-  font-family: 'Source Code Pro', monospace;
+    font-family: 'Source Code Pro', monospace;
   font-size: 0.875rem;
-  font-weight: 400;
-  position: absolute;
+    font-weight: 400;
+    position: absolute;
   top: 0.125rem;
   right: 132px;
   color: hsl(var(--muted-foreground));

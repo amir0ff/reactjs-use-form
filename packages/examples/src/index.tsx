@@ -8,6 +8,6 @@ const root = createRoot(container!);
 
 root.render(
   <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
-    <ChangePassword />
+      <ChangePassword />
   </ThemeProvider>,
 );

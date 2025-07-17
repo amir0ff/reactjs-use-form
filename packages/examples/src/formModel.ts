@@ -1,4 +1,4 @@
-import { FormModelType } from '../../main/src';
+import type { FormModelType } from 'reactjs-use-form';
 
 export const formModel: FormModelType = {
   currentPassphrase: {

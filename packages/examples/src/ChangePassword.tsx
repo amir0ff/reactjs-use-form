@@ -9,7 +9,8 @@ import {
   Grid,
   TextField,
 } from '@mui/material';
-import { useForm, ValuesType } from 'reactjs-use-form';
+import { useForm } from 'reactjs-use-form';
+import type { ValuesType } from 'reactjs-use-form';
 import './theme/styles.css';
 import { formModel } from './formModel';
 

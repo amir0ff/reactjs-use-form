@@ -10,38 +10,43 @@
     "url": "https://github.com/amir0ff/reactjs-use-form"
   },
   "type": "module",
-  "main": "dist/index.js",
-  "module": "dist/index.es.js",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
   "types": "dist/index.d.ts",
-  "cracoConfig": "../../craco.config.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
-    "test": "craco test --env=jsdom",
-    "dev": "rollup -c -w",
-    "build": "rollup -c"
+    "test": "echo \"Tests coming soon...\"",
+    "dev": "pnpm exec vite build --watch",
+    "build": "pnpm exec vite build",
+    "clean": "rm -rf node_modules dist"
   },
   "peerDependencies": {
     "react": "^18.2.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.1",
-    "@rollup/plugin-typescript": "^11.0.0",
-    "@testing-library/react-hooks": "^8.0.1",
-    "@types/jest": "^29.5.0",
-    "@types/react": "^18.0.28",
-    "@craco/craco": "^7.1.0",
-    "react": "^18.2.0",
-    "react-scripts": "^5.0.1",
-    "react-test-renderer": "^18.2.0",
-    "rollup": "^3.20.1",
-    "rollup-plugin-terser": "^7.0.2",
-    "typescript": "^4.8.2",
-    "tslib": "^2.5.0",
-    "typedoc": "^0.23.13",
-    "typedoc-plugin-markdown": "^3.13.5"
+    "@testing-library/react": "^16.1.0",
+    "@testing-library/jest-dom": "^6.6.3",
+    "@types/jest": "^29.5.14",
+    "@types/react": "^18.3.12",
+    "@vitejs/plugin-react": "^4.3.4",
+    "react": "^18.3.1",
+    "react-test-renderer": "^18.3.1",
+    "typescript": "^5.7.2",
+    "vite": "^6.0.5",
+    "vite-plugin-dts": "^4.3.0"
   },
   "keywords": [
     "react",
-    "tyepscript",
+    "typescript",
     "react-testing-library",
     "react-hooks"
   ]

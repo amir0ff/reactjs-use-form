@@ -43,17 +43,3 @@ pnpm build
 # Start the example app
 pnpm start:example
 ```
-
-### Available Commands
-```bash
-pnpm build              # Build the main library
-pnpm build:example      # Build the example app
-pnpm dev                # Build library in watch mode
-pnpm start:example      # Start example app dev server
-pnpm format             # Format code with Prettier
-pnpm clean              # Clean all build artifacts
-```
-
-## License
-
-![GitHub](https://img.shields.io/github/license/amir0ff/reactjs-use-form?color=blue)

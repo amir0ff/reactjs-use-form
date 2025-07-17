@@ -1,9 +1,27 @@
 # Release Notes
 
-## Version 1.6.3 (Latest)
+## Version 1.6.4 (Latest)
 
 ## What's Changed
+Build configuration fixes and styling restoration:
+- Fix PostCSS configuration compatibility with Tailwind CSS v3.4.17
+- Remove incompatible @tailwindcss/postcss v4.1.11 package (was for Tailwind v4)
+- Revert to standard PostCSS plugin configuration for Tailwind CSS v3
+- Change Vite output directory from 'dist' to 'build' for consistency
+- Update clean script to match new output directory
+- Restore proper styling functionality in example app
+- Build now works correctly with proper CSS generation
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.3...1.6.4
+
+---
+
+## Version 1.6.3
+
+## What's Changed
+
 Security fix and dependency updates:
+
 - Fix moderate severity esbuild vulnerability (GHSA-67mh-4wv8-2f99)
 - Update Vite, Vitest, and @vitejs/plugin-react to latest versions
 - Resolve all known security vulnerabilities in dependency chain
@@ -17,7 +35,9 @@ Security fix and dependency updates:
 ## Version 1.6.2
 
 ## What's Changed
+
 Documentation fix and npm package alignment:
+
 - Fix README.md removing outdated feature references
 - Align documentation with actual library capabilities after 1.6.0/1.6.1 changes
 - Ensure npm package page shows accurate documentation
@@ -30,7 +50,9 @@ Documentation fix and npm package alignment:
 ## Version 1.6.1
 
 ## What's Changed
+
 Performance refactoring and UI migration release:
+
 - Refactor form library with memoized initial states and computed optimizations
 - Replace Material-UI components with shadcn/ui throughout examples
 - Add light/dark theme toggle with modern ThemeProvider

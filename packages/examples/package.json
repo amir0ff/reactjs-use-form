@@ -10,7 +10,7 @@
     "start": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "clean": "rm -rf node_modules dist"
+    "clean": "rm -rf node_modules build"
   },
   "author": "amir0ff",
   "license": "MIT",

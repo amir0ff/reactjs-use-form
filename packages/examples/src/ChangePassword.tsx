@@ -8,36 +8,46 @@ import {
   FormLabel,
   Grid,
   TextField,
+  Typography,
+  Box,
+  CircularProgress,
+  Stack,
 } from '@mui/material';
+import { useState } from 'react';
 import { useForm } from 'reactjs-use-form';
 import type { ValuesType } from 'reactjs-use-form';
 import './theme/styles.css';
 import { formModel } from './formModel';
 
 export function ChangePassword(): any {
-  const { values, errors, handleOnChange, handleOnSubmit, isSubmitted, isDisabled } = useForm(
-    formModel,
-    handleSubmit,
-  );
-  const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
+  const [submitMessage, setSubmitMessage] = useState<string>('');
+  
+  const form = useForm(formModel, handleSubmit);
 
-  function handleSubmit() {
-    // formSubmitCallback();
+  async function handleSubmit(formValues: ValuesType) {
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    setSubmitMessage(`Password changed successfully!`);
+    console.log('Form submitted:', formValues);
   }
 
+  const handleFormReset = () => {
+    form.resetForm();
+    setSubmitMessage('');
+  };
+
   return (
-    <Container maxWidth="xs">
+    <Container maxWidth="sm">
       <Grid className="">
-        <Container maxWidth="xs" className="header-container">
+        <Container maxWidth="sm" className="header-container">
           <h1>useForm</h1>
           <div className="social-links">
-            <a href="https://github.com/amir0ff/reactjs-use-form" target="_blank">
+            <a href="https://github.com/amir0ff/reactjs-use-form" target="_blank" rel="noopener noreferrer">
               <img
                 alt="GitHub Repo stars"
                 src="https://img.shields.io/github/stars/amir0ff/reactjs-use-form?label=GitHub&style=social"
               />
             </a>
-            <a href="https://www.npmjs.com/package/reactjs-use-form" target="_blank">
+            <a href="https://www.npmjs.com/package/reactjs-use-form" target="_blank" rel="noopener noreferrer">
               <img alt="npm" src="https://img.shields.io/npm/v/reactjs-use-form?label=NPM&style=social" />
             </a>
           </div>
@@ -45,8 +55,12 @@ export function ChangePassword(): any {
             <span>(📋, ⚙️) ⇒ ⚛️</span>
           </span>
         </Container>
-        <form onSubmit={handleOnSubmit}>
-          <FormLabel className="form-label">🔐 Change your passphrase</FormLabel>
+
+        <form onSubmit={form.handleOnSubmit}>
+          <FormLabel className="form-label">
+            🔐 Change Your Passphrase
+          </FormLabel>
+          
           <FormGroup>
             <FormControl>
               <TextField
@@ -57,12 +71,12 @@ export function ChangePassword(): any {
                 color="primary"
                 size="small"
                 variant="filled"
-                error={errors.currentPassphrase.hasError}
-                value={currentPassphrase}
-                onChange={handleOnChange}
+                error={form.errors.currentPassphrase?.hasError}
+                value={form.values.currentPassphrase || ''}
+                onChange={form.handleOnChange}
               />
-              <FormHelperText error={errors.currentPassphrase.hasError}>
-                {errors.currentPassphrase.message}
+              <FormHelperText error={form.errors.currentPassphrase?.hasError}>
+                {form.errors.currentPassphrase?.message}
               </FormHelperText>
             </FormControl>
           </FormGroup>
@@ -76,12 +90,12 @@ export function ChangePassword(): any {
                 color="primary"
                 size="small"
                 variant="filled"
-                error={errors.newPassphrase.hasError}
-                value={newPassphrase}
-                onChange={handleOnChange}
+                error={form.errors.newPassphrase?.hasError}
+                value={form.values.newPassphrase || ''}
+                onChange={form.handleOnChange}
               />
-              <FormHelperText error={errors.newPassphrase.hasError}>
-                {errors.newPassphrase.message}
+              <FormHelperText error={form.errors.newPassphrase?.hasError}>
+                {form.errors.newPassphrase?.message}
               </FormHelperText>
             </FormControl>
           </FormGroup>
@@ -95,22 +109,55 @@ export function ChangePassword(): any {
                 color="primary"
                 size="small"
                 variant="filled"
-                error={errors.verifyPassphrase.hasError}
-                value={verifyPassphrase}
-                onChange={handleOnChange}
+                error={form.errors.verifyPassphrase?.hasError}
+                value={form.values.verifyPassphrase || ''}
+                onChange={form.handleOnChange}
               />
-              <FormHelperText error={errors.verifyPassphrase.hasError}>
-                {errors.verifyPassphrase.message}
+              <FormHelperText error={form.errors.verifyPassphrase?.hasError}>
+                {form.errors.verifyPassphrase?.message}
               </FormHelperText>
             </FormControl>
           </FormGroup>
-          {isSubmitted ? (
-            <Alert variant="standard" severity="success" action="Passphrase has been changed!" />
-          ) : null}
+          
+          {/* Form state indicators */}
+          <Box sx={{ my: 2 }}>
+            <Typography variant="body2" color="text.secondary">
+              Form State: {form.isDirty ? 'Modified' : 'Clean'} | 
+              {form.isSubmitting ? ' Submitting...' : form.isSubmitted ? ' Submitted' : ' Ready'}
+            </Typography>
+          </Box>
+
+          {/* Success message */}
+          {(form.isSubmitted || submitMessage) && (
+            <Alert variant="standard" severity="success" sx={{ my: 2 }}>
+              {submitMessage || 'Form submitted successfully!'}
+            </Alert>
+          )}
+
+          {/* Action buttons */}
           <Grid className="footer">
-            <Button variant="contained" size="large" color="secondary" type="submit" disabled={isDisabled}>
-              Submit
-            </Button>
+            <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap">
+              <Button 
+                variant="contained" 
+                size="large" 
+                color="primary" 
+                type="submit" 
+                disabled={form.isDisabled || form.isSubmitting}
+                startIcon={form.isSubmitting && <CircularProgress size={20} />}
+              >
+                {form.isSubmitting ? 'Submitting...' : 'Submit'}
+              </Button>
+              
+              <Button 
+                variant="outlined" 
+                size="large" 
+                color="secondary" 
+                onClick={handleFormReset}
+                disabled={form.isSubmitting}
+              >
+                Reset
+              </Button>
+            </Stack>
           </Grid>
         </form>
       </Grid>

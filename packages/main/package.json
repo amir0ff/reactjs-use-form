@@ -24,7 +24,9 @@
     "dist"
   ],
   "scripts": {
-    "test": "echo \"Tests coming soon...\"",
+    "test": "vitest",
+    "test:run": "vitest run",
+    "test:ui": "vitest --ui",
     "dev": "pnpm exec vite build --watch",
     "build": "pnpm exec vite build",
     "clean": "rm -rf node_modules dist"
@@ -35,14 +37,17 @@
   "devDependencies": {
     "@testing-library/react": "^16.1.0",
     "@testing-library/jest-dom": "^6.6.3",
+    "@testing-library/user-event": "^14.5.2",
     "@types/jest": "^29.5.14",
     "@types/react": "^18.3.12",
     "@vitejs/plugin-react": "^4.3.4",
+    "jsdom": "^25.0.1",
     "react": "^18.3.1",
     "react-test-renderer": "^18.3.1",
     "typescript": "^5.7.2",
     "vite": "^6.0.5",
-    "vite-plugin-dts": "^4.3.0"
+    "vite-plugin-dts": "^4.3.0",
+    "vitest": "^2.1.8"
   },
   "keywords": [
     "react",

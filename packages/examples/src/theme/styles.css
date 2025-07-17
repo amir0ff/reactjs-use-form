@@ -3,18 +3,20 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    color: #282828;
+    color: #f8fafc;
+    background: #0f0f0f;
 }
 
 h1 {
     font-family: 'Source Code Pro', sans-serif;
-    border-bottom: 1px solid #e8e8e8;
+    border-bottom: 1px solid #374151;
     padding-bottom: 48px;
     margin: 36px;
     font-size: 3.26rem;
     font-weight: 700;
     text-align: center;
     letter-spacing: -3px;
+    color: #f8fafc;
 }
 
 form {
@@ -39,7 +41,8 @@ form {
     position: relative;
     bottom: 12px;
     cursor: default;
-    color: #282828;
+    color: #f8fafc;
+    font-weight: 500;
 }
 
 .banner {
@@ -48,13 +51,15 @@ form {
     font-weight: 400;
     position: absolute;
     top: 2px;
-    right: 17px;
+    right: 93px;
     cursor: default;
+    color: #cbd5e1;
 }
 
 .MuiFormLabel-root:not(.form-label) {
     font-size: 0.9em !important;
     font-weight: 300;
+    color: #cbd5e1 !important;
 }
 
 .MuiContainer-root {
@@ -66,11 +71,13 @@ form {
     min-height: 20px !important;
     margin-top: 0 !important;
     margin-bottom: 4px !important;
+    color: #64748b !important;
 }
 
 .MuiFormHelperText-root.Mui-error {
     margin-bottom: 6px;
     margin-top: 1px;
+    color: #ef4444 !important;
 }
 
 .MuiAlert-action {
@@ -80,11 +87,131 @@ form {
     padding-left: 0 !important;
 }
 
-
 .footer {
     display: flex;
 }
 
 .footer button {
     margin: 16px auto;
+}
+
+/* Custom dark theme enhancements */
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked {
+    color: #3b82f6 !important;
+}
+
+.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
+    background-color: #3b82f6 !important;
+}
+
+.MuiTypography-root {
+    color: #f8fafc !important;
+}
+
+.MuiTypography-body2 {
+    color: #cbd5e1 !important;
+}
+
+.MuiFormControlLabel-label {
+    color: #f8fafc !important;
+}
+
+/* Enhanced button styling for better dark theme appearance */
+.MuiButton-containedPrimary {
+    background-color: #3b82f6 !important;
+    color: #ffffff !important;
+}
+
+.MuiButton-containedPrimary:hover {
+    background-color: #2563eb !important;
+}
+
+/* Disabled state for primary buttons */
+.MuiButton-containedPrimary.Mui-disabled {
+    background-color: #374151 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiButton-containedSecondary {
+    background-color: #8b5cf6 !important;
+    color: #ffffff !important;
+}
+
+.MuiButton-containedSecondary:hover {
+    background-color: #7c3aed !important;
+}
+
+/* Disabled state for secondary buttons */
+.MuiButton-containedSecondary.Mui-disabled {
+    background-color: #374151 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiButton-outlinedPrimary {
+    border-color: #3b82f6 !important;
+    color: #3b82f6 !important;
+}
+
+/* Disabled state for outlined primary buttons */
+.MuiButton-outlinedPrimary.Mui-disabled {
+    border-color: #4b5563 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiButton-outlinedSecondary {
+    border-color: #8b5cf6 !important;
+    color: #8b5cf6 !important;
+}
+
+/* Disabled state for outlined secondary buttons */
+.MuiButton-outlinedSecondary.Mui-disabled {
+    border-color: #4b5563 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiButton-outlinedInfo {
+    border-color: #06b6d4 !important;
+    color: #06b6d4 !important;
+}
+
+/* Disabled state for outlined info buttons */
+.MuiButton-outlinedInfo.Mui-disabled {
+    border-color: #4b5563 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiButton-outlinedSuccess {
+    border-color: #10b981 !important;
+    color: #10b981 !important;
+}
+
+/* Disabled state for outlined success buttons */
+.MuiButton-outlinedSuccess.Mui-disabled {
+    border-color: #4b5563 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
+}
+
+.MuiButton-outlinedError {
+    border-color: #ef4444 !important;
+    color: #ef4444 !important;
+}
+
+/* Disabled state for outlined error buttons */
+.MuiButton-outlinedError.Mui-disabled {
+    border-color: #4b5563 !important;
+    color: #6b7280 !important;
+    opacity: 0.6 !important;
+    cursor: not-allowed !important;
 }

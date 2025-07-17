@@ -1,217 +1,102 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;500&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:wght@400&display=swap');
 
-body {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 222.2 84% 4.9%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222.2 84% 4.9%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222.2 84% 4.9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+ 
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 84% 4.9%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer base {
+  * {
+    border-color: hsl(var(--border));
+  }
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
     font-family: 'Roboto', sans-serif;
-    color: #f8fafc;
-    background: #0f0f0f;
+  }
 }
 
+/* Custom styles for the form header */
 h1 {
-    font-family: 'Source Code Pro', sans-serif;
-    border-bottom: 1px solid #374151;
-    padding-bottom: 48px;
-    margin: 36px;
-    font-size: 3.26rem;
-    font-weight: 700;
-    text-align: center;
-    letter-spacing: -3px;
-    color: #f8fafc;
-}
-
-form {
-    padding-top: 20px;
+  font-family: 'Source Code Pro', sans-serif;
+  font-size: 3.25rem;
+  font-weight: 700;
+  text-align: center;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid hsl(var(--border));
+  letter-spacing: -3px;
 }
 
 .header-container {
-    position: relative;
+  position: relative;
+  margin-bottom: 2rem;
 }
 
 .social-links {
-    position: absolute;
-    top: 80px;
-    left: 114px;
-}
-
-.social-links a:nth-child(2) {
-    margin-left: 12px;
-}
-
-.MuiFormLabel-root.form-label {
-    position: relative;
-    bottom: 12px;
-    cursor: default;
-    color: #f8fafc;
-    font-weight: 500;
+  position: absolute;
+  top: 4.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
 }
 
 .banner {
-    font-family: 'Source Code Pro', monospace;
-    font-size: 0.85rem;
-    font-weight: 400;
-    position: absolute;
-    top: 2px;
-    right: 93px;
-    cursor: default;
-    color: #cbd5e1;
-}
-
-.MuiFormLabel-root:not(.form-label) {
-    font-size: 0.9em !important;
-    font-weight: 300;
-    color: #cbd5e1 !important;
-}
-
-.MuiContainer-root {
-    position: relative;
-}
-
-.MuiFormHelperText-root {
-    font-weight: 300 !important;
-    min-height: 20px !important;
-    margin-top: 0 !important;
-    margin-bottom: 4px !important;
-    color: #64748b !important;
-}
-
-.MuiFormHelperText-root.Mui-error {
-    margin-bottom: 6px;
-    margin-top: 1px;
-    color: #ef4444 !important;
-}
-
-.MuiAlert-action {
-    cursor: default;
-    margin: 0 auto !important;
-    padding-right: 36px !important;
-    padding-left: 0 !important;
-}
-
-.footer {
-    display: flex;
-}
-
-.footer button {
-    margin: 16px auto;
-}
-
-/* Custom dark theme enhancements */
-.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked {
-    color: #3b82f6 !important;
-}
-
-.MuiSwitch-root .MuiSwitch-switchBase.Mui-checked + .MuiSwitch-track {
-    background-color: #3b82f6 !important;
-}
-
-.MuiTypography-root {
-    color: #f8fafc !important;
-}
-
-.MuiTypography-body2 {
-    color: #cbd5e1 !important;
-}
-
-.MuiFormControlLabel-label {
-    color: #f8fafc !important;
-}
-
-/* Enhanced button styling for better dark theme appearance */
-.MuiButton-containedPrimary {
-    background-color: #3b82f6 !important;
-    color: #ffffff !important;
-}
-
-.MuiButton-containedPrimary:hover {
-    background-color: #2563eb !important;
-}
-
-/* Disabled state for primary buttons */
-.MuiButton-containedPrimary.Mui-disabled {
-    background-color: #374151 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-}
-
-.MuiButton-containedSecondary {
-    background-color: #8b5cf6 !important;
-    color: #ffffff !important;
-}
-
-.MuiButton-containedSecondary:hover {
-    background-color: #7c3aed !important;
-}
-
-/* Disabled state for secondary buttons */
-.MuiButton-containedSecondary.Mui-disabled {
-    background-color: #374151 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-}
-
-.MuiButton-outlinedPrimary {
-    border-color: #3b82f6 !important;
-    color: #3b82f6 !important;
-}
-
-/* Disabled state for outlined primary buttons */
-.MuiButton-outlinedPrimary.Mui-disabled {
-    border-color: #4b5563 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-}
-
-.MuiButton-outlinedSecondary {
-    border-color: #8b5cf6 !important;
-    color: #8b5cf6 !important;
-}
-
-/* Disabled state for outlined secondary buttons */
-.MuiButton-outlinedSecondary.Mui-disabled {
-    border-color: #4b5563 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-}
-
-.MuiButton-outlinedInfo {
-    border-color: #06b6d4 !important;
-    color: #06b6d4 !important;
-}
-
-/* Disabled state for outlined info buttons */
-.MuiButton-outlinedInfo.Mui-disabled {
-    border-color: #4b5563 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-}
-
-.MuiButton-outlinedSuccess {
-    border-color: #10b981 !important;
-    color: #10b981 !important;
-}
-
-/* Disabled state for outlined success buttons */
-.MuiButton-outlinedSuccess.Mui-disabled {
-    border-color: #4b5563 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
-}
-
-.MuiButton-outlinedError {
-    border-color: #ef4444 !important;
-    color: #ef4444 !important;
-}
-
-/* Disabled state for outlined error buttons */
-.MuiButton-outlinedError.Mui-disabled {
-    border-color: #4b5563 !important;
-    color: #6b7280 !important;
-    opacity: 0.6 !important;
-    cursor: not-allowed !important;
+  font-family: 'Source Code Pro', monospace;
+  font-size: 0.875rem;
+  font-weight: 400;
+  position: absolute;
+  top: 0.125rem;
+  right: 132px;
+  color: hsl(var(--muted-foreground));
 }

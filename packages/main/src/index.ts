@@ -1,167 +1,290 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 
+// =============================================================================
+// CONSTANTS
+// =============================================================================
+
+const CLEAR_ERROR: ErrorType = { hasError: false, message: '' };
+const REQUIRED_ERROR: ErrorType = { hasError: true, message: 'This field is required' };
+
+// =============================================================================
+// UTILITY FUNCTIONS
+// =============================================================================
+
 /**
- * Reactive form management and input field validation hook
+ * Creates initial values object from form model
+ */
+function createInitialValues<T extends Record<string, any>>(formModel: FormModelType<T>): T {
+  return Object.keys(formModel).reduce((acc, key) => {
+    acc[key as keyof T] = formModel[key as keyof T].value as T[keyof T];
+    return acc;
+  }, {} as T);
+}
+
+/**
+ * Creates initial errors object from form model
+ */
+function createInitialErrors<T extends Record<string, any>>(formModel: FormModelType<T>): ErrorsType<T> {
+  return Object.keys(formModel).reduce((acc, key) => {
+    acc[key as keyof T] = CLEAR_ERROR;
+    return acc;
+  }, {} as ErrorsType<T>);
+}
+
+/**
+ * Creates initial dirty state object from form model
+ */
+function createInitialDirtyState<T extends Record<string, any>>(formModel: FormModelType<T>): IsDirtyType<T> {
+  return Object.keys(formModel).reduce((acc, key) => {
+    acc[key as keyof T] = false;
+    return acc;
+  }, {} as IsDirtyType<T>);
+}
+
+/**
+ * Creates required fields mapping from form model
+ */
+function createRequiredFieldsMap<T extends Record<string, any>>(
+  formModel: FormModelType<T>,
+): IsRequiredType<T> {
+  return Object.keys(formModel).reduce((acc, key) => {
+    acc[key as keyof T] = formModel[key as keyof T].required;
+    return acc;
+  }, {} as IsRequiredType<T>);
+}
+
+/**
+ * Validates a single field with its configuration
+ */
+function validateField<T extends Record<string, any>>(
+  fieldName: keyof T,
+  fieldValue: ValueType,
+  fieldConfig: FormInputType<T>,
+  allValues: T,
+): ErrorType {
+  // Check required validation first
+  if (fieldConfig.required && !fieldValue) {
+    return REQUIRED_ERROR;
+  }
+
+  // Run custom validator if provided
+  if (fieldConfig.validator && fieldValue) {
+    const validatorResult = fieldConfig.validator(fieldValue, allValues);
+    if (validatorResult) {
+      return { hasError: true, message: validatorResult };
+    }
+  }
+
+  return CLEAR_ERROR;
+}
+
+/**
+ * Validates multiple fields efficiently
+ */
+function validateFields<T extends Record<string, any>>(
+  dirtyFields: IsDirtyType<T>,
+  values: T,
+  formModel: FormModelType<T>,
+  currentErrors: ErrorsType<T>,
+): ErrorsType<T> {
+  const fieldsToValidate = Object.keys(dirtyFields).filter(
+    (key) => dirtyFields[key as keyof T],
+  ) as (keyof T)[];
+
+  if (fieldsToValidate.length === 0) {
+    return currentErrors;
+  }
+
+  const newErrors = { ...currentErrors };
+  let hasChanges = false;
+
+  fieldsToValidate.forEach((fieldName) => {
+    const fieldValue = values[fieldName];
+    const fieldConfig = formModel[fieldName];
+    const newError = validateField(fieldName, fieldValue, fieldConfig, values);
+
+    if (newError.message !== currentErrors[fieldName].message) {
+      newErrors[fieldName] = newError;
+      hasChanges = true;
+    }
+  });
+
+  return hasChanges ? newErrors : currentErrors;
+}
+
+/**
+ * Checks if form has validation errors
+ */
+function hasFormErrors<T extends Record<string, any>>(errors: ErrorsType<T>): boolean {
+  return Object.values(errors).some((error) => error.hasError);
+}
+
+/**
+ * Checks if required fields are empty
+ */
+function hasEmptyRequiredFields<T extends Record<string, any>>(
+  values: T,
+  requiredFields: IsRequiredType<T>,
+): boolean {
+  return Object.keys(requiredFields).some((key) => {
+    const fieldName = key as keyof T;
+    return requiredFields[fieldName] && !values[fieldName];
+  });
+}
+
+// =============================================================================
+// MAIN HOOK
+// =============================================================================
+
+/**
+ * A comprehensive React hook for form management with validation, submission handling, and state tracking.
  *
- * @param {object} formModel - initial form model with optional validation function.
- * @param {function} formSubmitCallback - function to run after form validation and submission.
- * @returns {object} Form state and handlers including values, errors, submission state, and utility functions
- **/
+ * This hook provides a complete form management solution that includes:
+ * - Real-time field validation with custom validators
+ * - Form submission handling with loading states
+ * - Dirty/touched state tracking for better UX
+ * - Form and field reset utilities
+ * - TypeScript support with generic types
+ *
+ * @template T - The shape of the form values object
+ * @param {FormModelType<T>} formModel - Configuration object defining form fields, initial values, validation rules, and required fields
+ * @param {function} formSubmitCallback - Async callback function executed on successful form submission
+ * @returns {useFormType<T>} Object containing form state, handlers, and utility functions
+ *
+ * @example
+ * ```typescript
+ * const formModel = {
+ *   email: { value: '', required: true, validator: (value) => !value.includes('@') ? 'Invalid email' : '' },
+ *   password: { value: '', required: true }
+ * };
+ *
+ * const form = useForm(formModel, async (values) => {
+ *   await api.submitForm(values);
+ * });
+ *
+ * // Usage in component
+ * <form onSubmit={form.handleOnSubmit}>
+ *   <input name="email" value={form.values.email} onChange={form.handleOnChange} />
+ *   {form.errors.email.hasError && <span>{form.errors.email.message}</span>}
+ * </form>
+ * ```
+ */
 export function useForm<T extends Record<string, any> = Record<string, any>>(
   formModel: FormModelType<T>,
-  formSubmitCallback: (values: T) => void | Promise<void>
+  formSubmitCallback: (values: T) => void | Promise<void>,
 ): useFormType<T> {
-  const [values, setValues] = useState<T>(() => initializeState(formModel, 'values') as T);
-  const [errors, setErrors] = useState<ErrorsType<T>>(() => initializeState(formModel, 'errors') as ErrorsType<T>);
-  const [_isDirty, _setIsDirty] = useState<IsDirtyType<T>>(() => initializeState(formModel, '_isDirty') as IsDirtyType<T>);
-  const [isDisabled, setIsDisabled] = useState(true);
+  // Memoize initial states to prevent unnecessary recalculations
+  const initialValues = useMemo(() => createInitialValues(formModel), [formModel]);
+  const initialErrors = useMemo(() => createInitialErrors(formModel), [formModel]);
+  const initialDirtyState = useMemo(() => createInitialDirtyState(formModel), [formModel]);
+  const requiredFields = useMemo(() => createRequiredFieldsMap(formModel), [formModel]);
+
+  // Form state
+  const [values, setValues] = useState<T>(initialValues);
+  const [errors, setErrors] = useState<ErrorsType<T>>(initialErrors);
+  const [fieldDirtyState, setFieldDirtyState] = useState<IsDirtyType<T>>(initialDirtyState);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isDirty, setIsDirty] = useState(false);
-  const [_isTouched, _setIsTouched] = useState(false);
+  const [isTouched, setIsTouched] = useState(false);
 
+  // Computed state
+  const isDirty = useMemo(() => {
+    return Object.values(fieldDirtyState).some(Boolean);
+  }, [fieldDirtyState]);
+
+  const isFormInvalid = useMemo(() => {
+    return hasFormErrors(errors) || hasEmptyRequiredFields(values, requiredFields);
+  }, [errors, values, requiredFields]);
+
+  const isDisabled = useMemo(() => {
+    return !isTouched || isFormInvalid;
+  }, [isTouched, isFormInvalid]);
+
+  // Validation effect - optimized to only run when necessary
   useEffect(() => {
-    /*
-     validate all dirty input field via the validator
-     function when the values state changes
-    */
-    if (_isTouched) {
-      const isDirtyInputs = Object.keys(_isDirty).reduce((inputs: IsDirtyType<T>, inputName: string) => {
-        if (_isDirty[inputName]) inputs[inputName] = _isDirty[inputName];
-        return inputs;
-      }, {} as IsDirtyType<T>);
+    if (!isTouched) return;
 
-      Object.keys(isDirtyInputs).forEach((inputName: string) => {
-        let error: ErrorType;
-        const requiredMessage: ErrorType = { hasError: true, message: 'This field is required' };
-        const clearMessage: ErrorType = { hasError: false, message: '' };
-        const _isDirtyInput: FormInputType<T> = formModel[inputName];
-        const inputValue: ValueType = values[inputName];
-        
-        // Check required validation first
-        error = _isDirtyInput.required && !inputValue ? requiredMessage : clearMessage;
-
-        if (_isDirtyInput['validator']) {
-          const _validatorFunc: ValidatorFuncType<T> = _isDirtyInput['validator'];
-          const validatorResult = _validatorFunc(inputValue, values);
-          
-          const validatorMessage: ErrorType = {
-            hasError: true,
-            message: validatorResult,
-          };
-          const errorMessage: ErrorType = inputValue ? validatorMessage : requiredMessage;
-          error = validatorResult ? errorMessage : clearMessage;
-        }
-        
-        // Update error state
-        if (errors[inputName]?.message !== error.message) {
-          setErrors((prevErrors: ErrorsType<T>) => ({
-            ...prevErrors,
-            [inputName]: error,
-          }));
-        }
-      });
+    const newErrors = validateFields(fieldDirtyState, values, formModel, errors);
+    if (newErrors !== errors) {
+      setErrors(newErrors);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [values, _isDirty, _isTouched]);
+  }, [values, fieldDirtyState, formModel, errors, isTouched]);
 
-  const isFormInvalid = useCallback(() => {
-    /*
-     the form will be invalid if one of its fields
-     has some errors or a required input field is empty
-    */
-    const _isRequired = initializeState(formModel, '_isRequired') as IsRequiredType<T>;
-    const isRequiredInputs = Object.keys(_isRequired).reduce((inputs: IsRequiredType<T>, inputName: string) => {
-      if (_isRequired[inputName]) inputs[inputName] = _isRequired[inputName];
-      return inputs;
-    }, {} as IsRequiredType<T>);
-
-    const formHasErrors = () => Object.values(errors).some((error: any) => error.hasError);
-    const isRequiredInputEmpty = () => Object.keys(isRequiredInputs).some((key: string) => !values[key]);
-
-    return formHasErrors() || isRequiredInputEmpty();
-  }, [errors, values]);
-
-  useEffect(() => {
-    /*
-     this will be fired after every change in the errors
-     state to be able to enable/disable the submit button
-    */
-    if (_isTouched) {
-      setIsDisabled(isFormInvalid());
-    }
-  }, [errors, values, isFormInvalid, _isTouched]);
-
+  /**
+   * Handles input field changes, updates form values, and marks fields as dirty.
+   */
   const handleOnChange = useCallback(
-    (event: any) => {
-      _setIsTouched(true);
+    (event: ChangeEvent<HTMLInputElement>) => {
+      const fieldName = event.target.name as keyof T;
+      const fieldValue = event.target.value;
 
-      const inputName = event.currentTarget?.name || event.target?.name;
-      const inputValue = event.currentTarget?.value || event.target?.value;
+      if (!formModel[fieldName]) return;
 
-      if (formModel[inputName]) {
-        setIsDirty(true);
+      setIsTouched(true);
 
-        // proceed only if the change input exits in the formModel
-        setValues((prevValues: T) => ({
-          ...prevValues,
-          [inputName]: inputValue,
-        }));
-        if (_isDirty[inputName] === false) {
-          // proceed only if input field is not dirty
-          _setIsDirty((_isDirty: IsDirtyType<T>) => ({
-            ..._isDirty,
-            [inputName]: true,
-          }));
-        }
-      }
+      setValues((prev) => ({
+        ...prev,
+        [fieldName]: fieldValue as T[keyof T],
+      }));
+
+      setFieldDirtyState((prev) => ({
+        ...prev,
+        [fieldName]: true,
+      }));
     },
-    [_isDirty],
+    [formModel],
   );
 
+  /**
+   * Handles form submission with validation and error handling.
+   */
   const handleOnSubmit = useCallback(
-    async (event: any) => {
+    async (event: FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
-      if (!isFormInvalid()) {
-        setIsSubmitting(true);
-        try {
-          await formSubmitCallback(values);
-          setIsSubmitted(true);
-          setIsDirty(false);
-        } catch (error) {
-          // Handle submission error - user can catch this in their callback
-          console.error('Form submission error:', error);
-        } finally {
-          setIsSubmitting(false);
-        }
+      if (isFormInvalid) return;
+
+      setIsSubmitting(true);
+      try {
+        await formSubmitCallback(values);
+        setIsSubmitted(true);
+        setFieldDirtyState(initialDirtyState);
+      } catch (error) {
+        console.error('Form submission error:', error);
+        throw error; // Re-throw to allow user handling
+      } finally {
+        setIsSubmitting(false);
       }
     },
-    [isFormInvalid, values, formSubmitCallback],
+    [isFormInvalid, formSubmitCallback, values, initialDirtyState],
   );
 
+  /**
+   * Resets the entire form to its initial state.
+   */
   const resetForm = useCallback(() => {
-    setValues(initializeState(formModel, 'values') as T);
-    setErrors(initializeState(formModel, 'errors') as ErrorsType<T>);
-    _setIsDirty(initializeState(formModel, '_isDirty') as IsDirtyType<T>);
+    setValues(initialValues);
+    setErrors(initialErrors);
+    setFieldDirtyState(initialDirtyState);
     setIsSubmitted(false);
     setIsSubmitting(false);
-    setIsDirty(false);
-    _setIsTouched(false);
-    setIsDisabled(true);
-  }, []);
+    setIsTouched(false);
+  }, [initialValues, initialErrors, initialDirtyState]);
 
-  const resetField = useCallback((fieldName: keyof T) => {
-    const initialValue = formModel[fieldName]?.value || '';
-    
-    setValues((prevValues: T) => ({ ...prevValues, [fieldName]: initialValue }));
-    setErrors((prevErrors: ErrorsType<T>) => ({ 
-      ...prevErrors, 
-      [fieldName]: { hasError: false, message: '' } 
-    }));
-    _setIsDirty((prevDirty: IsDirtyType<T>) => ({ ...prevDirty, [fieldName]: false }));
-  }, []);
+  /**
+   * Resets a specific field to its initial state.
+   */
+  const resetField = useCallback(
+    (fieldName: keyof T) => {
+      const initialValue = formModel[fieldName]?.value as T[keyof T];
+
+      setValues((prev) => ({ ...prev, [fieldName]: initialValue }));
+      setErrors((prev) => ({ ...prev, [fieldName]: CLEAR_ERROR }));
+      setFieldDirtyState((prev) => ({ ...prev, [fieldName]: false }));
+    },
+    [formModel],
+  );
 
   return {
     handleOnChange,
@@ -177,89 +300,112 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
   };
 }
 
-function initializeState<T extends Record<string, any>>(formModel: FormModelType<T>, state: string) {
-  /*
-   initialize a default state for {errors} and {_isDirty} where
-   {values} and {_isRequired} are pulled from the formModel
-  */
-  switch (state) {
-    case 'values':
-      return Object.keys(formModel).reduce((inputValues: T, inputName: string) => {
-        inputValues[inputName] = formModel[inputName]['value'];
-        return inputValues;
-      }, {} as T);
-    case 'errors':
-      return Object.keys(formModel).reduce((inputErrors: ErrorsType<T>, inputName: string) => {
-        inputErrors[inputName] = { hasError: false, message: '' };
-        return inputErrors;
-      }, {} as ErrorsType<T>);
-    case '_isDirty':
-      return Object.keys(formModel).reduce((dirtyInputs: IsDirtyType<T>, inputName: string) => {
-        dirtyInputs[inputName] = false;
-        return dirtyInputs;
-      }, {} as IsDirtyType<T>);
-    case '_isRequired':
-      return Object.keys(formModel).reduce((requiredInputs: IsRequiredType<T>, inputName: string) => {
-        requiredInputs[inputName] = formModel[inputName]['required'];
-        return requiredInputs;
-      }, {} as IsRequiredType<T>);
-    default:
-      return {} as any;
-  }
-}
+// =============================================================================
+// TYPE DEFINITIONS
+// =============================================================================
 
-// Enhanced type declarations with generics
-export type useFormType<T extends Record<string, any> = Record<string, any>> = {
-  handleOnChange: HandleOnChangeType;
-  handleOnSubmit: HandleOnSubmitType;
-  values: T;
-  errors: ErrorsType<T>;
-  isSubmitted: boolean;
-  isSubmitting: boolean;
-  isDisabled: boolean;
-  isDirty: boolean;
-  resetForm: () => void;
-  resetField: (fieldName: keyof T) => void;
-};
-
-type HandleOnChangeType = (event: ChangeEvent<{ name?: string | undefined; value: unknown }>) => void;
-type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
-
-type ValidatorFuncType<T extends Record<string, any> = Record<string, any>> = (
-  value: ValueType, 
-  values?: T
-) => string;
-
-export type FormModelType<T extends Record<string, any> = Record<string, any>> = {
-  [K in keyof T]: FormInputType<T>;
-};
-
-export type FormInputType<T extends Record<string, any> = Record<string, any>> = {
-  value: ValueType;
-  required: boolean;
-  validator?: ValidatorFuncType<T>;
-};
-
-type IsDirtyType<T extends Record<string, any> = Record<string, any>> = {
-  [K in keyof T]: boolean;
-};
-
-type IsRequiredType<T extends Record<string, any> = Record<string, any>> = {
-  [K in keyof T]: boolean;
-};
-
+/** Type for form field values (currently only supports strings) */
 export type ValueType = string;
 
+/**
+ * Type for form values object (generic version).
+ * @template T - The shape of the form values object
+ */
 export type ValuesType<T extends Record<string, any> = Record<string, any>> = T;
 
+/**
+ * Type defining the structure of field error objects.
+ */
 export type ErrorType = {
+  /** Whether the field has an error */
   hasError: boolean;
+  /** Error message to display */
   message: string;
 };
 
+/**
+ * Type defining the structure of the errors object for all form fields.
+ * @template T - The shape of the form values object
+ */
 export type ErrorsType<T extends Record<string, any> = Record<string, any>> = {
   [K in keyof T]: ErrorType;
 };
 
-// Legacy type exports for backward compatibility
-export type ValuesType = Record<string, ValueType>;
+/**
+ * Type tracking which fields have been modified (dirty state).
+ * @template T - The shape of the form values object
+ */
+type IsDirtyType<T extends Record<string, any> = Record<string, any>> = {
+  [K in keyof T]: boolean;
+};
+
+/**
+ * Type tracking which fields are required.
+ * @template T - The shape of the form values object
+ */
+type IsRequiredType<T extends Record<string, any> = Record<string, any>> = {
+  [K in keyof T]: boolean;
+};
+
+/**
+ * Type for validator functions that validate field values.
+ * @template T - The shape of the form values object
+ */
+type ValidatorFuncType<T extends Record<string, any> = Record<string, any>> = (
+  value: ValueType,
+  values?: T,
+) => string;
+
+/**
+ * Type defining the configuration for a single form input field.
+ * @template T - The shape of the form values object
+ */
+export type FormInputType<T extends Record<string, any> = Record<string, any>> = {
+  /** Initial value for the field */
+  value: ValueType;
+  /** Whether the field is required */
+  required: boolean;
+  /** Optional validator function */
+  validator?: ValidatorFuncType<T>;
+};
+
+/**
+ * Type defining the structure of a form model configuration.
+ * @template T - The shape of the form values object
+ */
+export type FormModelType<T extends Record<string, any> = Record<string, any>> = {
+  [K in keyof T]: FormInputType<T>;
+};
+
+/** Type for the onChange event handler */
+type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+
+/** Type for the onSubmit event handler */
+type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
+
+/**
+ * Return type of the useForm hook containing all form state and handlers.
+ * @template T - The shape of the form values object
+ */
+export type useFormType<T extends Record<string, any> = Record<string, any>> = {
+  /** Handler for input field changes */
+  handleOnChange: HandleOnChangeType;
+  /** Handler for form submission */
+  handleOnSubmit: HandleOnSubmitType;
+  /** Current form values */
+  values: T;
+  /** Current form errors */
+  errors: ErrorsType<T>;
+  /** Whether form has been successfully submitted */
+  isSubmitted: boolean;
+  /** Whether form is currently being submitted */
+  isSubmitting: boolean;
+  /** Whether form submit button should be disabled */
+  isDisabled: boolean;
+  /** Whether any form field has been modified */
+  isDirty: boolean;
+  /** Function to reset entire form */
+  resetForm: () => void;
+  /** Function to reset specific field */
+  resetField: (fieldName: keyof T) => void;
+};

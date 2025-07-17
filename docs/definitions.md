@@ -1,212 +1,305 @@
 # useForm Type Definitions
 
-### Table of contents
+A comprehensive React hook for form management with validation, submission handling, and state tracking.
 
-- [ErrorType](definitions.md#errortype)
-- [ErrorsType](definitions.md#errorstype)
-- [FormInputType](definitions.md#forminputtype)
-- [FormModelType](definitions.md#formmodeltype)
-- [IsDirtyType](definitions.md#isdirtytype)
-- [IsRequiredType](definitions.md#isrequiredtype)
-- [ValidatorFuncType](definitions.md#validatorfunctype)
-- [ValueType](definitions.md#valuetype)
-- [ValuesType](definitions.md#valuestype)
-- [HandleOnChangeType](definitions.md#handleonchangetype)
-- [HandleOnSubmitType](definitions.md#handleonsubmittype)
-- [useFormType](definitions.md#useformtype)
+## Table of Contents
 
-### ErrorType
-
-Ƭ `Object`
-
-#### Type declaration
-
-| Param    | Type      |
-| :------- | :-------- |
-| hasError | `boolean` |
-| message  | `string`  |
-
-#### Defined at [index.ts:209](../packages/main/src/index.ts#L209)
+- [useForm Hook](#useform-hook)
+- [Core Types](#core-types)
+  - [useFormType](#useformtype)
+  - [FormModelType](#formmodeltype)
+  - [FormInputType](#forminputtype)
+- [Value Types](#value-types)
+  - [ValueType](#valuetype)
+  - [ValuesType](#valuestype)
+- [Error Types](#error-types)
+  - [ErrorType](#errortype)
+  - [ErrorsType](#errorstype)
+- [Validator Types](#validator-types)
+  - [ValidatorFuncType](#validatorfunctype)
+- [Handler Types](#handler-types)
+  - [HandleOnChangeType](#handleonchangetype)
+  - [HandleOnSubmitType](#handleonsubmittype)
 
 ---
 
-### ErrorsType
+## useForm Hook
 
-Ƭ `Object`
+```typescript
+function useForm<T extends Record<string, any> = Record<string, any>>(
+  formModel: FormModelType<T>,
+  formSubmitCallback: (values: T) => void | Promise<void>,
+): useFormType<T>;
+```
 
-#### Index signature
+### Parameters
 
-▪ [key: `string`]: [`ErrorType`](definitions.md#errortype)
+| Parameter            | Type                                   | Description                                                                                      |
+| -------------------- | -------------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `formModel`          | `FormModelType<T>`                     | Configuration object defining form fields, initial values, validation rules, and required fields |
+| `formSubmitCallback` | `(values: T) => void \| Promise<void>` | Async callback function executed on successful form submission                                   |
 
-`key`: input field name
+### Returns
 
-#### Defined at [index.ts:214](../packages/main/src/index.ts#L214)
+[`useFormType<T>`](#useformtype) - Object containing form state, handlers, and utility functions
+
+### Example
+
+```typescript
+const formModel = {
+  email: {
+    value: '',
+    required: true,
+    validator: (value) => !value.includes('@') ? 'Invalid email' : ''
+  },
+  password: {
+    value: '',
+    required: true,
+    validator: (value) => value.length < 6 ? 'Password must be at least 6 characters' : ''
+  }
+};
+
+const form = useForm(formModel, async (values) => {
+  await api.submitForm(values);
+});
+
+// Usage in component
+<form onSubmit={form.handleOnSubmit}>
+  <input
+    name="email"
+    value={form.values.email}
+    onChange={form.handleOnChange}
+  />
+  {form.errors.email.hasError && <span>{form.errors.email.message}</span>}
+
+  <button type="submit" disabled={form.isDisabled}>
+    {form.isSubmitting ? 'Submitting...' : 'Submit'}
+  </button>
+</form>
+```
 
 ---
 
-### FormInputType
+## Core Types
 
-Ƭ `Object`
+### useFormType
 
-#### Type declaration
+```typescript
+type useFormType<T extends Record<string, any> = Record<string, any>> = {
+  handleOnChange: HandleOnChangeType;
+  handleOnSubmit: HandleOnSubmitType;
+  values: T;
+  errors: ErrorsType<T>;
+  isSubmitted: boolean;
+  isSubmitting: boolean;
+  isDisabled: boolean;
+  isDirty: boolean;
+  resetForm: () => void;
+  resetField: (fieldName: keyof T) => void;
+};
+```
 
-| Param      | Type                                                    |
-| :--------- | :------------------------------------------------------ |
-| required   | `boolean`                                               |
-| validator? | [`ValidatorFuncType`](definitions.md#validatorfunctype) |
-| value      | [`ValueType`](definitions.md#valuetype)                 |
+Return type of the useForm hook containing all form state and handlers.
 
-`?` optional params
+#### Properties
 
-#### Defined at [index.ts:189](../packages/main/src/index.ts#L189)
+| Property         | Type                           | Description                                   |
+| ---------------- | ------------------------------ | --------------------------------------------- |
+| `handleOnChange` | `HandleOnChangeType`           | Handler for input field changes               |
+| `handleOnSubmit` | `HandleOnSubmitType`           | Handler for form submission                   |
+| `values`         | `T`                            | Current form values                           |
+| `errors`         | `ErrorsType<T>`                | Current form errors                           |
+| `isSubmitted`    | `boolean`                      | Whether form has been successfully submitted  |
+| `isSubmitting`   | `boolean`                      | Whether form is currently being submitted     |
+| `isDisabled`     | `boolean`                      | Whether form submit button should be disabled |
+| `isDirty`        | `boolean`                      | Whether any form field has been modified      |
+| `resetForm`      | `() => void`                   | Function to reset entire form                 |
+| `resetField`     | `(fieldName: keyof T) => void` | Function to reset specific field              |
 
 ---
 
 ### FormModelType
 
-Ƭ `Object`
+```typescript
+type FormModelType<T extends Record<string, any> = Record<string, any>> = {
+  [K in keyof T]: FormInputType<T>;
+};
+```
 
-#### Index signature
+Type defining the structure of a form model configuration.
 
-▪ [key: `string`]: [`FormInputType`](definitions.md#forminputtype)
+#### Example
 
-`key`: input field name
-
-#### Defined at [index.ts:185](../packages/main/src/index.ts#L185)
-
----
-
-### IsDirtyType
-
-Ƭ `Object`
-
-#### Index signature
-
-▪ [key: `string`]: `boolean`
-
-`key`: input field name
-
-#### Defined at [index.ts:195](../packages/main/src/index.ts#L195)
+```typescript
+const formModel: FormModelType<{ email: string; password: string }> = {
+  email: { value: '', required: true, validator: emailValidator },
+  password: { value: '', required: true },
+};
+```
 
 ---
 
-### IsRequiredType
+### FormInputType
 
-Ƭ `Object`
+```typescript
+type FormInputType<T extends Record<string, any> = Record<string, any>> = {
+  value: ValueType;
+  required: boolean;
+  validator?: ValidatorFuncType<T>;
+};
+```
 
-#### Index signature
+Type defining the configuration for a single form input field.
 
-▪ [key: `string`]: `boolean`
+#### Properties
 
-`key`: input field name
-
-#### Defined at [index.ts:199](../packages/main/src/index.ts#L199)
-
----
-
-### ValidatorFuncType
-
-Ƭ (`value`: [`ValueType`](definitions.md#valuetype)
-, `values?`: [`ValuesType`](definitions.md#valuestype)) => `string`
-
-##### Parameters
-
-| Param   | Type                                      | Description                                   |
-| :------ | :---------------------------------------- | :-------------------------------------------- |
-| value   | [`ValueType`](definitions.md#valuetype)   | current value of input field                  |
-| values? | [`ValuesType`](definitions.md#valuestype) | values state object to compare for validation |
-
-`?` optional params
-
-##### Returns
-
-`string`: custom error message returned from the validator function, or an empty string for no error.
-
-#### Defined at [index.ts:183](../packages/main/src/index.ts#L183)
+| Property     | Type                   | Description                   |
+| ------------ | ---------------------- | ----------------------------- |
+| `value`      | `ValueType`            | Initial value for the field   |
+| `required`   | `boolean`              | Whether the field is required |
+| `validator?` | `ValidatorFuncType<T>` | Optional validator function   |
 
 ---
+
+## Value Types
 
 ### ValueType
 
-Ƭ `string`
+```typescript
+type ValueType = string;
+```
 
-#### Defined at [index.ts:203](../packages/main/src/index.ts#L203)
+Type for form field values. Currently only supports strings.
 
 ---
 
 ### ValuesType
 
-Ƭ `Object`
+```typescript
+type ValuesType<T extends Record<string, any> = Record<string, any>> = T;
+```
 
-#### Index signature
-
-▪ [key: `string`]: [`ValueType`](definitions.md#valuetype)
-
-`key`: input field name
-
-#### Defined at [index.ts:205](../packages/main/src/index.ts#L205)
+Type for form values object (generic version).
 
 ---
 
+## Error Types
+
+### ErrorType
+
+```typescript
+type ErrorType = {
+  hasError: boolean;
+  message: string;
+};
+```
+
+Type defining the structure of field error objects.
+
+#### Properties
+
+| Property   | Type      | Description                    |
+| ---------- | --------- | ------------------------------ |
+| `hasError` | `boolean` | Whether the field has an error |
+| `message`  | `string`  | Error message to display       |
+
+---
+
+### ErrorsType
+
+```typescript
+type ErrorsType<T extends Record<string, any> = Record<string, any>> = {
+  [K in keyof T]: ErrorType;
+};
+```
+
+Type defining the structure of the errors object for all form fields.
+
+---
+
+## Validator Types
+
+### ValidatorFuncType
+
+```typescript
+type ValidatorFuncType<T extends Record<string, any> = Record<string, any>> = (
+  value: ValueType,
+  values?: T,
+) => string;
+```
+
+Type for validator functions that validate field values.
+
+#### Parameters
+
+| Parameter | Type        | Description                                                   |
+| --------- | ----------- | ------------------------------------------------------------- |
+| `value`   | `ValueType` | Current value of the field being validated                    |
+| `values?` | `T`         | Optional access to all form values for cross-field validation |
+
+#### Returns
+
+`string` - Error message if validation fails, empty string if valid
+
+#### Example
+
+```typescript
+const passwordValidator: ValidatorFuncType = (value, values) => {
+  if (value.length < 6) return 'Password must be at least 6 characters';
+  if (values?.confirmPassword && value !== values.confirmPassword) {
+    return 'Passwords do not match';
+  }
+  return '';
+};
+```
+
+---
+
+## Handler Types
+
 ### HandleOnChangeType
 
-Ƭ (`event`: `ChangeEvent`<`HTMLInputElement`>) => `void`
+```typescript
+type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+```
 
-##### Parameters
+Type for the onChange event handler with improved type safety.
 
-| Param | Type                              |
-| :---- | :-------------------------------- |
-| event | `ChangeEvent`<`HTMLInputElement`> |
+#### Parameters
 
-##### Returns `void`
+| Parameter | Type                            | Description                        |
+| --------- | ------------------------------- | ---------------------------------- |
+| `event`   | `ChangeEvent<HTMLInputElement>` | Change event from HTML input field |
 
-`!` returns nothing directly to the end user as it manages the controlled form values and \_IsDirty states.
+#### Returns
 
-#### Defined at [index.ts:180](../packages/main/src/index.ts#L180)
+`void` - Updates form state internally
+
+#### Improvements in v1.6.0+
+
+- **Better type safety**: Now specifically typed for `HTMLInputElement` instead of generic objects
+- **Cleaner implementation**: Simplified event handling with proper TypeScript support
 
 ---
 
 ### HandleOnSubmitType
 
-Ƭ (`event`: `FormEvent`<`HTMLFormElement`>) => `void`
+```typescript
+type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
+```
 
-##### Parameters
+Type for the onSubmit event handler.
 
-| Param | Type                           |
-| :---- | :----------------------------- |
-| event | `FormEvent`<`HTMLFormElement`> |
+#### Parameters
 
-##### Returns `void`
+| Parameter | Type                         | Description           |
+| --------- | ---------------------------- | --------------------- |
+| `event`   | `FormEvent<HTMLFormElement>` | Form submission event |
 
-`!` when the form has been validated, enabled and submitted, this callback function triggers another function set by the
-user.
+#### Returns
 
-#### Defined at [index.ts:181](../packages/main/src/index.ts#L181)
+`void` - Handles form submission with validation
 
 ---
 
-### useFormType
-
-Ƭ `Object`
-
-#### Type declaration
-
-| Param              | Type                                        | Description                                               |
-| ------------------ | ------------------------------------------- | --------------------------------------------------------- |
-| values             | [`ValuesType`](#valuestype)                 | returns form values state object                          |
-| errors             | [`ErrorsType`](#errorstype)                 | returns form errors state object                          |
-| handleOnChange     | [`HandleOnChangeType`](#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
-| handleOnSubmit     | [`HandleOnSubmitType`](#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
-| isDisabled         | `boolean`                                   | returns `true` / `false` when the form is valid / invalid |
-| isSubmitted        | `boolean`                                   | returns `true` when the form was submitted without errors |
-| formModel          | [`FormModelType`](#formmodeltype)           | initial form model with optional validation function      |
-| formSubmitCallback | `() => void`                                | function to run after form validation and submission      |
-
-`!` useForm takes two params: `formModel` and `formSubmitCallback` and returns the rest.
-
-#### Defined at [index.ts:171](../packages/main/src/index.ts#L171)
-
-## Docs created using:
-
-[typedoc](https://www.npmjs.com/package/typedoc)
-and [typedoc-plugin-markdown](https://www.npmjs.com/package/typedoc-plugin-markdown)
+_Documentation generated for useForm v1.6.0+_

@@ -1,5 +1,5 @@
-import { useCallback, useEffect, useState } from "react";
-import type { ChangeEvent, FormEvent } from "react";
+import { useCallback, useEffect, useState } from 'react';
+import type { ChangeEvent, FormEvent } from 'react';
 
 /**
  * Reactive form management and input field validation hook

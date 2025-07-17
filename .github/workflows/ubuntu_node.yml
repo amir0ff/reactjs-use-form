@@ -64,4 +64,4 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.6.8
         with:
           branch: gh-pages
-          folder: packages/examples/dist/
+          folder: packages/examples/build/

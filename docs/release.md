@@ -1,9 +1,25 @@
 # Release Notes
 
-## Version 1.6.5 (Latest)
+## Version 1.6.6 (Latest)
 
 ## What's Changed
+Security and deployment fixes:
+- **🔒 Security vulnerability resolved**: Update vitest to v3.2.4 to fix esbuild vulnerability (GHSA-67mh-4wv8-2f99)
+- **🚀 GitHub Pages deployment fixed**: Update workflow to use correct build output directory (`build/` instead of `dist/`)
+- **🧪 Test compatibility maintained**: All 19 tests continue to pass with updated vitest
+- **📦 Dependency updates**: Updated build tools for better security and performance
+- **✅ Zero vulnerabilities**: Complete resolution of all known security issues
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.5...1.6.6
+
+---
+
+## Version 1.6.5
+
+## What's Changed
+
 Test infrastructure fixes and compatibility improvements:
+
 - Fix React/React DOM version mismatch causing test failures
 - Add explicit react-dom@^18.3.1 dev dependency to match React 18.3.1
 - Resolve TypeError in tests caused by @testing-library/react v16.1.0 pulling in React DOM v19.1.0

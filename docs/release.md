@@ -1,15 +1,35 @@
 # Release Notes
 
-## Version 1.6.7 (Latest)
+## Version 1.6.8 (Latest)
 
 ## What's Changed
+
+Documentation consolidation and cleanup:
+
+- Removed duplicate commands: Eliminated `cleanup` in favor of `clean` command
+- Removed duplicate scripts: Eliminated `start:example` in favor of `dev:example`
+- Consolidated setup documentation: Proper separation between user and contributor docs
+- Streamlined README structure: Root README for contributors, main README for end users
+- Clean command improvements: Uses pnpm filtering for better maintainability
+- Enhanced setup instructions: Clear, step-by-step development setup
+- Improved consistency: All commands properly referenced and working
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.7...1.6.8
+
+---
+
+## Version 1.6.7
+
+## What's Changed
+
 Documentation improvements and API completeness:
-- Updated README.md to match comprehensive docs/definitions.md
-- Included `isSubmitting`, `resetForm`, and `resetField` in documentation
-- Updated `formSubmitCallback` type to show async support and value parameter
-- Enhanced property descriptions for better clarity and accuracy
-- Added missing properties to destructuring examples
-- README now documents all 10 available useForm properties/functions
+
+- README synchronization: Updated README.md to match comprehensive docs/definitions.md
+- Added missing properties: Included `isSubmitting`, `resetForm`, and `resetField` in documentation
+- Fixed type definitions: Updated `formSubmitCallback` type to show async support and value parameter
+- Improved descriptions: Enhanced property descriptions for better clarity and accuracy
+- Updated code examples: Added missing properties to destructuring examples
+- Complete API coverage: README now documents all 10 available useForm properties/functions
 
 **Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.6...1.6.7
 

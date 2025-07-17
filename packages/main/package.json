@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.6.7",
+  "version": "1.6.8",
   "description": "Reactive form management and input field validation hook",
   "author": "amir0ff",
   "license": "MIT",

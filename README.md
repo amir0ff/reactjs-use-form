@@ -27,19 +27,23 @@ packages
 
 ### Prerequisites
 - Node.js 18+
-- pnpm 9+
+- pnpm 9+ (recommended)
 
 ### Setup
 ```bash
-# Install pnpm if you haven't already
-npm install -g pnpm
+# Clone the repository
+git clone https://github.com/amir0ff/reactjs-use-form.git
+cd reactjs-use-form
 
 # Install dependencies
 pnpm install
 
-# Build the library
-pnpm build
+# Build library in watch mode
+pnpm dev
+
+# Run tests
+pnpm test
 
 # Start the example app
-pnpm start:example
+pnpm dev:example
 ```

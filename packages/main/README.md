@@ -195,37 +195,6 @@ const {
 
 #### Type definitions: [docs/definitions.md](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
-## Development
-
-### Prerequisites
-- Node.js 18+
-- pnpm 9+ (recommended)
-
-### Setup
-```bash
-# Clone the repository
-git clone https://github.com/amir0ff/reactjs-use-form.git
-cd reactjs-use-form
-
-# Install dependencies
-pnpm install
-
-# Build the library
-pnpm build
-
-# Start the example app
-pnpm start:example
-```
-
-### Available Commands
-```bash
-pnpm build              # Build the library with Vite
-pnpm dev                # Build library in watch mode
-pnpm test               # Run tests
-pnpm format             # Format code with Prettier
-pnpm clean              # Clean build artifacts
-```
-
 ## License
 
 ![GitHub](https://img.shields.io/github/license/amir0ff/reactjs-use-form?color=blue)

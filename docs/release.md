@@ -1,21 +1,43 @@
 # Release Notes
 
-## Version 1.6.9 (Latest)
+## Version 1.7.0 (Latest)
+
+## What's Changed
+
+Dependency cleanup and optimization:
+
+- **Removed unnecessary packages**: Eliminated `@types/jest` and `react-test-renderer` from devDependencies
+- **Bundle size optimization**: Removed 83 unused packages from node_modules
+- **Faster installs**: Cleaner dependency tree results in quicker installation times
+- **Maintenance improvement**: Simplified dependency management for better maintainability
+
+Technical improvements:
+- Cleaned up Jest-related dependencies since project uses Vitest
+- Removed unused React test renderer dependency
+- Maintained all essential testing utilities (@testing-library/jest-dom for DOM assertions)
+- All 19 tests continue to pass after cleanup
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.9...1.7.0
+
+---
+
+## Version 1.6.9
 
 ## What's Changed
 
 Performance optimization and efficiency improvements:
 
-- **Optimized validation effect**: Implemented shallow comparison to prevent unnecessary re-renders when values haven't actually changed
-- **Enhanced error object comparison**: Added specialized equality check for error objects to avoid unnecessary state updates
-- **Improved state batching**: Optimized state updates with early returns and conditional updates to minimize re-renders
-- **Memory optimization**: Replaced `Object.keys().reduce()` with `for...in` loops for better performance in utility functions
-- **Validation efficiency**: Optimized validation to only create new objects when changes are detected
-- **Reference tracking**: Added `useRef` to track previous values for intelligent change detection
-- **Reduced object creation**: Minimized object spread operations and unnecessary allocations
-- **Loop optimization**: Replaced `Array.some()` and `Array.filter()` with `for...in` loops for better performance
+- Implemented shallow comparison to prevent unnecessary re-renders when values haven't actually changed
+- Added specialized equality check for error objects to avoid unnecessary state updates
+- Optimized state updates with early returns and conditional updates to minimize re-renders
+- Replaced `Object.keys().reduce()` with `for...in` loops for better performance in utility functions
+- Optimized validation to only create new objects when changes are detected
+- Added `useRef` to track previous values for intelligent change detection
+- Minimized object spread operations and unnecessary allocations
+- Replaced `Array.some()` and `Array.filter()` with `for...in` loops for better performance
 
 Technical improvements:
+
 - Added `shallowEqual` utility for efficient object comparison
 - Added `errorObjectsEqual` utility for specialized error object comparison
 - Enhanced `handleOnChange` with early returns and conditional dirty state updates

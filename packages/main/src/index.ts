@@ -18,13 +18,13 @@ const REQUIRED_ERROR: ErrorType = { hasError: true, message: 'This field is requ
 function shallowEqual<T extends Record<string, any>>(obj1: T, obj2: T): boolean {
   const keys1 = Object.keys(obj1);
   const keys2 = Object.keys(obj2);
-  
+
   if (keys1.length !== keys2.length) return false;
-  
+
   for (const key of keys1) {
     if (obj1[key] !== obj2[key]) return false;
   }
-  
+
   return true;
 }
 
@@ -32,14 +32,14 @@ function shallowEqual<T extends Record<string, any>>(obj1: T, obj2: T): boolean 
  * Shallow compare error objects for equality
  */
 function errorObjectsEqual<T extends Record<string, any>>(
-  errors1: ErrorsType<T>, 
-  errors2: ErrorsType<T>
+  errors1: ErrorsType<T>,
+  errors2: ErrorsType<T>,
 ): boolean {
   const keys1 = Object.keys(errors1);
   const keys2 = Object.keys(errors2);
-  
+
   if (keys1.length !== keys2.length) return false;
-  
+
   for (const key of keys1) {
     const err1 = errors1[key as keyof T];
     const err2 = errors2[key as keyof T];
@@ -47,7 +47,7 @@ function errorObjectsEqual<T extends Record<string, any>>(
       return false;
     }
   }
-  
+
   return true;
 }
 
@@ -140,7 +140,10 @@ function validateFields<T extends Record<string, any>>(
       const fieldConfig = formModel[key];
       const newError = validateField(key, fieldValue, fieldConfig, values);
 
-      if (newError.message !== currentErrors[key].message || newError.hasError !== currentErrors[key].hasError) {
+      if (
+        newError.message !== currentErrors[key].message ||
+        newError.hasError !== currentErrors[key].hasError
+      ) {
         if (!hasChanges) {
           newErrors = { ...currentErrors };
           hasChanges = true;
@@ -261,7 +264,7 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 
     if (valuesChanged || dirtyStateChanged) {
       const newErrors = validateFields(fieldDirtyState, values, formModel, errors);
-      
+
       if (!errorObjectsEqual(errors, newErrors)) {
         setErrors(newErrors);
       }
@@ -343,7 +346,7 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     setIsSubmitted(false);
     setIsSubmitting(false);
     setIsTouched(false);
-    
+
     // Reset refs
     prevValuesRef.current = initialValues;
     prevFieldDirtyStateRef.current = initialDirtyState;

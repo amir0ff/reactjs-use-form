@@ -1,5 +1,5 @@
 packages/main/dist/
-packages/examples/build/
+packages/examples/dist/
 package.json
 yarn.lock
 README.md

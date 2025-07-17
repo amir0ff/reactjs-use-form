@@ -20,12 +20,19 @@
 ## Install
 
 ```bash
+# npm
 npm install reactjs-use-form
+
+# pnpm (recommended)
+pnpm add reactjs-use-form
+
+# yarn
+yarn add reactjs-use-form
 ```
 
-- 🧪 Tested using [@testing-library/react-hooks](https://www.npmjs.com/package/@testing-library/react-hooks).
-- 🏗️ Built with [Rollup](https://www.npmjs.com/package/rollup)
-  and [CRACO](https://www.npmjs.com/package/@craco/craco).
+- 🧪 Tested using [@testing-library/react](https://www.npmjs.com/package/@testing-library/react).
+- 🏗️ Built with [Vite](https://vitejs.dev) in library mode.
+- ⚡ Modern TypeScript 5.7+ with strict type checking.
 
 ## Usage
 
@@ -34,7 +41,7 @@ npm install reactjs-use-form
 1. create a form model:
 
 ```tsx
-import { FormModelType } from 'reactjs-use-form';
+import type { FormModelType } from 'reactjs-use-form';
 
 export const formModel: FormModelType = {
   currentPassphrase: {
@@ -73,7 +80,8 @@ export const formModel: FormModelType = {
 
 ```tsx
 import React from 'react';
-import { useForm, ValuesType } from 'reactjs-use-form';
+import { useForm } from 'reactjs-use-form';
+import type { ValuesType } from 'reactjs-use-form';
 import { formModel } from './formModel';
 
 const ChangePassphraseComponent = () => {
@@ -136,12 +144,13 @@ const ChangePassphraseComponent = () => {
 
 </details>
 <details>
-<summary> Material-UI code example</summary>
+<summary> Material-UI v6 code example</summary>
 
 ```tsx
 import React from 'react';
-import { Button, FormControl, FormGroup, FormHelperText, FormLabel, TextField } from '@material-ui/core';
-import { useForm, ValuesType } from 'reactjs-use-form';
+import { Alert, Button, FormControl, FormGroup, FormHelperText, TextField } from '@mui/material';
+import { useForm } from 'reactjs-use-form';
+import type { ValuesType } from 'reactjs-use-form';
 import { formModel } from './formModel';
 
 const ChangePassphraseComponent = () => {
@@ -208,8 +217,10 @@ const ChangePassphraseComponent = () => {
           </FormHelperText>
         </FormControl>
       </FormGroup>
-      {isSubmitted ? <Alert variant='standard' severity='success' action='Passphrase has been changed!' /> : null}
-      <Button type='submit' disabled={isDisabled}>
+      {isSubmitted ? <Alert variant='standard' severity='success'>
+        Passphrase has been changed!
+      </Alert> : null}
+      <Button variant="contained" type='submit' disabled={isDisabled}>
         Submit
       </Button>
     </form>
@@ -248,6 +259,37 @@ const {
 | formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
 #### Type definitions: [docs/definitions.md](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
+
+## Development
+
+### Prerequisites
+- Node.js 18+
+- pnpm 9+ (recommended)
+
+### Setup
+```bash
+# Clone the repository
+git clone https://github.com/amir0ff/reactjs-use-form.git
+cd reactjs-use-form
+
+# Install dependencies
+pnpm install
+
+# Build the library
+pnpm build
+
+# Start the example app
+pnpm start:example
+```
+
+### Available Commands
+```bash
+pnpm build              # Build the library with Vite
+pnpm dev                # Build library in watch mode
+pnpm test               # Run tests
+pnpm format             # Format code with Prettier
+pnpm clean              # Clean build artifacts
+```
 
 ## License
 

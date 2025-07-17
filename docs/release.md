@@ -1,73 +1,44 @@
 # Release Notes
 
-## Version 1.6.2 (Latest)
+## Version 1.6.3 (Latest)
 
-### What's New
-- **Documentation fix**: Restored correct README.md removing outdated feature references
-- **npm package alignment**: Ensures npm package page shows accurate documentation
+## What's Changed
+Security fix and dependency updates:
+- Fix moderate severity esbuild vulnerability (GHSA-67mh-4wv8-2f99)
+- Update Vite, Vitest, and @vitejs/plugin-react to latest versions
+- Resolve all known security vulnerabilities in dependency chain
+- Maintain full test compatibility after dependency updates
+- Improve development tooling with latest build tools
 
-### Technical Details
-- Fixed README that incorrectly referenced removed async validation and dynamic fields
-- Aligned documentation with actual library capabilities after 1.6.0/1.6.1 changes
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.2...1.6.3
+
+---
+
+## Version 1.6.2
+
+## What's Changed
+Documentation fix and npm package alignment:
+- Fix README.md removing outdated feature references
+- Align documentation with actual library capabilities after 1.6.0/1.6.1 changes
+- Ensure npm package page shows accurate documentation
 - No functional code changes - documentation update only
+
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.1...1.6.2
 
 ---
 
 ## Version 1.6.1
 
-### What's New
+## What's Changed
+Performance refactoring and UI migration release:
+- Refactor form library with memoized initial states and computed optimizations
+- Replace Material-UI components with shadcn/ui throughout examples
+- Add light/dark theme toggle with modern ThemeProvider
+- Implement efficient validation that only processes dirty fields
+- Enhance form state indicators with visual status display
+- Improve TypeScript strict mode compatibility and type safety
+- Add intelligent reset functionality with smart disable states
+- Separate utility functions for better maintainability
+- Update documentation structure with dedicated release notes
 
-- **Performance refactoring**: Memoized states, computed optimizations, efficient validation
-- **UI migration**: Replaced Material-UI with shadcn/ui components + light/dark theme toggle
-- **Enhanced form state indicators**: Visual display of all form states (isDirty, isDisabled, isSubmitting, isSubmitted)
-- **Improved reset functionality**: Better UX with smart disable states and visual feedback
-- **Better TypeScript support**: Improved strict mode compatibility and type safety
-
-### Technical Improvements
-
-- Separated utility functions for better maintainability
-- Extracted constants for memory efficiency
-- Cleaner event handler implementations
-- Enhanced documentation organization
-
----
-
-## Version 1.6.0+ Performance Improvements
-
-This version includes significant performance and code quality improvements:
-
-### 🚀 Performance Enhancements
-
-- **Memoized initial states**: Uses `useMemo` to prevent unnecessary recalculations on every render
-- **Computed state optimization**: `isDirty`, `isDisabled`, and `isFormInvalid` are now computed with `useMemo`
-- **Efficient validation**: Only validates fields that have actually changed
-- **Change detection**: Prevents unnecessary state updates when errors haven't changed
-
-### 🔧 Code Quality Improvements
-
-- **Better TypeScript support**: Improved strict mode compatibility with proper type assertions
-- **Cleaner architecture**: Separated utility functions for better maintainability and testing
-- **Reduced complexity**: Simplified event handler implementations
-- **Constants extraction**: Moved reusable error objects to constants for better memory usage
-
-### 🎯 Maintained Functionality
-
-All existing functionality remains exactly the same - this is a pure refactoring focused on performance and maintainability.
-
----
-
-## Migration Guide
-
-No migration is required for version 1.6.0+. This is a pure performance and code quality improvement that maintains full backward compatibility.
-
-### What Changed
-
-- Internal implementation optimizations
-- Better TypeScript strict mode support
-- Improved event handler type safety (`HandleOnChangeType` now specifically typed for `HTMLInputElement`)
-
-### What Stayed the Same
-
-- All public API remains identical
-- All existing functionality preserved
-- No breaking changes to form behavior or state management
+**Full Changelog**: https://github.com/amir0ff/reactjs-use-form/compare/1.6.0...1.6.1

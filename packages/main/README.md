@@ -9,17 +9,7 @@
 
 #### The most lightweight React form management library with TypeScript support
 
-> **[Only 837B gzipped](https://bundlephobia.com/package/reactjs-use-form)** - 13-16x smaller than major competitors! Create a [form model](#usage), flag input fields as required or add validation functions with custom error messages. useForm validates inputs as the user types, enables form submission when valid, and provides powerful utilities for form management.
-
-## ✨ Key Features
-
-- 🪶 **Ultra-lightweight**: Only 837B gzipped vs 10.78kB for react-hook-form
-- 🔒 **TypeScript-first**: Full type safety with generics and auto-completion
-- ⚡ **Real-time validation**: Sync and async validation with custom error messages
-- 🔄 **Form state management**: Submission state, form reset, field-level reset
-- 🚀 **Dynamic fields**: Add/remove fields at runtime
-- 📱 **Zero dependencies**: Only React as peer dependency
-- 🎯 **Developer-friendly**: Simple, declarative API
+> Create a [form model](#usage), flag input fields as required or add a value validation function with custom error messages. useForm will validate the inputs as the user types, when there are no errors the form gets enabled for submission. On form submission, it executes a callback function the user provides.
 
 ##### Requirements:
 
@@ -46,286 +36,261 @@ yarn add reactjs-use-form
 
 ## Usage
 
-##### Basic Example:
+##### Steps:
 
-### 1. Create a form model
+1. create a form model:
 
 ```tsx
 import type { FormModelType } from 'reactjs-use-form';
 
-// Define your form data type for enhanced type safety
-interface LoginForm {
-  username: string;
-  password: string;
-}
-
-export const loginModel: FormModelType<LoginForm> = {
-  username: {
+export const formModel: FormModelType = {
+  currentPassphrase: {
     value: '',
     required: true,
-    validator: (username) => {
-      return username.length < 3 ? 'Username must be at least 3 characters' : '';
+  },
+  newPassphrase: {
+    value: '',
+    required: true,
+    validator: (newPassphrase, values) => {
+      if (newPassphrase === values?.currentPassphrase) {
+        return 'New password must be different from current password';
+      } else if (newPassphrase.length <= 5) {
+        return 'Password must be at least 6 characters long';
+      } else if (newPassphrase !== values?.verifyPassphrase) {
+        return 'Passwords do not match';
+      } else return '';
     },
   },
-  password: {
+  verifyPassphrase: {
     value: '',
     required: true,
-    validator: (password) => {
-      return password.length < 6 ? 'Password must be at least 6 characters' : '';
+    validator: (verifyPassphrase, values) => {
+      return verifyPassphrase !== values?.newPassphrase ? 'Passwords do not match' : '';
     },
   },
 };
 ```
 
-### 2. Use the hook in your component
+2. prepare a submit callback function, for example: `function handleSubmit() {...}`.
+
+3. use the form model with the callback function in useForm hook in a functional react component:
+
+<details>
+<summary> Plain JSX code example </summary>
 
 ```tsx
+import React from 'react';
 import { useForm } from 'reactjs-use-form';
+import type { ValuesType } from 'reactjs-use-form';
+import { formModel } from './formModel';
 
-function LoginForm() {
+const ChangePassphraseComponent = () => {
   const {
     values,
     errors,
-    isSubmitted,
-    isSubmitting,
-    isDisabled,
-    isDirty,
     handleOnChange,
     handleOnSubmit,
-    resetForm,
-    resetField,
-  } = useForm(loginModel, handleSubmit);
+    isDisabled,
+    isSubmitted,
+    isDirty
+  } = useForm(formModel, handleSubmit);
 
-  async function handleSubmit(formValues: LoginForm) {
-    // Your submission logic here
-    console.log('Form submitted:', formValues);
+  const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
+
+  function handleSubmit() {
+    if (isDirty) formSubmitCallback();
   }
 
   return (
     <form onSubmit={handleOnSubmit}>
-      <input
-        name="username"
-        value={values.username}
-        onChange={handleOnChange}
-        placeholder="Username"
-      />
-      {errors.username.hasError && (
-        <span>{errors.username.message}</span>
-      )}
-
-      <input
-        name="password"
-        type="password"
-        value={values.password}
-        onChange={handleOnChange}
-        placeholder="Password"
-      />
-      {errors.password.hasError && (
-        <span>{errors.password.message}</span>
-      )}
-
-      <button type="submit" disabled={isDisabled || isSubmitting}>
-        {isSubmitting ? 'Logging in...' : 'Login'}
-      </button>
-      
-      <button type="button" onClick={resetForm}>
-        Reset Form
+      <div>
+        <label>Current Passphrase</label>
+        <input
+          type="password"
+          name="currentPassphrase"
+          value={currentPassphrase}
+          onChange={handleOnChange}
+        />
+        <span>{errors.currentPassphrase.message}</span>
+      </div>
+      <div>
+        <label>New Passphrase</label>
+        <input
+          type="password"
+          name="newPassphrase"
+          value={newPassphrase}
+          onChange={handleOnChange}
+        />
+        <span>{errors.newPassphrase.message}</span>
+      </div>
+      <div>
+        <label>Verify Passphrase</label>
+        <input
+          type="password"
+          name="verifyPassphrase"
+          value={verifyPassphrase}
+          onChange={handleOnChange}
+        />
+        <span>{errors.verifyPassphrase.message}</span>
+      </div>
+      <span>{isSubmitted ? 'Passphrase has been changed!' : null}</span>
+      <button type="submit" disabled={isDisabled}>
+        <span>Submit</span>
       </button>
     </form>
   );
-}
-```
-
-## 🚀 Advanced Features
-
-### Async Validation
-
-Support for asynchronous validation (e.g., checking username availability):
-
-```tsx
-export const asyncFormModel: FormModelType = {
-  username: {
-    value: '',
-    required: true,
-    validator: async (username) => {
-      if (username.length < 3) {
-        return 'Username must be at least 3 characters';
-      }
-      
-      // Simulate API call
-      const response = await fetch(`/api/check-username/${username}`);
-      const { available } = await response.json();
-      
-      return available ? '' : 'Username is already taken';
-    },
-  },
 };
 ```
 
-### Dynamic Fields
-
-Add or remove fields at runtime:
+</details>
+<details>
+<summary> Material-UI v6 code example</summary>
 
 ```tsx
-function DynamicForm() {
-  const { values, addField, removeField, ...form } = useForm(baseModel, handleSubmit);
+import React from 'react';
+import { Alert, Button, FormControl, FormGroup, FormHelperText, TextField } from '@mui/material';
+import { useForm } from 'reactjs-use-form';
+import type { ValuesType } from 'reactjs-use-form';
+import { formModel } from './formModel';
 
-  const addPhoneField = () => {
-    addField('phone', {
-      value: '',
-      required: true,
-      validator: (phone) => {
-        const phoneRegex = /^\+?[\d\s-()]{10,}$/;
-        return phoneRegex.test(phone) ? '' : 'Invalid phone number';
-      },
-    });
-  };
+const ChangePassphraseComponent = () => {
+  const {
+    values,
+    errors,
+    handleOnChange,
+    handleOnSubmit,
+    isDisabled,
+    isSubmitted,
+    isDirty
+  } = useForm(formModel, handleSubmit);
 
-  const removePhoneField = () => {
-    removeField('phone');
-  };
+  const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
+
+  function handleSubmit() {
+    if (isDirty) formSubmitCallback();
+  }
 
   return (
-    <form onSubmit={form.handleOnSubmit}>
-      {/* Static fields */}
-      <input name="name" value={values.name} onChange={form.handleOnChange} />
-      
-      {/* Dynamic field */}
-      {values.phone !== undefined && (
-        <input name="phone" value={values.phone} onChange={form.handleOnChange} />
-      )}
-      
-      <button type="button" onClick={addPhoneField}>Add Phone</button>
-      <button type="button" onClick={removePhoneField}>Remove Phone</button>
+    <form onSubmit={handleOnSubmit}>
+      <FormGroup>
+        <FormControl>
+          <TextField
+            required={true}
+            label='Current Passphrase'
+            type='password'
+            name='currentPassphrase'
+            error={errors.currentPassphrase.hasError}
+            value={currentPassphrase}
+            onChange={handleOnChange} />
+          <FormHelperText error={errors.currentPassphrase.hasError}>
+            {errors.currentPassphrase.message}
+          </FormHelperText>
+        </FormControl>
+      </FormGroup>
+      <FormGroup>
+        <FormControl>
+          <TextField
+            required={true}
+            label='New Passphrase'
+            type='password'
+            name='newPassphrase'
+            error={errors.newPassphrase.hasError}
+            value={newPassphrase}
+            onChange={handleOnChange} />
+          <FormHelperText error={errors.newPassphrase.hasError}>
+            {errors.newPassphrase.message}
+          </FormHelperText>
+        </FormControl>
+      </FormGroup>
+      <FormGroup>
+        <FormControl>
+          <TextField
+            required={true}
+            label='Verify Passphrase'
+            type='password'
+            name='verifyPassphrase'
+            error={errors.verifyPassphrase.hasError}
+            value={verifyPassphrase}
+            onChange={handleOnChange} />
+          <FormHelperText error={errors.verifyPassphrase.hasError}>
+            {errors.verifyPassphrase.message}
+          </FormHelperText>
+        </FormControl>
+      </FormGroup>
+      {isSubmitted ? <Alert variant='standard' severity='success'>
+        Passphrase has been changed!
+      </Alert> : null}
+      <Button variant="contained" type='submit' disabled={isDisabled}>
+        Submit
+      </Button>
     </form>
   );
-}
-```
-
-### Field-Level Reset
-
-Reset individual fields:
-
-```tsx
-function MyForm() {
-  const { resetField, ...form } = useForm(formModel, handleSubmit);
-
-  return (
-    <form onSubmit={form.handleOnSubmit}>
-      <input name="email" value={form.values.email} onChange={form.handleOnChange} />
-      <button type="button" onClick={() => resetField('email')}>
-        Reset Email
-      </button>
-    </form>
-  );
-}
-```
-
-## 📖 API Reference
-
-### `useForm<T>(formModel, submitCallback)`
-
-#### Parameters
-
-- `formModel: FormModelType<T>` - Form configuration object
-- `submitCallback: (values: T) => void | Promise<void>` - Function called on valid form submission
-
-#### Returns
-
-```tsx
-{
-  // Form state
-  values: T                    // Current form values
-  errors: ErrorsType<T>        // Validation errors
-  isSubmitted: boolean         // Form submission status
-  isSubmitting: boolean        // Async submission in progress
-  isDisabled: boolean          // Form validation status
-  isDirty: boolean            // Form has been modified
-  
-  // Event handlers
-  handleOnChange: (event) => void     // Input change handler
-  handleOnSubmit: (event) => void     // Form submit handler
-  
-  // Utility functions
-  resetForm: () => void               // Reset entire form
-  resetField: (fieldName) => void     // Reset specific field
-  addField: (name, config) => void    // Add field dynamically
-  removeField: (fieldName) => void    // Remove field dynamically
-}
-```
-
-### Form Model Type
-
-```tsx
-type FormModelType<T> = {
-  [K in keyof T]: {
-    value: string;
-    required: boolean;
-    validator?: (value: string, allValues?: T) => string | Promise<string>;
-  };
 };
 ```
 
-### Validation Function
+</details>
+
+## Options
+
+useForm takes two params: `formModel` and `formSubmitCallback` and returns the rest.
 
 ```tsx
-type ValidatorFunction<T> = (
-  value: string,
-  allValues?: T
-) => string | Promise<string>;
+const {
+  values,
+  errors,
+  handleOnChange,
+  handleOnSubmit,
+  isDisabled,
+  isSubmitted,
+  isDirty
+} = useForm(formModel, formSubmitCallback);
 ```
 
-- Return empty string `''` for valid input
-- Return error message string for invalid input
-- Support for async validation by returning `Promise<string>`
+| Param              | Type                                                           | Description                                               |
+| ------------------ | -------------------------------------------------------------- | --------------------------------------------------------- |
+| values             | [`ValuesType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#valuestype)                 | returns form values state object                          |
+| errors             | [`ErrorsType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#errorstype)                 | returns form errors state object                          |
+| handleOnChange     | [`HandleOnChangeType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonchangetype) | binds to a `HTMLInputElement: change event`               |
+| handleOnSubmit     | [`HandleOnSubmitType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#handleonsubmittype) | binds to a `HTMLFormElement: submit event`                |
+| isDisabled         | `boolean`                                                      | returns `true` / `false` when the form is valid / invalid |
+| isSubmitted        | `boolean`                                                      | returns `true` when the form was submitted without errors |
+| isDirty        | `boolean`                                                      | returns `true` when the form recieves data |
+| formModel          | [`FormModelType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |
+| formSubmitCallback | `() => void`                                                   | function to run after form validation and submission      |
 
-## 🎯 Bundle Size Comparison
+#### Type definitions: [docs/definitions.md](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
-| Library | Minified | Gzipped | Ratio |
-|---------|----------|---------|-------|
-| **reactjs-use-form** | **1.9kB** | **837B** | **1x** |
-| react-hook-form | 13.2kB | 10.78kB | 13x |
-| formik | 16.1kB | 13.20kB | 16x |
-| react-final-form | 4.3kB | 3.54kB | 4x |
-| react-form | 5.5kB | 4.54kB | 5x |
+## Development
 
-*Source: [bundlephobia.com](https://bundlephobia.com/package/reactjs-use-form)*
+### Prerequisites
+- Node.js 18+
+- pnpm 9+ (recommended)
 
-## 🔄 Migration Guide
+### Setup
+```bash
+# Clone the repository
+git clone https://github.com/amir0ff/reactjs-use-form.git
+cd reactjs-use-form
 
-### From v1.x to v2.x
+# Install dependencies
+pnpm install
 
-The new version is backward compatible, but you can now take advantage of:
+# Build the library
+pnpm build
 
-1. **Enhanced TypeScript support**: Use generics for better type safety
-2. **New form utilities**: `resetForm`, `resetField`, `addField`, `removeField`
-3. **Submission state**: `isSubmitting` for better UX
-4. **Async validation**: Return `Promise<string>` from validators
-
-```tsx
-// Before (v1.x) - still works
-const { values, errors, handleOnChange, handleOnSubmit } = useForm(formModel, callback);
-
-// After (v2.x) - enhanced with new features
-const { 
-  values, 
-  errors, 
-  isSubmitting, 
-  resetForm, 
-  resetField,
-  handleOnChange, 
-  handleOnSubmit 
-} = useForm(formModel, callback);
+# Start the example app
+pnpm start:example
 ```
 
-## 🤝 Contributing
+### Available Commands
+```bash
+pnpm build              # Build the library with Vite
+pnpm dev                # Build library in watch mode
+pnpm test               # Run tests
+pnpm format             # Format code with Prettier
+pnpm clean              # Clean build artifacts
+```
 
-Contributions are welcome! Please read our [Contributing Guide](CONTRIBUTING.md) for details.
+## License
 
-## 📄 License
-
-MIT © [Amir Hossein Aghajari](https://github.com/amir0ff)
-
----
-
-**Made with ❤️ to keep React forms simple and lightweight**
+![GitHub](https://img.shields.io/github/license/amir0ff/reactjs-use-form?color=blue)

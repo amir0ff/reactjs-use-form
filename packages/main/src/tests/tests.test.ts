@@ -226,7 +226,7 @@ describe('useForm Hook', () => {
   });
 
   describe('submission state tests', () => {
-        it('should handle async submission correctly', async () => {
+    it('should handle async submission correctly', async () => {
       const asyncSubmitCallback = vi.fn().mockResolvedValue(undefined);
       const { result } = renderHook(() => useForm(mockFormModel, asyncSubmitCallback));
 

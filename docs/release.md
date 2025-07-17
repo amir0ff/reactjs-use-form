@@ -1,6 +1,19 @@
 # Release Notes
 
-## Version 1.6.1 (Latest)
+## Version 1.6.2 (Latest)
+
+### What's New
+- **Documentation fix**: Restored correct README.md removing outdated feature references
+- **npm package alignment**: Ensures npm package page shows accurate documentation
+
+### Technical Details
+- Fixed README that incorrectly referenced removed async validation and dynamic fields
+- Aligned documentation with actual library capabilities after 1.6.0/1.6.1 changes
+- No functional code changes - documentation update only
+
+---
+
+## Version 1.6.1
 
 ### What's New
 

@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # registry-url removed to avoid interfering with Trusted Publishing
+          # registry-url removed to avoid setup-node forcing auth token usage
       
       - name: 🗑️ Get pnpm store directory
         shell: bash
@@ -55,8 +55,9 @@ jobs:
         run: pnpm run build
       
       - name: 🚚 Publish to NPM
-        run: pnpm publish --filter reactjs-use-form --provenance --no-git-checks
-        # NODE_AUTH_TOKEN is not needed for Trusted Publishing
+        run: |
+          pnpm config set registry https://registry.npmjs.org/
+          pnpm publish --filter reactjs-use-form --provenance --no-git-checks --access public
       
       - name: 🏗️ Build example app
         run: pnpm run build:example

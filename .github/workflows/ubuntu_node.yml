@@ -55,9 +55,10 @@ jobs:
         run: pnpm run build
       
       - name: 🚚 Publish to NPM
+        working-directory: packages/main
         run: |
-          pnpm config set registry https://registry.npmjs.org/
-          pnpm publish --filter reactjs-use-form --provenance --no-git-checks --access public
+          npm config set registry https://registry.npmjs.org/
+          npm publish --provenance --access public
       
       - name: 🏗️ Build example app
         run: pnpm run build:example

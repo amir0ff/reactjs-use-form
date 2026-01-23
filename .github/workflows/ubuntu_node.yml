@@ -6,6 +6,9 @@ on:
     branches: [ main ]
 jobs:
   test_build_deploy:
+    permissions:
+      contents: write
+      id-token: write
     env:
       CI: true
       GENERATE_SOURCEMAP: false
@@ -52,10 +55,8 @@ jobs:
         run: pnpm run build
       
       - name: 🚚 Publish to NPM
-        uses: JS-DevTools/npm-publish@v3
-        with:
-          token: ${{ secrets.NPM_TOKEN }}
-          package: packages/main/package.json
+        run: pnpm publish --filter reactjs-use-form --provenance --no-git-checks
+        # NODE_AUTH_TOKEN is not needed for Trusted Publishing
       
       - name: 🏗️ Build example app
         run: pnpm run build:example

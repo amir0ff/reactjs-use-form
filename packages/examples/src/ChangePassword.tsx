@@ -77,7 +77,7 @@ export function ChangePassword(): any {
                     type="password"
                     placeholder="••••••••"
                     required
-                    className={form.errors.currentPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}
+                    className={`mt-2 ${form.errors.currentPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
                     value={form.values.currentPassphrase || ''}
                     onChange={form.handleOnChange}
                   />
@@ -98,7 +98,7 @@ export function ChangePassword(): any {
                     type="password"
                     placeholder="••••••••"
                     required
-                    className={form.errors.newPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}
+                    className={`mt-2 ${form.errors.newPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
                     value={form.values.newPassphrase || ''}
                     onChange={form.handleOnChange}
                   />
@@ -119,7 +119,7 @@ export function ChangePassword(): any {
                     type="password"
                     placeholder="••••••••"
                     required
-                    className={form.errors.verifyPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}
+                    className={`mt-2 ${form.errors.verifyPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
                     value={form.values.verifyPassphrase || ''}
                     onChange={form.handleOnChange}
                   />

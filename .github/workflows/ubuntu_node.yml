@@ -30,7 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # registry-url removed to avoid interfering with Trusted Publishing
+          registry-url: 'https://registry.npmjs.org'
       
       - name: 🗑️ Get pnpm store directory
         shell: bash
@@ -56,9 +56,9 @@ jobs:
       
       - name: 🚚 Publish to NPM
         working-directory: packages/main
-        run: |
-          echo "//registry.npmjs.org/:_authToken=" > .npmrc
-          npm publish --provenance --access public
+        run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
       
       - name: 🏗️ Build example app
         run: pnpm run build:example

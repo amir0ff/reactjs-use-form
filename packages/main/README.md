@@ -2,7 +2,7 @@
 
 [![build and tests](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.3)](https://bundlejs.com/?q=reactjs-use-form@1.7.3)
+[![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.4)](https://bundlejs.com/?q=reactjs-use-form@1.7.4)
 [![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
 #### The most lightweight React form management library with TypeScript support

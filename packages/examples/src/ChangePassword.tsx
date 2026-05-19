@@ -136,19 +136,19 @@ export function ChangePassword(): any {
                 <h4 className="text-sm font-medium text-foreground">Form State</h4>
                 <div className="grid grid-cols-2 gap-2 text-xs">
                   <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${form.isDirty ? 'bg-amber-500' : 'bg-gray-300'}`} />
+                    <div className={`w-2 h-2 rounded-full ${form.isDirty ? 'bg-amber-500' : 'bg-muted-foreground/30'}`} />
                     <span className="text-muted-foreground">Dirty: {form.isDirty ? 'Yes' : 'No'}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${form.isDisabled ? 'bg-red-500' : 'bg-green-500'}`} />
+                    <div className={`w-2 h-2 rounded-full ${form.isDisabled ? 'bg-destructive' : 'bg-success'}`} />
                     <span className="text-muted-foreground">Disabled: {form.isDisabled ? 'Yes' : 'No'}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${form.isSubmitting ? 'bg-blue-500' : 'bg-gray-300'}`} />
+                    <div className={`w-2 h-2 rounded-full ${form.isSubmitting ? 'bg-primary' : 'bg-muted-foreground/30'}`} />
                     <span className="text-muted-foreground">Submitting: {form.isSubmitting ? 'Yes' : 'No'}</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <div className={`w-2 h-2 rounded-full ${form.isSubmitted ? 'bg-green-500' : 'bg-gray-300'}`} />
+                    <div className={`w-2 h-2 rounded-full ${form.isSubmitted ? 'bg-success' : 'bg-muted-foreground/30'}`} />
                     <span className="text-muted-foreground">Submitted: {form.isSubmitted ? 'Yes' : 'No'}</span>
                   </div>
                 </div>

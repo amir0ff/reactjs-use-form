@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 24
+          registry-url: 'https://registry.npmjs.org'
       
       - name: 🗑️ Get pnpm store directory
         shell: bash
@@ -53,23 +54,14 @@ jobs:
       - name: 🏗️ Build main package
         run: pnpm run build
       
+      # Publishes via npm Trusted Publishing (OIDC). Requires trusted publisher
+      # configured on npmjs.com for workflow "ubuntu_node.yml". Do NOT set NPM_TOKEN.
       - name: 🚚 Publish to NPM
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         working-directory: packages/main
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
           npm install -g npm@latest
-          if [ -z "$NODE_AUTH_TOKEN" ]; then
-            echo "::error::NPM_TOKEN secret is missing. Create an Automation token at https://www.npmjs.com/settings/amiroff157/tokens and add it as the NPM_TOKEN repository secret."
-            exit 1
-          fi
-          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > .npmrc
-          npm whoami || {
-            echo "::error::NPM_TOKEN is invalid or expired. Regenerate an Automation token at https://www.npmjs.com/settings/amiroff157/tokens and update the NPM_TOKEN secret."
-            exit 1
-          }
-          npm publish --provenance --access public
+          npm publish --access public
       
       - name: 🏗️ Build example app
         run: pnpm run build:example

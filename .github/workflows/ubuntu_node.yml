@@ -30,7 +30,6 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          registry-url: 'https://registry.npmjs.org'
       
       - name: 🗑️ Get pnpm store directory
         shell: bash
@@ -55,10 +54,11 @@ jobs:
         run: pnpm run build
       
       - name: 🚚 Publish to NPM
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         working-directory: packages/main
-        run: npm publish --provenance --access public
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=" > .npmrc
+          npm publish --provenance --access public
       
       - name: 🏗️ Build example app
         run: pnpm run build:example

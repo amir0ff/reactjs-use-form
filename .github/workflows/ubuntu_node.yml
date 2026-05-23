@@ -15,6 +15,7 @@ jobs:
       CI: true
       GENERATE_SOURCEMAP: false
       INPUT_TOKEN: ''
+      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
     runs-on: ubuntu-latest
     steps:
       - name: 📥 Get latest source code

@@ -292,8 +292,8 @@ Type for the onSubmit event handler.
 
 #### Parameters
 
-| Parameter | Type                         | Description           |
-| --------- | ---------------------------- | --------------------- |
+| Parameter | Type                           | Description           |
+| --------- | ------------------------------ | --------------------- |
 | `event`   | `SubmitEvent<HTMLFormElement>` | Form submission event |
 
 #### Returns

@@ -2,13 +2,37 @@ import { useState } from 'react';
 import { useForm } from 'reactjs-use-form';
 import type { ValuesType } from 'reactjs-use-form';
 import { Button } from './components/ui/button';
-import { Input } from './components/ui/input';
+import { ClearableInput } from './components/ui/clearable-input';
 import { Label } from './components/ui/label';
 import { Alert, AlertDescription } from './components/ui/alert';
 import { ModeToggle } from './components/mode-toggle';
 import { Loader2, CheckCircle, RotateCcw } from 'lucide-react';
 import './theme/styles.css';
 import { formModel } from './formModel';
+
+type PassphraseField = keyof typeof formModel;
+
+const passphraseFields: {
+  id: PassphraseField;
+  label: string;
+  clearLabel: string;
+}[] = [
+  {
+    id: 'currentPassphrase',
+    label: 'Current Passphrase',
+    clearLabel: 'Clear current passphrase',
+  },
+  {
+    id: 'newPassphrase',
+    label: 'New Passphrase',
+    clearLabel: 'Clear new passphrase',
+  },
+  {
+    id: 'verifyPassphrase',
+    label: 'Confirm New Passphrase',
+    clearLabel: 'Clear confirmation passphrase',
+  },
+];
 
 export function ChangePassword(): any {
   const [submitMessage, setSubmitMessage] = useState<string>('');
@@ -62,73 +86,38 @@ export function ChangePassword(): any {
                   🔐 Security Settings
                 </Label>
                 <p className="text-sm text-muted-foreground">
-                  Keep your account secure with a strong passphrase
+                  Keep your account secure with a strong passphrase. Hover or focus a field to
+                  clear it with the × button.
                 </p>
               </div>
               
               <div className="space-y-4">
-                <div className="space-y-2">
-                  <Label htmlFor="currentPassphrase" className="text-sm font-medium">
-                    Current Passphrase
-                  </Label>
-                  <Input
-                    id="currentPassphrase"
-                    name="currentPassphrase"
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                    className={`mt-2 ${form.errors.currentPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
-                    value={form.values.currentPassphrase || ''}
-                    onChange={form.handleOnChange}
-                  />
-                  {form.errors.currentPassphrase?.hasError && (
-                    <p className="text-sm text-destructive font-medium">
-                      {form.errors.currentPassphrase?.message}
-                    </p>
-                  )}
-                </div>
+                {passphraseFields.map(({ id, label, clearLabel }) => {
+                  const fieldError = form.errors[id];
 
-                <div className="space-y-2">
-                  <Label htmlFor="newPassphrase" className="text-sm font-medium">
-                    New Passphrase
-                  </Label>
-                  <Input
-                    id="newPassphrase"
-                    name="newPassphrase"
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                    className={`mt-2 ${form.errors.newPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
-                    value={form.values.newPassphrase || ''}
-                    onChange={form.handleOnChange}
-                  />
-                  {form.errors.newPassphrase?.hasError && (
-                    <p className="text-sm text-destructive font-medium">
-                      {form.errors.newPassphrase?.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className="space-y-2">
-                  <Label htmlFor="verifyPassphrase" className="text-sm font-medium">
-                    Confirm New Passphrase
-                  </Label>
-                  <Input
-                    id="verifyPassphrase"
-                    name="verifyPassphrase"
-                    type="password"
-                    placeholder="••••••••"
-                    required
-                    className={`mt-2 ${form.errors.verifyPassphrase?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}`}
-                    value={form.values.verifyPassphrase || ''}
-                    onChange={form.handleOnChange}
-                  />
-                  {form.errors.verifyPassphrase?.hasError && (
-                    <p className="text-sm text-destructive font-medium">
-                      {form.errors.verifyPassphrase?.message}
-                    </p>
-                  )}
-                </div>
+                  return (
+                    <div key={id} className="space-y-2">
+                      <Label htmlFor={id} className="text-sm font-medium">
+                        {label}
+                      </Label>
+                      <ClearableInput
+                        id={id}
+                        name={id}
+                        type="password"
+                        placeholder="••••••••"
+                        required
+                        clearLabel={clearLabel}
+                        className={fieldError?.hasError ? 'border-destructive focus-visible:ring-destructive' : ''}
+                        value={form.values[id] || ''}
+                        onChange={form.handleOnChange}
+                        onClear={() => form.resetField(id)}
+                      />
+                      {fieldError?.hasError && (
+                        <p className="text-sm text-destructive font-medium">{fieldError.message}</p>
+                      )}
+                    </div>
+                  );
+                })}
               </div>
               
               {/* Form state indicators */}

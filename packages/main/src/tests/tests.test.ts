@@ -222,7 +222,10 @@ describe('useForm Hook', () => {
     });
 
     expect(result.current.values.username).toBe('');
-    expect(result.current.errors.username).toEqual({ hasError: false, message: '' });
+    expect(result.current.errors.username).toEqual({
+      hasError: true,
+      message: 'This field is required',
+    });
   });
 
   describe('submission state tests', () => {

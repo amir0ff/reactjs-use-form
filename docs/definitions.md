@@ -285,7 +285,7 @@ Type for the onChange event handler with improved type safety.
 ### HandleOnSubmitType
 
 ```typescript
-type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
+type HandleOnSubmitType = (event: SubmitEvent<HTMLFormElement>) => void;
 ```
 
 Type for the onSubmit event handler.
@@ -294,7 +294,7 @@ Type for the onSubmit event handler.
 
 | Parameter | Type                         | Description           |
 | --------- | ---------------------------- | --------------------- |
-| `event`   | `FormEvent<HTMLFormElement>` | Form submission event |
+| `event`   | `SubmitEvent<HTMLFormElement>` | Form submission event |
 
 #### Returns
 

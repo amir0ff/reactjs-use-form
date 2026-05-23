@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import type { ChangeEvent, FormEvent } from 'react';
+import type { ChangeEvent, SubmitEvent } from 'react';
 
 // =============================================================================
 // CONSTANTS
@@ -101,7 +101,6 @@ function createRequiredFieldsMap<T extends Record<string, any>>(
  * Validates a single field with its configuration
  */
 function validateField<T extends Record<string, any>>(
-  fieldName: keyof T,
   fieldValue: ValueType,
   fieldConfig: FormInputType<T>,
   allValues: T,
@@ -138,7 +137,7 @@ function validateFields<T extends Record<string, any>>(
     if (dirtyFields[key]) {
       const fieldValue = values[key];
       const fieldConfig = formModel[key];
-      const newError = validateField(key, fieldValue, fieldConfig, values);
+      const newError = validateField(fieldValue, fieldConfig, values);
 
       if (
         newError.message !== currentErrors[key].message ||
@@ -255,7 +254,7 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     return !isTouched || isFormInvalid;
   }, [isTouched, isFormInvalid]);
 
-  // Optimized validation effect - only run when necessary
+  // Validate dirty fields when values change (functional setState avoids errors in deps)
   useEffect(() => {
     if (!isTouched) return;
 
@@ -263,17 +262,15 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     const dirtyStateChanged = !shallowEqual(prevFieldDirtyStateRef.current, fieldDirtyState);
 
     if (valuesChanged || dirtyStateChanged) {
-      const newErrors = validateFields(fieldDirtyState, values, formModel, errors);
+      setErrors((currentErrors) => {
+        const newErrors = validateFields(fieldDirtyState, values, formModel, currentErrors);
+        return errorObjectsEqual(currentErrors, newErrors) ? currentErrors : newErrors;
+      });
 
-      if (!errorObjectsEqual(errors, newErrors)) {
-        setErrors(newErrors);
-      }
-
-      // Update refs for next comparison
       prevValuesRef.current = values;
       prevFieldDirtyStateRef.current = fieldDirtyState;
     }
-  }, [values, fieldDirtyState, formModel, errors, isTouched]);
+  }, [values, fieldDirtyState, formModel, isTouched]);
 
   /**
    * Handles input field changes, updates form values, and marks fields as dirty.
@@ -316,7 +313,7 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
    * Handles form submission with validation and error handling.
    */
   const handleOnSubmit = useCallback(
-    async (event: FormEvent<HTMLFormElement>) => {
+    async (event: SubmitEvent<HTMLFormElement>) => {
       event.preventDefault();
 
       if (isFormInvalid) return;
@@ -354,16 +351,22 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 
   /**
    * Resets a specific field to its initial state.
+   * On a touched form, keeps the field dirty so validation matches keyboard clearing.
    */
   const resetField = useCallback(
     (fieldName: keyof T) => {
       const initialValue = formModel[fieldName]?.value as T[keyof T];
 
       setValues((prev) => ({ ...prev, [fieldName]: initialValue }));
-      setErrors((prev) => ({ ...prev, [fieldName]: CLEAR_ERROR }));
-      setFieldDirtyState((prev) => ({ ...prev, [fieldName]: false }));
+
+      if (isTouched) {
+        setFieldDirtyState((prev) => ({ ...prev, [fieldName]: true }));
+      } else {
+        setErrors((prev) => ({ ...prev, [fieldName]: CLEAR_ERROR }));
+        setFieldDirtyState((prev) => ({ ...prev, [fieldName]: false }));
+      }
     },
-    [formModel],
+    [formModel, isTouched],
   );
 
   return {
@@ -461,7 +464,7 @@ export type FormModelType<T extends Record<string, any> = Record<string, any>> =
 type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
 
 /** Type for the onSubmit event handler */
-type HandleOnSubmitType = (event: FormEvent<HTMLFormElement>) => void;
+type HandleOnSubmitType = (event: SubmitEvent<HTMLFormElement>) => void;
 
 /**
  * Return type of the useForm hook containing all form state and handlers.

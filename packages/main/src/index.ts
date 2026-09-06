@@ -122,10 +122,11 @@ function validateField<T extends Record<string, any>>(
 }
 
 /**
- * Validates multiple fields efficiently with minimal object creation
+ * Validates fields that have been interacted with (touched), so cross-field
+ * validators refresh peers even after submit clears dirty state.
  */
 function validateFields<T extends Record<string, any>>(
-  dirtyFields: IsDirtyType<T>,
+  touchedFields: IsDirtyType<T>,
   values: T,
   formModel: FormModelType<T>,
   currentErrors: ErrorsType<T>,
@@ -133,8 +134,8 @@ function validateFields<T extends Record<string, any>>(
   let hasChanges = false;
   let newErrors = currentErrors;
 
-  for (const key in dirtyFields) {
-    if (dirtyFields[key]) {
+  for (const key in touchedFields) {
+    if (touchedFields[key]) {
       const fieldValue = values[key];
       const fieldConfig = formModel[key];
       const newError = validateField(fieldValue, fieldConfig, values);
@@ -186,7 +187,7 @@ function hasEmptyRequiredFields<T extends Record<string, any>>(
  * A comprehensive React hook for form management with validation, submission handling, and state tracking.
  *
  * This hook provides a complete form management solution that includes:
- * - Real-time field validation with custom validators
+ * - Real-time field validation with custom validators (including cross-field peers)
  * - Form submission handling with loading states
  * - Dirty/touched state tracking for better UX
  * - Form and field reset utilities
@@ -230,13 +231,15 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
   const [values, setValues] = useState<T>(initialValues);
   const [errors, setErrors] = useState<ErrorsType<T>>(initialErrors);
   const [fieldDirtyState, setFieldDirtyState] = useState<IsDirtyType<T>>(initialDirtyState);
+  // Touched fields keep revalidating after submit clears dirty (cross-field peers).
+  const [fieldTouchedState, setFieldTouchedState] = useState<IsDirtyType<T>>(initialDirtyState);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isTouched, setIsTouched] = useState(false);
 
   // Use refs to track previous values for optimization
   const prevValuesRef = useRef<T>(values);
-  const prevFieldDirtyStateRef = useRef<IsDirtyType<T>>(fieldDirtyState);
+  const prevFieldTouchedStateRef = useRef<IsDirtyType<T>>(fieldTouchedState);
 
   // Computed state with optimized dependencies
   const isDirty = useMemo(() => {
@@ -254,23 +257,23 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     return !isTouched || isFormInvalid;
   }, [isTouched, isFormInvalid]);
 
-  // Validate dirty fields when values change (functional setState avoids errors in deps)
+  // Validate touched fields when values change (functional setState avoids errors in deps)
   useEffect(() => {
     if (!isTouched) return;
 
     const valuesChanged = !shallowEqual(prevValuesRef.current, values);
-    const dirtyStateChanged = !shallowEqual(prevFieldDirtyStateRef.current, fieldDirtyState);
+    const touchedStateChanged = !shallowEqual(prevFieldTouchedStateRef.current, fieldTouchedState);
 
-    if (valuesChanged || dirtyStateChanged) {
+    if (valuesChanged || touchedStateChanged) {
       setErrors((currentErrors) => {
-        const newErrors = validateFields(fieldDirtyState, values, formModel, currentErrors);
+        const newErrors = validateFields(fieldTouchedState, values, formModel, currentErrors);
         return errorObjectsEqual(currentErrors, newErrors) ? currentErrors : newErrors;
       });
 
       prevValuesRef.current = values;
-      prevFieldDirtyStateRef.current = fieldDirtyState;
+      prevFieldTouchedStateRef.current = fieldTouchedState;
     }
-  }, [values, fieldDirtyState, formModel, isTouched]);
+  }, [values, fieldTouchedState, formModel, isTouched]);
 
   /**
    * Handles input field changes, updates form values, and marks fields as dirty.
@@ -285,6 +288,7 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 
       const currentValue = values[fieldName];
       const isCurrentlyDirty = fieldDirtyState[fieldName];
+      const isCurrentlyTouched = fieldTouchedState[fieldName];
 
       // Early return if value hasn't changed and field is already dirty
       // Allow validation to run if field is not dirty yet (first interaction)
@@ -305,8 +309,15 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
           [fieldName]: true,
         }));
       }
+
+      if (!isCurrentlyTouched) {
+        setFieldTouchedState((prev) => ({
+          ...prev,
+          [fieldName]: true,
+        }));
+      }
     },
-    [formModel, values, fieldDirtyState],
+    [formModel, values, fieldDirtyState, fieldTouchedState],
   );
 
   /**
@@ -340,13 +351,14 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
     setValues(initialValues);
     setErrors(initialErrors);
     setFieldDirtyState(initialDirtyState);
+    setFieldTouchedState(initialDirtyState);
     setIsSubmitted(false);
     setIsSubmitting(false);
     setIsTouched(false);
 
     // Reset refs
     prevValuesRef.current = initialValues;
-    prevFieldDirtyStateRef.current = initialDirtyState;
+    prevFieldTouchedStateRef.current = initialDirtyState;
   }, [initialValues, initialErrors, initialDirtyState]);
 
   /**
@@ -361,9 +373,11 @@ export function useForm<T extends Record<string, any> = Record<string, any>>(
 
       if (isTouched) {
         setFieldDirtyState((prev) => ({ ...prev, [fieldName]: true }));
+        setFieldTouchedState((prev) => ({ ...prev, [fieldName]: true }));
       } else {
         setErrors((prev) => ({ ...prev, [fieldName]: CLEAR_ERROR }));
         setFieldDirtyState((prev) => ({ ...prev, [fieldName]: false }));
+        setFieldTouchedState((prev) => ({ ...prev, [fieldName]: false }));
       }
     },
     [formModel, isTouched],
@@ -461,10 +475,10 @@ export type FormModelType<T extends Record<string, any> = Record<string, any>> =
 };
 
 /** Type for the onChange event handler */
-type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
+export type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
 
 /** Type for the onSubmit event handler */
-type HandleOnSubmitType = (event: SubmitEvent<HTMLFormElement>) => void;
+export type HandleOnSubmitType = (event: SubmitEvent<HTMLFormElement>) => void;
 
 /**
  * Return type of the useForm hook containing all form state and handlers.

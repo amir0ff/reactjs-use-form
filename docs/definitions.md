@@ -263,7 +263,7 @@ const passwordValidator: ValidatorFuncType = (value, values) => {
 type HandleOnChangeType = (event: ChangeEvent<HTMLInputElement>) => void;
 ```
 
-Type for the onChange event handler with improved type safety.
+Exported type for the onChange event handler.
 
 #### Parameters
 
@@ -275,11 +275,6 @@ Type for the onChange event handler with improved type safety.
 
 `void` - Updates form state internally
 
-#### Improvements in v1.6.0+
-
-- **Better type safety**: Now specifically typed for `HTMLInputElement` instead of generic objects
-- **Cleaner implementation**: Simplified event handling with proper TypeScript support
-
 ---
 
 ### HandleOnSubmitType
@@ -288,7 +283,7 @@ Type for the onChange event handler with improved type safety.
 type HandleOnSubmitType = (event: SubmitEvent<HTMLFormElement>) => void;
 ```
 
-Type for the onSubmit event handler.
+Exported type for the onSubmit event handler (`SubmitEvent`, not the older `FormEvent`).
 
 #### Parameters
 
@@ -302,4 +297,4 @@ Type for the onSubmit event handler.
 
 ---
 
-_Documentation generated for useForm v1.6.0+_
+_Documentation for useForm v1.7.6+_

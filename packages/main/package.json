@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.7.5",
+  "version": "1.7.6",
   "description": "Reactive form management and input field validation hook",
   "author": "amir0ff",
   "license": "MIT",
@@ -27,6 +27,7 @@
     "test": "vitest",
     "test:run": "vitest run",
     "test:ui": "vitest --ui",
+    "lint": "eslint src",
     "dev": "pnpm exec vite build --watch",
     "build": "pnpm exec vite build",
     "clean": "rm -rf node_modules dist"

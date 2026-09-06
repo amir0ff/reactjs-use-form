@@ -1,7 +1,7 @@
 [![build and tests](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/amir0ff/reactjs-use-form)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.5)](https://bundlejs.com/?q=reactjs-use-form@1.7.5)
+[![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.6)](https://bundlejs.com/?q=reactjs-use-form@1.7.6)
 [![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
 This is a monorepo managed using [pnpm](https://pnpm.io) workspaces
@@ -26,7 +26,12 @@ packages
 
 ### Prerequisites
 - Node.js 18+
-- pnpm 9+ (recommended)
+- pnpm 9+ (via [Corepack](https://nodejs.org/api/corepack.html), already bundled with Node)
+
+```bash
+corepack enable
+corepack prepare pnpm@9.0.0 --activate
+```
 
 ### Setup
 ```bash
@@ -40,9 +45,12 @@ pnpm install
 # Build library in watch mode
 pnpm dev
 
+# Start the example app (separate terminal)
+pnpm dev:example
+
 # Run tests
 pnpm test
 
-# Start the example app
-pnpm dev:example
+# Lint
+pnpm lint
 ```

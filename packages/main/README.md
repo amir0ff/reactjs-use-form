@@ -1,8 +1,9 @@
 # useForm(📋, ⚙️) ⇒ Reactive Form ⚛️
 
 [![build and tests](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml)
+[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/amir0ff/reactjs-use-form)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
-[![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.5)](https://bundlejs.com/?q=reactjs-use-form@1.7.5)
+[![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.6)](https://bundlejs.com/?q=reactjs-use-form@1.7.6)
 [![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
 
 #### The most lightweight React form management library with TypeScript support
@@ -30,7 +31,7 @@ yarn add reactjs-use-form
 
 - 🧪 Tested using [@testing-library/react](https://www.npmjs.com/package/@testing-library/react).
 - 🏗️ Built with [Vite](https://vitejs.dev) in library mode.
-- ⚡ Modern TypeScript 5.7+ with strict type checking.
+- ⚡ Modern TypeScript 6 with strict type checking.
 
 ## Usage
 
@@ -41,7 +42,13 @@ yarn add reactjs-use-form
 ```tsx
 import type { FormModelType } from 'reactjs-use-form';
 
-export const formModel: FormModelType = {
+export interface ChangePasswordForm {
+  currentPassphrase: string;
+  newPassphrase: string;
+  verifyPassphrase: string;
+}
+
+export const formModel: FormModelType<ChangePasswordForm> = {
   currentPassphrase: {
     value: '',
     required: true,
@@ -49,6 +56,7 @@ export const formModel: FormModelType = {
   newPassphrase: {
     value: '',
     required: true,
+    // `values` enables cross-field checks; peers revalidate when related fields change
     validator: (newPassphrase, values) => {
       if (newPassphrase === values?.currentPassphrase) {
         return 'New password must be different from current password';
@@ -69,7 +77,8 @@ export const formModel: FormModelType = {
 };
 ```
 
-2. prepare a submit callback function, for example: `function handleSubmit() {...}`.
+2. prepare a submit callback that receives the validated values, for example:
+   `async function handleSubmit(values: ChangePasswordForm) {...}`.
 
 3. use the form model with the callback function in useForm hook in a functional react component:
 
@@ -77,10 +86,8 @@ export const formModel: FormModelType = {
 <summary> Plain JSX code example </summary>
 
 ```tsx
-import React from 'react';
 import { useForm } from 'reactjs-use-form';
-import type { ValuesType } from 'reactjs-use-form';
-import { formModel } from './formModel';
+import { formModel, type ChangePasswordForm } from './formModel';
 
 const ChangePassphraseComponent = () => {
   const {
@@ -91,15 +98,15 @@ const ChangePassphraseComponent = () => {
     isDisabled,
     isSubmitted,
     isSubmitting,
-    isDirty,
     resetForm,
-    resetField
+    resetField,
   } = useForm(formModel, handleSubmit);
 
-  const { currentPassphrase, newPassphrase, verifyPassphrase }: ValuesType = values;
+  const { currentPassphrase, newPassphrase, verifyPassphrase } = values;
 
-  function handleSubmit() {
-    if (isDirty) formSubmitCallback();
+  async function handleSubmit(formValues: ChangePasswordForm) {
+    // call your API with formValues
+    console.log(formValues);
   }
 
   return (
@@ -172,7 +179,7 @@ const {
   isSubmitting,
   isDirty,
   resetForm,
-  resetField
+  resetField,
 } = useForm(formModel, formSubmitCallback);
 ```
 
@@ -185,7 +192,7 @@ const {
 | isDisabled         | `boolean`                                                      | whether form submit button should be disabled            |
 | isSubmitted        | `boolean`                                                      | whether form has been successfully submitted             |
 | isSubmitting       | `boolean`                                                      | whether form is currently being submitted                |
-| isDirty            | `boolean`                                                      | whether any form field has been modified                |
+| isDirty            | `boolean`                                                      | whether any form field has been modified since init/submit |
 | resetForm          | `() => void`                                                   | function to reset entire form                            |
 | resetField         | `(fieldName: keyof T) => void`                                | function to reset specific field                         |
 | formModel          | [`FormModelType`](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md#formmodeltype)           | initial form model with optional validation function      |

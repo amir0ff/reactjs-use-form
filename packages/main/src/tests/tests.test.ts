@@ -318,6 +318,135 @@ describe('useForm Hook', () => {
     });
   });
 
+  describe('cross-field validation', () => {
+    const passwordFormModel = {
+      password: {
+        value: '',
+        required: true,
+        validator: (password: string, values?: { password: string; confirm: string }) =>
+          password !== values?.confirm ? 'Passwords do not match' : '',
+      },
+      confirm: {
+        value: '',
+        required: true,
+        validator: (confirm: string, values?: { password: string; confirm: string }) =>
+          confirm !== values?.password ? 'Passwords do not match' : '',
+      },
+    };
+
+    /** Match check lives only on confirm — changing password must still refresh confirm. */
+    const confirmOnlyMatchModel = {
+      password: {
+        value: '',
+        required: true,
+      },
+      confirm: {
+        value: '',
+        required: true,
+        validator: (confirm: string, values?: { password: string; confirm: string }) =>
+          confirm !== values?.password ? 'Passwords do not match' : '',
+      },
+    };
+
+    it('should refresh peer field errors when a related value changes', async () => {
+      const { result } = renderHook(() => useForm(passwordFormModel, mockSubmitCallback));
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'password', value: 'secret1' },
+        } as changeEvent);
+      });
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'confirm', value: 'secret1' },
+        } as changeEvent);
+      });
+
+      expect(result.current.errors.password.hasError).toBe(false);
+      expect(result.current.errors.confirm.hasError).toBe(false);
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'password', value: 'secret2' },
+        } as changeEvent);
+      });
+
+      expect(result.current.errors.password.hasError).toBe(true);
+      expect(result.current.errors.password.message).toBe('Passwords do not match');
+      expect(result.current.errors.confirm.hasError).toBe(true);
+      expect(result.current.errors.confirm.message).toBe('Passwords do not match');
+    });
+
+    it('should clear peer field errors when related values match again', async () => {
+      const { result } = renderHook(() => useForm(passwordFormModel, mockSubmitCallback));
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'password', value: 'secret1' },
+        } as changeEvent);
+      });
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'confirm', value: 'secret1' },
+        } as changeEvent);
+      });
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'password', value: 'secret2' },
+        } as changeEvent);
+      });
+
+      expect(result.current.errors.confirm.hasError).toBe(true);
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'confirm', value: 'secret2' },
+        } as changeEvent);
+      });
+
+      expect(result.current.errors.password.hasError).toBe(false);
+      expect(result.current.errors.confirm.hasError).toBe(false);
+    });
+
+    it('should revalidate non-dirty peers after submit cleared dirty state', async () => {
+      const { result } = renderHook(() => useForm(confirmOnlyMatchModel, mockSubmitCallback));
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'password', value: 'secret1' },
+        } as changeEvent);
+      });
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'confirm', value: 'secret1' },
+        } as changeEvent);
+      });
+
+      await act(async () => {
+        result.current.handleOnSubmit({
+          preventDefault: vi.fn(),
+        } as any);
+      });
+
+      expect(result.current.isSubmitted).toBe(true);
+      expect(result.current.isDirty).toBe(false);
+
+      await act(async () => {
+        result.current.handleOnChange({
+          target: { name: 'password', value: 'secret2' },
+        } as changeEvent);
+      });
+
+      expect(result.current.errors.confirm.hasError).toBe(true);
+      expect(result.current.errors.confirm.message).toBe('Passwords do not match');
+      expect(result.current.isDisabled).toBe(true);
+    });
+  });
+
   describe('errors state tests', () => {
     it('should return required error', async () => {
       const { result } = renderHook(() => useForm(mockFormModel, mockSubmitCallback));

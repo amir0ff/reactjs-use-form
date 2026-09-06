@@ -6,13 +6,7 @@ import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
   {
-    ignores: [
-      '**/node_modules/**',
-      '**/dist/**',
-      '**/build/**',
-      'packages/main/index.ts',
-      'pnpm-lock.yaml',
-    ],
+    ignores: ['**/node_modules/**', '**/dist/**', '**/build/**', 'packages/main/index.ts', 'pnpm-lock.yaml'],
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -40,10 +34,7 @@ export default tseslint.config(
       ...react.configs['jsx-runtime'].rules,
       ...reactHooks.configs.recommended.rules,
       '@typescript-eslint/no-explicit-any': 'off',
-      '@typescript-eslint/no-unused-vars': [
-        'error',
-        { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },
-      ],
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       'react/prop-types': 'off',
     },
   },

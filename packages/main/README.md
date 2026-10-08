@@ -1,10 +1,17 @@
 # useForm(📋, ⚙️) ⇒ Reactive Form ⚛️
 
+<div align="center">
+
 [![build and tests](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml/badge.svg)](https://github.com/amir0ff/reactjs-use-form/actions/workflows/ubuntu_node.yml)
-[![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/amir0ff/reactjs-use-form)
 [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![bundle size](https://deno.bundlejs.com/badge?q=reactjs-use-form@1.7.6)](https://bundlejs.com/?q=reactjs-use-form@1.7.6)
 [![typescript](https://img.shields.io/npm/types/reactjs-use-form?label=with)](https://github.com/amir0ff/reactjs-use-form/blob/main/docs/definitions.md)
+
+[![Ask DeepWiki](https://img.shields.io/badge/Ask-DeepWiki-007acc?logo=bookstack&logoColor=white)](https://deepwiki.com/amir0ff/reactjs-use-form)
+[![GitHub Sponsor](https://img.shields.io/badge/Sponsor-GitHub-ea4aaa?logo=github)](https://github.com/sponsors/amir0ff)
+[![Ko-fi](https://img.shields.io/badge/Buy%20me%20a%20coffee-Ko--fi-ff5e5f?logo=ko-fi)](https://ko-fi.com/amir0ff)
+
+</div>
 
 #### The most lightweight React form management library with TypeScript support
 
@@ -203,3 +210,10 @@ const {
 ## License
 
 ![GitHub](https://img.shields.io/github/license/amir0ff/reactjs-use-form?color=blue)
+
+## Support
+
+If you find this project or any of my open-source work helpful, consider supporting future development:
+
+- 💖 [Sponsor on GitHub](https://github.com/sponsors/amir0ff)
+- ☕ [Buy me a coffee on Ko-fi](https://ko-fi.com/amir0ff)

@@ -1,6 +1,6 @@
 {
   "name": "reactjs-use-form",
-  "version": "1.7.6",
+  "version": "1.7.7",
   "description": "Reactive form management and input field validation hook",
   "author": "amir0ff",
   "license": "MIT",
@@ -37,17 +37,17 @@
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.9.1",
-    "@testing-library/react": "^16.3.2",
-    "@types/react": "^19.2.15",
-    "@vitejs/plugin-react": "^6.0.2",
-    "@vitest/ui": "^4.1.6",
-    "happy-dom": "^20.9.0",
-    "react": "^19.2.6",
-    "react-dom": "^19.2.6",
+    "@testing-library/react": "^16.3.3",
+    "@types/react": "^19.3.0",
+    "@vitejs/plugin-react": "^6.1.2",
+    "@vitest/ui": "^4.1.11",
+    "happy-dom": "^20.14.6",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
     "typescript": "^6.0.3",
-    "vite": "^8.0.13",
-    "vite-plugin-dts": "^5.0.1",
-    "vitest": "^4.1.6"
+    "vite": "^8.3.4",
+    "vite-plugin-dts": "^5.1.2",
+    "vitest": "^4.1.11"
   },
   "keywords": [
     "react",

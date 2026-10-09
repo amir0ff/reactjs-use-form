@@ -297,4 +297,4 @@ Exported type for the onSubmit event handler (`SubmitEvent`, not the older `Form
 
 ---
 
-_Documentation for useForm v1.7.6+_
+_Documentation for useForm v1.7.7+_
